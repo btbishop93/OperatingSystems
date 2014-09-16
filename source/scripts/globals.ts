@@ -21,6 +21,23 @@ var TIMER_IRQ: number = 0;  // Pages 23 (timer), 9 (interrupts), and 561 (interr
                             // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
 var KEYBOARD_IRQ: number = 1;
 
+var USER_LOC: string[] = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean" , "Marist College", "Russia"];
+
+var BOND_JOKES: string [] = [
+
+    "I heard that James Bond once slept through an earthquake. He was shaken, not stirred.",
+
+    "James Bond prefers his mixed drinks shaken, not stirred. . . So does Michael J Fox.",
+
+    "My therapist wanted to sit down with me and talk about my obsession with James Bond. - You expect me to talk....? I said.",
+
+    "Ah Mr. Bond... I've been expecting you... - Said James Bond's mother as she gave birth.",
+
+    "Earlier, for a fancy dress party, I ordered a James Bond outfit, on-line, and now my computers infected...Bloody spyware.",
+
+    "James Bond is really American.",
+
+    "The best James Bond is Sean Connery."];
 
 //
 // Global Variables

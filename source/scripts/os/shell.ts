@@ -75,6 +75,24 @@ module TSOS {
                                   "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
 
+            // date <string>
+            sc = new ShellCommand(this.shellDate,
+                "date",
+                "- Sets the date.");
+            this.commandList[this.commandList.length] = sc;
+
+            // whereAmI <string>
+            sc = new ShellCommand(this.shellLoc,
+                "whereami",
+                "- Tells you where you are...beware");
+            this.commandList[this.commandList.length] = sc;
+
+            // BondJokes <string>
+            sc = new ShellCommand(this.shellBondJokes,
+                "bondjokes",
+                "- Tells you James Bond jokes.");
+            this.commandList[this.commandList.length] = sc;
+
             // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -277,6 +295,27 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        }
+
+        public shellDate(args) {
+            var date = new Date();
+            _StdOut.putText("Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
+        }
+
+        public shellLoc(args) {
+            var loc = USER_LOC;
+            var rand = Math.floor(Math.random() * loc.length);
+            var myLoc = loc[rand];
+
+            _StdOut.putText("Location: " + myLoc);
+        }
+
+        public shellBondJokes(args) {
+            var loc = BOND_JOKES;
+            var rand = Math.floor(Math.random() * loc.length);
+            var joke = loc[rand];
+
+            _StdOut.putText(joke);
         }
 
     }

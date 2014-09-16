@@ -53,6 +53,18 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
 
+            // date <string>
+            sc = new TSOS.ShellCommand(this.shellDate, "date", "- Sets the date.");
+            this.commandList[this.commandList.length] = sc;
+
+            // whereAmI <string>
+            sc = new TSOS.ShellCommand(this.shellLoc, "whereami", "- Tells you where you are...beware");
+            this.commandList[this.commandList.length] = sc;
+
+            // BondJokes <string>
+            sc = new TSOS.ShellCommand(this.shellBondJokes, "bondjokes", "- Tells you James Bond jokes.");
+            this.commandList[this.commandList.length] = sc;
+
             // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
@@ -262,6 +274,27 @@ var TSOS;
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        };
+
+        Shell.prototype.shellDate = function (args) {
+            var date = new Date();
+            _StdOut.putText("Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
+        };
+
+        Shell.prototype.shellLoc = function (args) {
+            var loc = USER_LOC;
+            var rand = Math.floor(Math.random() * loc.length);
+            var myLoc = loc[rand];
+
+            _StdOut.putText("Location: " + myLoc);
+        };
+
+        Shell.prototype.shellBondJokes = function (args) {
+            var loc = BOND_JOKES;
+            var rand = Math.floor(Math.random() * loc.length);
+            var joke = loc[rand];
+
+            _StdOut.putText(joke);
         };
         return Shell;
     })();
