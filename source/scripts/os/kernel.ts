@@ -27,6 +27,12 @@ module TSOS {
             // Initialize the console.
             _Console.init();
 
+            setInterval(function(){
+                var status = new Date().toLocaleDateString() + "&emsp; &emsp;" + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
+                var statusBar = document.getElementById("statusBar");
+                statusBar.innerHTML = status;
+            }, 1000);
+
             // Initialize standard input and output to the _Console.
             _StdIn  = _Console;
             _StdOut = _Console;

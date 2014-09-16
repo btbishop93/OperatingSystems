@@ -87,10 +87,16 @@ module TSOS {
                 "- Tells you where you are...beware");
             this.commandList[this.commandList.length] = sc;
 
-            // BondJokes <string>
+            // bondJokes <string>
             sc = new ShellCommand(this.shellBondJokes,
                 "bondjokes",
                 "- Tells you James Bond jokes.");
+            this.commandList[this.commandList.length] = sc;
+
+            // status <string>
+            sc = new ShellCommand(this.shellStatus,
+                "status",
+                "- Allows you to change the status.");
             this.commandList[this.commandList.length] = sc;
 
             // processes - list the running processes and their IDs
@@ -317,6 +323,13 @@ module TSOS {
 
             _StdOut.putText(joke);
         }
+
+        public shellStatus(args) {
+            STATUS = args;
+            _StdOut.putText("Status: " + args);
+        }
+
+        public
 
     }
 }

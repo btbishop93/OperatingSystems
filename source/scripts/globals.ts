@@ -39,6 +39,8 @@ var BOND_JOKES: string [] = [
 
     "The best James Bond is Sean Connery."];
 
+var STATUS: string = "good";
+
 //
 // Global Variables
 //

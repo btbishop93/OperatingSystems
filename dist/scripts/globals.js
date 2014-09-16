@@ -30,6 +30,8 @@ var BOND_JOKES = [
     "James Bond is really American.",
     "The best James Bond is Sean Connery."];
 
+var STATUS = "good";
+
 //
 // Global Variables
 //

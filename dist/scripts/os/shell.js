@@ -61,8 +61,12 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellLoc, "whereami", "- Tells you where you are...beware");
             this.commandList[this.commandList.length] = sc;
 
-            // BondJokes <string>
+            // bondJokes <string>
             sc = new TSOS.ShellCommand(this.shellBondJokes, "bondjokes", "- Tells you James Bond jokes.");
+            this.commandList[this.commandList.length] = sc;
+
+            // status <string>
+            sc = new TSOS.ShellCommand(this.shellStatus, "status", "- Allows you to change the status.");
             this.commandList[this.commandList.length] = sc;
 
             // processes - list the running processes and their IDs
@@ -295,6 +299,11 @@ var TSOS;
             var joke = loc[rand];
 
             _StdOut.putText(joke);
+        };
+
+        Shell.prototype.shellStatus = function (args) {
+            STATUS = args;
+            _StdOut.putText("Status: " + args);
         };
         return Shell;
     })();
