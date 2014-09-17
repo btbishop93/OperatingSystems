@@ -85,6 +85,13 @@ module TSOS {
                                      _FontHeightMargin;
 
             // TODO: Handle scrolling. (Project 1)
+            if(this.currentYPosition >= _Canvas.height){
+                var imgData = _DrawingContext.getImageData(0, this.currentFontSize +
+                    _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                    _FontHeightMargin, _Canvas.width, _Canvas.height);
+                _DrawingContext.putImageData(imgData, 0, 0);
+                this.currentYPosition = _Canvas.height - this.currentFontSize;
+            }
         }
     }
  }
