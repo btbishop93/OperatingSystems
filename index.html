@@ -37,23 +37,21 @@
 
 <body onload="onDocumentLoad();">
 
-<div id="divMain" style="width:100%;">
-
-   <div id="divButtonBar" style="margin:4px;">
+<div id="nav">B.O.S.S
       <input type="button"
              id = "btnStartOS"
              name="brnStartOS"
-             class="normal_button"
+             class="btn"
              value="Start"
              tabindex="0"
-             onclick="TSOS.Control.hostBtnStartOS_click(this);">
+             onclick="TSOS.Control.hostBtnStartOS_click(this);"
+              style="margin-left: 25%">
 
-       <div id = "statusBar" style="margin-left:5px"></div>
 
       <input type="button"
              id = "btnHaltOS"
              name="brnHaltOS"
-             class="normal_button"
+             class="btn"
              disabled="disabled"
              value="Halt"
              tabindex="1"
@@ -62,48 +60,51 @@
       <input type="button"
              id = "btnReset"
              name="brnReset"
-             class="normal_button"
+             class="btn"
              disabled="disabled"
              value="Reset"
              tabindex="2"
              onclick="TSOS.Control.hostBtnReset_click(this);">
-   </div>
+    </div>
 
-   <div id="divConsole" style="margin:4px; width:500px; height:500px; float:left;">
+    <div id="status"><div id = "statusBar"></div></div>
+
+   <div id="divConsole" style="margin: 0 auto; width:48%; float: left; margin-top: 2%;">
       <canvas id="display"
               width="500px"
-              height="500px"
+              height="550px"
               tabindex="3">
       </canvas>
    </div>
 
-   <div id="divLog" style="margin-left:540px;">
-      <label>
-         Host Log
+   <div id="divLog" style="width: 48%; margin:0 auto; margin-top: 2%; text-align: left; float: right;">
+       <div id="section"><a>Host Log</a></div>
+        <label>
          <br>
          <textarea name="taHostLog"
                    id  ="taHostLog"
                    rows="26"
-                   cols="48"
+                   cols="68"
          ></textarea>
       </label>
    </div>
 
-   <div id="divUserProgramInput" style="margin-left:540px;">
+   <div id="divUserProgramInput" style="width: 48%; margin:0 auto; margin-top: 2%; text-align: left; float: right;">
+       <div id="section"><a>User Program Input</a></div>
       <label>
-         User Program Input
          <br>
          <textarea name="taProgramInput"
                    id  ="taProgramInput"
                    rows="8"
-                   cols="48"
+                   cols="68"
          ></textarea>
       </label>
    </div>
 
 </div>
+</body>
 
-<p class="footerText" style="clear:both;">
+<p class="footerText">
    <br>
    Copyright &copy; 2008 - 2014 No Rights Reserved.
    <br>
@@ -111,5 +112,4 @@
    Ted Codd, Stevie Ray Vaughan, and Ian Fleming.
 </p>
 
-</body>
 </html>

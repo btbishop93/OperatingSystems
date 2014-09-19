@@ -47,6 +47,10 @@ var TSOS;
 
                     // ... and reset our buffer.
                     this.buffer = "";
+                }
+                if (chr == String.fromCharCode(8)) {
+                    this.buffer = this.buffer.substring(0, this.buffer.length - 1);
+                    this.deleteText();
                 } else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
@@ -67,13 +71,30 @@ var TSOS;
             // decided to write one function and use the term "text" to connote string or char.
             // UPDATE: Even though we are now working in TypeScript, char and string remain undistinguished.
             if (text !== "") {
-                // Draw the text at the current X and Y coordinates.
-                _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
-
                 // Move the current X position.
-                var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
-                this.currentXPosition = this.currentXPosition + offset;
+                var text2 = text.split(" ");
+                for (var i = 0; i < text2.length; i++) {
+                    if (text2.length > 1) {
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text2[i] + " ");
+                    } else {
+                        var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text2[i]);
+                    }
+                    if (offset + this.currentXPosition >= _Canvas.width) {
+                        this.advanceLine();
+                    }
+
+                    //Draw the text at the current X and Y coordinates.
+                    if (text2.length > 1) {
+                        _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text2[i]);
+                    } else {
+                        _DrawingContext.drawText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text2[i]);
+                    }
+                    this.currentXPosition = this.currentXPosition + offset;
+                }
             }
+        };
+
+        Console.prototype.deleteText = function () {
         };
 
         Console.prototype.advanceLine = function () {
