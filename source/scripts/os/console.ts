@@ -47,11 +47,6 @@ module TSOS {
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
-                if(chr == String.fromCharCode(8)){
-                    this.buffer = this.buffer.substring(0, this.buffer.length - 1);
-                    this.deleteText();
-
-                }
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
@@ -96,7 +91,12 @@ module TSOS {
          }
 
         public deleteText() : void {
-
+            if(this.buffer.length > 0) {
+                var charSize = _DrawingContext.measureText(this.currentFont, this.currentFontSize, this.buffer.charAt(this.buffer.length-1));
+                _DrawingContext.clearRect(this.currentXPosition - charSize, this.currentYPosition - this.currentFontSize, charSize, this.currentFontSize + _DefaultFontSize);
+                this.buffer = this.buffer.substring(0, this.buffer.length-1);
+                this.currentXPosition -= charSize;
+            }
         }
 
         public advanceLine(): void {

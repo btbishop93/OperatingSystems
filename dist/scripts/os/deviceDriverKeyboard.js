@@ -89,30 +89,25 @@ var TSOS;
                 // ... then check the shift key and re-adjust if necessary.
                 // TODO: Check for caps-lock and handle as shifted if so.
                 _KernelInputQueue.enqueue(chr);
-            } else if (((keyCode >= 48) && (keyCode <= 57)) || (keyCode == 32) || (keyCode == 13)) {
+            } else if (((keyCode >= 48) && (keyCode <= 57)) || (keyCode == 32) || (keyCode == 13) || (keyCode == 8)) {
                 if (isShifted) {
                     if (keyCode == 49 || keyCode == 51 || keyCode == 52 || keyCode == 53) {
                         chr = String.fromCharCode(keyCode - 16);
-                    }
-                    if (keyCode == 55 || keyCode == 57) {
+                    } else if (keyCode == 55 || keyCode == 57) {
                         chr = String.fromCharCode(keyCode - 17);
-                    }
-                    if (keyCode == 48) {
+                    } else if (keyCode == 48) {
                         chr = String.fromCharCode(keyCode - 7);
-                    }
-                    if (keyCode == 50) {
+                    } else if (keyCode == 50) {
                         chr = String.fromCharCode(keyCode + 14);
-                    }
-                    if (keyCode == 54) {
+                    } else if (keyCode == 54) {
                         chr = String.fromCharCode(keyCode + 40);
-                    }
-                    if (keyCode == 56) {
+                    } else if (keyCode == 56) {
                         chr = String.fromCharCode(keyCode - 14);
-                    }
-
-                    if (keyCode == 32 || keyCode == 13) {
+                    } else if (keyCode == 32 || keyCode == 13) {
                         chr = String.fromCharCode(keyCode);
                     }
+                } else if (keyCode == 8) {
+                    _StdOut.deleteText();
                 } else {
                     chr = String.fromCharCode(keyCode);
                 }

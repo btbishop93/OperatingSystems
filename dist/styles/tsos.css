@@ -105,6 +105,7 @@ h3 {
   border: 2px solid #202020;
   cursor: default;
   float: right;
+  color: red;
 }
 
 .footerText {
