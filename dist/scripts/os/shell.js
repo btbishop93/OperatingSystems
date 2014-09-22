@@ -58,7 +58,7 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
 
             // whereAmI <string>
-            sc = new TSOS.ShellCommand(this.shellLoc, "whereami", "- Tells you where you are...beware");
+            sc = new TSOS.ShellCommand(this.shellLoc, "whereami", "- Tells you where you are...beware!");
             this.commandList[this.commandList.length] = sc;
 
             // bondJokes <string>
@@ -67,6 +67,10 @@ var TSOS;
 
             // status <string>
             sc = new TSOS.ShellCommand(this.shellStatus, "status", "- Allows you to change the status.");
+            this.commandList[this.commandList.length] = sc;
+
+            // bsod <string>
+            sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "- Beware!");
             this.commandList[this.commandList.length] = sc;
 
             // processes - list the running processes and their IDs
@@ -199,6 +203,7 @@ var TSOS;
         };
 
         Shell.prototype.shellVer = function (args) {
+            _CommandArr.push("ver");
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
         };
 
@@ -208,6 +213,7 @@ var TSOS;
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
+            _CommandArr.push("help");
         };
 
         Shell.prototype.shellShutdown = function (args) {
@@ -221,6 +227,7 @@ var TSOS;
         Shell.prototype.shellCls = function (args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
+            _CommandArr.push("cls");
         };
 
         Shell.prototype.shellMan = function (args) {
@@ -236,6 +243,7 @@ var TSOS;
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
+            _CommandArr.push("man");
         };
 
         Shell.prototype.shellTrace = function (args) {
@@ -261,6 +269,7 @@ var TSOS;
             } else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
+            _CommandArr.push("trace");
         };
 
         Shell.prototype.shellRot13 = function (args) {
@@ -270,6 +279,7 @@ var TSOS;
             } else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
+            _CommandArr.push("rot13");
         };
 
         Shell.prototype.shellPrompt = function (args) {
@@ -278,11 +288,13 @@ var TSOS;
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+            _CommandArr.push("prompt");
         };
 
         Shell.prototype.shellDate = function (args) {
             var date = new Date();
             _StdOut.putText("Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
+            _CommandArr.push("date");
         };
 
         Shell.prototype.shellLoc = function (args) {
@@ -291,6 +303,7 @@ var TSOS;
             var myLoc = loc[rand];
 
             _StdOut.putText("Location: " + myLoc);
+            _CommandArr.push("whereami");
         };
 
         Shell.prototype.shellBondJokes = function (args) {
@@ -299,11 +312,25 @@ var TSOS;
             var joke = loc[rand];
 
             _StdOut.putText(joke);
+            _CommandArr.push("bondjokes");
         };
 
         Shell.prototype.shellStatus = function (args) {
             STATUS = args;
             _StdOut.putText("Status: " + args);
+            _CommandArr.push("status");
+        };
+
+        Shell.prototype.shellBSOD = function (args) {
+            _StdOut.clearScreen();
+            _Canvas = document.getElementById('display');
+
+            // Get a global reference to the drawing context.
+            _Canvas.style.backgroundColor = "#0000aa";
+            _Canvas.getContext('2d').font = '30pt Calibri';
+            _Canvas.getContext('2d').fillStyle = "white";
+            _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
+            _Kernel.krnShutdown();
         };
         return Shell;
     })();

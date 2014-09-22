@@ -17,7 +17,8 @@ module TSOS {
                     public currentFontSize = _DefaultFontSize,
                     public currentXPosition = 0,
                     public currentYPosition = _DefaultFontSize,
-                    public buffer = "") {
+                    public buffer = "",
+                    public promptStr = ">") {
 
         }
 
@@ -87,7 +88,7 @@ module TSOS {
                     }
                  this.currentXPosition = this.currentXPosition + offset;
                 }
-            }
+             }
          }
 
         public deleteText() : void {
@@ -96,6 +97,35 @@ module TSOS {
                 _DrawingContext.clearRect(this.currentXPosition - charSize, this.currentYPosition - this.currentFontSize, charSize, this.currentFontSize + _DefaultFontSize);
                 this.buffer = this.buffer.substring(0, this.buffer.length-1);
                 this.currentXPosition -= charSize;
+            }
+        }
+
+        public upDownComplete(key) : void {
+            if(key == 38) {
+                if (_CommandArr.length > 0) {
+                    _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize,
+                        _Canvas.width, _Canvas.height);
+                    this.currentXPosition = 0;
+                    this.buffer = "";
+                    _StdOut.putText(this.promptStr);
+                    if ((_CommandArr.length + _CommandToggle) > 0) {
+                        _CommandToggle += -1;
+                        _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
+                        this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+                    }
+                }
+            }
+            else if(_CommandArr.length > 0){
+                if(_CommandToggle < -1) {
+                    _CommandToggle += 1;
+                    _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize,
+                        _Canvas.width, _Canvas.height);
+                    this.currentXPosition = 0;
+                    this.buffer = "";
+                    _StdOut.putText(this.promptStr);
+                    _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
+                    this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+                }
             }
         }
 
@@ -111,7 +141,7 @@ module TSOS {
                                      _FontHeightMargin;
 
             // TODO: Handle scrolling. (Project 1)
-            if(this.currentYPosition >= _Canvas.height){
+            if(this.currentYPosition + this.currentFontSize >= _Canvas.height){
                 var imgData = _DrawingContext.getImageData(0, this.currentFontSize +
                     _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                     _FontHeightMargin, _Canvas.width, _Canvas.height);

@@ -32,6 +32,10 @@ var BOND_JOKES = [
 
 var STATUS = "good";
 
+var _CommandArr = [];
+
+var _CommandToggle = 0;
+
 //
 // Global Variables
 //

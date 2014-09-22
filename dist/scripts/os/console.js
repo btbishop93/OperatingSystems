@@ -8,17 +8,19 @@ Note: This is not the Shell.  The Shell is the "command line interface" (CLI) or
 var TSOS;
 (function (TSOS) {
     var Console = (function () {
-        function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, buffer) {
+        function Console(currentFont, currentFontSize, currentXPosition, currentYPosition, buffer, promptStr) {
             if (typeof currentFont === "undefined") { currentFont = _DefaultFontFamily; }
             if (typeof currentFontSize === "undefined") { currentFontSize = _DefaultFontSize; }
             if (typeof currentXPosition === "undefined") { currentXPosition = 0; }
             if (typeof currentYPosition === "undefined") { currentYPosition = _DefaultFontSize; }
             if (typeof buffer === "undefined") { buffer = ""; }
+            if (typeof promptStr === "undefined") { promptStr = ">"; }
             this.currentFont = currentFont;
             this.currentFontSize = currentFontSize;
             this.currentXPosition = currentXPosition;
             this.currentYPosition = currentYPosition;
             this.buffer = buffer;
+            this.promptStr = promptStr;
         }
         Console.prototype.init = function () {
             this.clearScreen();
@@ -99,6 +101,32 @@ var TSOS;
             }
         };
 
+        Console.prototype.upDownComplete = function (key) {
+            if (key == 38) {
+                if (_CommandArr.length > 0) {
+                    _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize, _Canvas.width, _Canvas.height);
+                    this.currentXPosition = 0;
+                    this.buffer = "";
+                    _StdOut.putText(this.promptStr);
+                    if ((_CommandArr.length + _CommandToggle) > 0) {
+                        _CommandToggle += -1;
+                        _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
+                        this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+                    }
+                }
+            } else if (_CommandArr.length > 0) {
+                if (_CommandToggle < -1) {
+                    _CommandToggle += 1;
+                    _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize, _Canvas.width, _Canvas.height);
+                    this.currentXPosition = 0;
+                    this.buffer = "";
+                    _StdOut.putText(this.promptStr);
+                    _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
+                    this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+                }
+            }
+        };
+
         Console.prototype.advanceLine = function () {
             this.currentXPosition = 0;
 
@@ -110,7 +138,7 @@ var TSOS;
             this.currentYPosition += _DefaultFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin;
 
             // TODO: Handle scrolling. (Project 1)
-            if (this.currentYPosition >= _Canvas.height) {
+            if (this.currentYPosition + this.currentFontSize >= _Canvas.height) {
                 var imgData = _DrawingContext.getImageData(0, this.currentFontSize + _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + _FontHeightMargin, _Canvas.width, _Canvas.height);
                 _DrawingContext.putImageData(imgData, 0, 0);
                 this.currentYPosition = _Canvas.height - this.currentFontSize;

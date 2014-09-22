@@ -41,6 +41,9 @@ var BOND_JOKES: string [] = [
 
 var STATUS: string = "good";
 
+var _CommandArr: string[] = [];
+
+var _CommandToggle: number = 0;
 //
 // Global Variables
 //

@@ -167,6 +167,17 @@ var TSOS;
             TSOS.Control.hostLog("OS ERROR - TRAP: " + msg);
 
             // TODO: Display error on console, perhaps in some sort of colored screen. (Perhaps blue?)
+            _StdOut.clearScreen();
+
+            _Canvas = document.getElementById('display');
+
+            // Get a global reference to the drawing context.
+            _Canvas.style.backgroundColor = "#0000aa";
+            _Canvas.getContext('2d').font = '30pt Calibri';
+            _Canvas.getContext('2d').fillStyle = "white";
+            _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
+
+            //_StdOut.putText("Blue Screen of Death!");
             this.krnShutdown();
         };
         return Kernel;

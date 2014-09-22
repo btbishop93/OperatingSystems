@@ -84,7 +84,7 @@ module TSOS {
             // whereAmI <string>
             sc = new ShellCommand(this.shellLoc,
                 "whereami",
-                "- Tells you where you are...beware");
+                "- Tells you where you are...beware!");
             this.commandList[this.commandList.length] = sc;
 
             // bondJokes <string>
@@ -97,6 +97,12 @@ module TSOS {
             sc = new ShellCommand(this.shellStatus,
                 "status",
                 "- Allows you to change the status.");
+            this.commandList[this.commandList.length] = sc;
+
+            // bsod <string>
+            sc = new ShellCommand(this.shellBSOD,
+                "bsod",
+                "- Beware!");
             this.commandList[this.commandList.length] = sc;
 
             // processes - list the running processes and their IDs
@@ -223,6 +229,7 @@ module TSOS {
         }
 
         public shellVer(args) {
+            _CommandArr.push("ver");
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
         }
 
@@ -232,6 +239,7 @@ module TSOS {
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
+            _CommandArr.push("help");
         }
 
         public shellShutdown(args) {
@@ -244,6 +252,7 @@ module TSOS {
         public shellCls(args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
+            _CommandArr.push("cls");
         }
 
         public shellMan(args) {
@@ -259,6 +268,7 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
+            _CommandArr.push("man");
         }
 
         public shellTrace(args) {
@@ -284,6 +294,7 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
+            _CommandArr.push("trace");
         }
 
         public shellRot13(args) {
@@ -293,6 +304,7 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
+            _CommandArr.push("rot13");
         }
 
         public shellPrompt(args) {
@@ -301,11 +313,13 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+            _CommandArr.push("prompt");
         }
 
         public shellDate(args) {
             var date = new Date();
             _StdOut.putText("Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
+            _CommandArr.push("date");
         }
 
         public shellLoc(args) {
@@ -314,6 +328,7 @@ module TSOS {
             var myLoc = loc[rand];
 
             _StdOut.putText("Location: " + myLoc);
+            _CommandArr.push("whereami");
         }
 
         public shellBondJokes(args) {
@@ -322,11 +337,26 @@ module TSOS {
             var joke = loc[rand];
 
             _StdOut.putText(joke);
+            _CommandArr.push("bondjokes");
         }
 
         public shellStatus(args) {
             STATUS = args;
             _StdOut.putText("Status: " + args);
+            _CommandArr.push("status");
+        }
+
+        public shellBSOD(args) {
+            _StdOut.clearScreen();
+            _Canvas = <HTMLCanvasElement>document.getElementById('display');
+
+            // Get a global reference to the drawing context.
+
+            _Canvas.style.backgroundColor = "#0000aa";
+            _Canvas.getContext('2d').font = '30pt Calibri';
+            _Canvas.getContext('2d').fillStyle = "white";
+            _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
+            _Kernel.krnShutdown();
         }
     }
 }
