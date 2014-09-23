@@ -36,6 +36,8 @@ var _CommandArr = [];
 
 var _CommandToggle = 0;
 
+var commandList = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod"];
+
 //
 // Global Variables
 //

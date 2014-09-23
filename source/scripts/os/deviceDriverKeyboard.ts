@@ -97,8 +97,8 @@ module TSOS {
                         (keyCode == 13)                     ||  //enter
                         (keyCode == 8)                      ||  // backspace
                         (keyCode == 38)                     ||  // up
-                        (keyCode == 40)) {                      // down
-
+                        (keyCode == 40)                     ||  // down
+                        (keyCode == 9)) {
                 if (isShifted) {
                     if (keyCode == 49 || keyCode == 51 || keyCode == 52 || keyCode == 53) {
                             chr = String.fromCharCode(keyCode - 16);
@@ -126,6 +126,9 @@ module TSOS {
                 }
                 else if(keyCode == 8){
                     _StdOut.deleteText();
+                }
+                else if(keyCode == 9){
+                    _StdOut.tabComplete();
                 }
                 else if(keyCode == 38 || keyCode == 40){
                     _StdOut.upDownComplete(keyCode);

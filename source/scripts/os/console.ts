@@ -129,6 +129,30 @@ module TSOS {
             }
         }
 
+        public tabComplete():void {
+            var buffWord = this.buffer;
+            var buffLength = buffWord.length;
+            var match = 0;
+            var comm = "";
+            for (var i = 0; i < commandList.length; i++) {
+                var commWord = commandList[i].substr(0, buffLength);
+                if (commWord == buffWord) {
+                    match++;
+                    comm = commandList[i];
+                }
+            }
+            if (match < 2 && match != 0) {
+                _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize,
+                    _Canvas.width, _Canvas.height);
+                this.currentXPosition = 0;
+                this.buffer = "";
+                _StdOut.putText(this.promptStr);
+                _StdOut.putText(comm);
+                this.buffer += comm;
+                console.log("final match: " + comm);
+            }
+        }
+
         public advanceLine(): void {
             this.currentXPosition = 0;
             /*

@@ -44,6 +44,8 @@ var STATUS: string = "good";
 var _CommandArr: string[] = [];
 
 var _CommandToggle: number = 0;
+
+var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod"];
 //
 // Global Variables
 //
