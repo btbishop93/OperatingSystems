@@ -105,6 +105,12 @@ module TSOS {
                 "- Beware!");
             this.commandList[this.commandList.length] = sc;
 
+            // load <string>
+            sc = new ShellCommand(this.shellLoad,
+                "load",
+                "- Check user input for hex");
+            this.commandList[this.commandList.length] = sc;
+
             // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -357,6 +363,25 @@ module TSOS {
             _Canvas.getContext('2d').fillStyle = "white";
             _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
             _Kernel.krnShutdown();
+        }
+
+        public shellLoad(args) {
+            var textarea = <HTMLInputElement> document.getElementById("taProgramInput");
+            var textContent = textarea.value.toString();
+
+            textContent = textContent.replace(" ", "");
+            textContent = textContent.replace("\n", "");
+
+            console.log(textContent);
+
+            var hexChars = /^[0-9A-F]+$/;
+            if(hexChars.test(textContent)){
+                _StdOut.putText("The user program input is valid.");
+            }
+            else _StdOut.putText("The user program input is invalid");
+
+
+
         }
     }
 }
