@@ -369,8 +369,7 @@ module TSOS {
             var textarea = <HTMLInputElement> document.getElementById("taProgramInput");
             var textContent = textarea.value.toString();
 
-            textContent = textContent.replace(" ", "");
-            textContent = textContent.replace("\n", "");
+            textContent = textContent.replace(/\s+/g, '');
 
             console.log(textContent);
 
