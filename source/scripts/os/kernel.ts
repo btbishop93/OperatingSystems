@@ -33,6 +33,13 @@ module TSOS {
                 statusBar.innerHTML = status;
             }, 1000);
 
+            for(var i = 0; i < 256; i++){
+                _Memory[_Memory.length] = "00";
+            }
+
+            var memoryDiv = document.getElementById("memoryDiv");
+            memoryDiv.innerHTML = _Memory;
+
             // Initialize standard input and output to the _Console.
             _StdIn  = _Console;
             _StdOut = _Console;
