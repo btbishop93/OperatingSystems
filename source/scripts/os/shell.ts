@@ -371,17 +371,27 @@ module TSOS {
 
             textContent = textContent.replace(/\s+/g, '');
 
-            console.log(textContent);
+            var first = 0;
+            var second = 1;
 
             var hexChars = /^[0-9A-F]+$/;
+
+            var memLoad = textContent.length / 2;
+
             if(hexChars.test(textContent)){
                 _StdOut.putText("The user program input is valid.");
+                for(var i = 0; i < 768; i++) {
+                    _Memory[i] = "00";
+                    document.getElementById("mem-cell-" + i).innerHTML = _Memory[i];
+                }
+                for(var j = 0; j < memLoad; j++) {
+                    _Memory[j] = (textContent.charAt(first) + textContent.charAt(second));
+                    document.getElementById("mem-cell-" + j).innerHTML = _Memory[j];
+                    first += 2;
+                    second += 2;
+                }
             }
             else _StdOut.putText("The user program input is invalid");
-
-
-
-
 
         }
     }

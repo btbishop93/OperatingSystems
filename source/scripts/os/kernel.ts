@@ -28,7 +28,7 @@ module TSOS {
             _Console.init();
 
             setInterval(function(){
-                var status = new Date().toLocaleDateString() + "&emsp; &emsp;" + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
+                var status = "Date: " + new Date().toLocaleDateString() + "&emsp;" + "Time: " + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
                 var statusBar = document.getElementById("statusBar");
                 statusBar.innerHTML = status;
             }, 1000);
@@ -100,13 +100,17 @@ module TSOS {
                 for (start; start < end + 1; start++) {
                     var td = document.createElement('td');
                     td.setAttribute('id', "mem-cell-" + start);
-                    td.appendChild(document.createTextNode(_Memory[start]));
-                    tr.appendChild(td);
+                    if(_Memory[start] == ""){
+                        td.appendChild(document.createTextNode("00"));
+                        tr.appendChild(td);
+                    }
+                    else {
+                        td.appendChild(document.createTextNode(_Memory[start]));
+                        tr.appendChild(td);
+                    }
                 }
                 tableBody.appendChild(tr);
                 end += 8;
-                console.log(start);
-                console.log(end);
                 row += 8;
             }
             memDiv.appendChild(table);
