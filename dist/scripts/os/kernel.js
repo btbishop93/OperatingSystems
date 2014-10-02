@@ -31,12 +31,11 @@ var TSOS;
                 statusBar.innerHTML = status;
             }, 1000);
 
-            for (var i = 0; i < 256; i++) {
+            for (var i = 0; i < 768; i++) {
                 _Memory[_Memory.length] = "00";
             }
 
-            var memoryDiv = document.getElementById("memoryDiv");
-            memoryDiv.innerHTML = _Memory;
+            this.addMemory();
 
             // Initialize standard input and output to the _Console.
             _StdIn = _Console;
@@ -64,6 +63,49 @@ var TSOS;
             if (_GLaDOS) {
                 _GLaDOS.afterStartup();
             }
+        };
+
+        Kernel.prototype.addMemory = function () {
+            var memDiv = document.getElementById("memDisplay");
+            var table = document.createElement('TABLE');
+            var tableBody = document.createElement('TBODY');
+            var row = 0;
+            var rowStr = "";
+            var start = 0;
+            var end = 7;
+
+            table.appendChild(tableBody);
+
+            for (var i = 0; i < 96; i++) {
+                rowStr = row.toString(16);
+                if (rowStr.length == 3) {
+                    rowStr = "0x" + rowStr;
+                } else if (rowStr.length == 2) {
+                    rowStr = "0x0" + rowStr;
+                } else {
+                    rowStr = "0x00" + rowStr;
+                }
+                var tr = document.createElement('tr');
+                tr.setAttribute('id', "row-" + i);
+                var newRow = document.createTextNode(rowStr);
+                var td = document.createElement('td');
+                td.setAttribute('id', "mem-row-" + start);
+                td.appendChild(newRow);
+                tr.appendChild(td);
+
+                for (start; start < end + 1; start++) {
+                    var td = document.createElement('td');
+                    td.setAttribute('id', "mem-cell-" + start);
+                    td.appendChild(document.createTextNode(_Memory[start]));
+                    tr.appendChild(td);
+                }
+                tableBody.appendChild(tr);
+                end += 8;
+                console.log(start);
+                console.log(end);
+                row += 8;
+            }
+            memDiv.appendChild(table);
         };
 
         Kernel.prototype.krnShutdown = function () {
