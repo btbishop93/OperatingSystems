@@ -41,9 +41,11 @@ var BOND_JOKES: string [] = [
 
 var STATUS: string = "good";
 
-var _CommandArr: string[] = [];
+var _MemoryManager: TSOS.memoryManager;
 
-var _Memory: string [] = [];
+var _Memory: TSOS.mem;
+
+var _CommandArr: string[] = [];
 
 var _CommandToggle: number = 0;
 

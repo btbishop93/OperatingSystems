@@ -380,16 +380,17 @@ module TSOS {
 
             if(hexChars.test(textContent)){
                 _StdOut.putText("The user program input is valid.");
-                for(var i = 0; i < 768; i++) {
-                    _Memory[i] = "00";
-                    document.getElementById("mem-cell-" + i).innerHTML = _Memory[i];
-                }
+                var first = 0;
+                var second = 1;
+                _MemoryManager.resetMem();
+
                 for(var j = 0; j < memLoad; j++) {
-                    _Memory[j] = (textContent.charAt(first) + textContent.charAt(second));
-                    document.getElementById("mem-cell-" + j).innerHTML = _Memory[j];
+                    _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
                     first += 2;
                     second += 2;
                 }
+                _MemoryManager.updateMem();
+                /*run command*/_CPU.isExecuting = true;
             }
             else _StdOut.putText("The user program input is invalid");
 

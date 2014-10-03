@@ -32,9 +32,11 @@ var BOND_JOKES = [
 
 var STATUS = "good";
 
-var _CommandArr = [];
+var _MemoryManager;
 
-var _Memory = [];
+var _Memory;
+
+var _CommandArr = [];
 
 var _CommandToggle = 0;
 
