@@ -111,6 +111,12 @@ module TSOS {
                 "- Check user input for hex");
             this.commandList[this.commandList.length] = sc;
 
+            // run <string>
+            sc = new ShellCommand(this.shellRun,
+                "run",
+                "- Runs the loaded program with Process ID.");
+            this.commandList[this.commandList.length] = sc;
+
             // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -379,7 +385,6 @@ module TSOS {
             var memLoad = textContent.length / 2;
 
             if(hexChars.test(textContent)){
-                _StdOut.putText("The user program input is valid.");
                 var first = 0;
                 var second = 1;
                 _MemoryManager.resetMem();
@@ -390,9 +395,20 @@ module TSOS {
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                /*run command*/_CPU.isExecuting = true;
+                var pid = 0;
+                _ResList[pid] = _PCB;
+                _StdOut.putText("Process ID: " + pid);
+                pid++;
             }
-            else _StdOut.putText("The user program input is invalid");
+            else _StdOut.putText("The user program input is invalid.");
+
+        }
+
+        public shellRun(args){
+            if(_ResList[args] != null){
+                _CPU.isExecuting = true;
+            }
+            else _StdOut.putText("The program you are trying to run is invalid.")
 
         }
     }

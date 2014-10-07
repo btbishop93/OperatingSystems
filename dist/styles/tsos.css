@@ -8,9 +8,11 @@ body {
   font-size: 12pt;
   font-weight: normal;
   font-style: normal;
-   width: 100%;
-    margin: 0 auto;
-    text-align: center;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  overflow: auto;
 }
 
 h1 {
@@ -144,6 +146,22 @@ h3 {
     text-align: left;
 }
 #memDisplay{
+    width: 61.9%;
+    height: 126px;
+    overflow: scroll;
+    border: 3px solid #202020;
+    border-radius:4px;
+}
+
+#cpu {
+   width: 48%;
+   margin: 0 auto;
+   margin-top: 2%;
+   float: right;
+   text-align: left;
+}
+
+#cpuDisplay{
     width: 61.9%;
     height: 126px;
     overflow: scroll;

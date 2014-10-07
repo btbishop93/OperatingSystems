@@ -27,13 +27,17 @@ module TSOS {
             // Initialize the console.
             _Console.init();
 
+            // Initialize the pcb.
+            _PCB = new Pcb();
+            _PCB.init();
+
             setInterval(function(){
                 var status = "Date: " + new Date().toLocaleDateString() + "&emsp;" + "Time: " + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
                 var statusBar = document.getElementById("statusBar");
                 statusBar.innerHTML = status;
             }, 1000);
 
-
+            //Initialize memory manager
             _MemoryManager = new memoryManager();
 
             // Initialize standard input and output to the _Console.

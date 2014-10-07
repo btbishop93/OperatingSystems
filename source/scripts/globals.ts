@@ -53,6 +53,13 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 //
 // Global Variables
 //
+
+var _PCB: TSOS.Pcb;
+
+var _ResList: { [pid: number]: TSOS.Pcb; } = {};
+
+//var _PID: number = 0;
+
 var _CPU: TSOS.Cpu;  // Utilize TypeScript's type annotation system to ensure that _CPU is an instance of the Cpu class.
 
 var _OSclock: number = 0;  // Page 23.

@@ -10,10 +10,17 @@ module TSOS {
                     public ACC: number = 0,
                     public X: number = 0,
                     public Y: number = 0,
-                    public Z: number = 0,
-                    public pcbStart: number = 0,
-                    public pcbEnd: number = 0 ) {
+                    public Z: number = 0) {
 
+        }
+
+        public init(): void {
+            this.PC = 0;
+            this.IR = 0;
+            this.ACC = 0;
+            this.X = 0;
+            this.Y = 0;
+            this.Z = 0;
         }
     }
 }
