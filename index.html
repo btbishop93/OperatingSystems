@@ -48,7 +48,7 @@
              value="Start"
              tabindex="0"
              onclick="TSOS.Control.hostBtnStartOS_click(this);"
-              style="margin-left: 25%">
+              style="margin-left: 32%">
 
 
       <input type="button"
@@ -75,7 +75,7 @@
    <div id="divConsole" style="margin: 0 auto; width:48%; float: left; margin-top: 2%;">
       <canvas id="display"
               width="500px"
-              height="550px"
+              height="500px"
               tabindex="3">
       </canvas>
    </div>
@@ -86,7 +86,7 @@
          <br>
          <textarea name="taHostLog"
                    id  ="taHostLog"
-                   rows="10"
+                   rows="22"
                    cols="68"
          ></textarea>
       </label>
@@ -94,7 +94,28 @@
 
     <div id="cpu">
         <div id="section"><a>CPU</a></div>
-        <div id="cpuDisplay"></div>
+        <div id="cpuDisplay"><table style="font-family: 'Copperplate Gothic Bold'; font-size: 28px; color: white;">
+            <thead>
+            <tr>
+                <td>PC</td>
+                <td>IR</td>
+                <td>ACC</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>Z</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="pc-value">0</td>
+                <td id="ir-value">0</td>
+                <td id="acc-value">0</td>
+                <td id="x-value">0</td>
+                <td id="y-value">0</td>
+                <td id="z-value">0</td>
+            </tr>
+            </tbody>
+        </table></div>
     </div>
 
     <div id="memory">
@@ -104,13 +125,13 @@
     </div>
         </div>
 
-<div id="divUserProgramInput" style="width: 48%; margin-left: 18%; margin-top: 1%; text-align: left; float: left; overflow: scroll;">
+<div id="divUserProgramInput" style="width: 30%; margin-left: 18%; margin-top: 1%; text-align: left; float: left; overflow: scroll;">
     <div id="section"><a>User Program Input</a></div>
     <label>
         <br>
         <textarea name="taProgramInput"
                   id  ="taProgramInput"
-                  rows="8"
+                  rows="5"
                   cols="68"
                 >A9 03 8D 41 00 A9 01 8D 40 00 AC 40 00 A2 01 FF EE 40 00 AE 40 00 EC 41 00 D0 EF A9 44 8D 42 00 A9 4F 8D 43 00 A9 4E 8D 44 00 A9 45 8D 45 00 A9 00 8D 46 00 A2 02 A0 42 FF 00</textarea>
     </label>
@@ -125,5 +146,7 @@
 </p>
 
 </body>
+
+
 
 </html>
