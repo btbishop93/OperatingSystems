@@ -119,8 +119,19 @@ h3 {
   text-align: center;
   clear: both;
   margin-bottom:0%;
-  margin-top: 1.5%;
+  margin-top: 2.2%;
   float:right;
+}
+
+div.entry{
+    margin-left: 10px;
+    margin-right: 10px;
+    marging-bottom: 5px;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 #status{
