@@ -63,8 +63,15 @@ module TSOS {
             var str: string = "({ clock:" + clock + ", source:" + source + ", msg:" + msg + ", now:" + now  + " })"  + "\n";
 
             var taLog = document.getElementById("taHostLog");
+
             // Update the log console.
-            if(msg != "Idle") {
+
+            function replaceContentInContainer(matchClass, content) {
+                var els = document.getElementsByClassName(matchClass);
+                els[0].innerHTML = content;
+            }
+
+            if(msg != _CurrentMsg) {
                 var entry = document.createElement("div");
                 entry.className = "entry";
                 var row = document.createElement("div");
@@ -75,20 +82,33 @@ module TSOS {
                 var small = document.createElement("small");
                 small.className = "left";
 
-                taLog.appendChild(entry);
 
                 small.appendChild(document.createTextNode(now));
-                row.appendChild(small);
 
                 var small2 = document.createElement("small");
                 small2.className = "right";
                 small2.appendChild(document.createTextNode(clock.toString()));
+
+                var sourceMsg = document.createElement("strong");
+                sourceMsg.className = "sourceMsg";
+                sourceMsg.appendChild(document.createTextNode(source + ": " + msg));
+
+                row.appendChild(small);
                 row.appendChild(small2);
+                entry.insertBefore(row);
+                row.appendChild(document.createElement("br"));
+                row2.appendChild(sourceMsg);
+                entry.appendChild(row2);
+                taLog.insertBefore(entry, taLog.firstChild);
+                entry.appendChild(document.createElement("br"));
+            }
+            else if(msg == _CurrentMsg){
+                replaceContentInContainer("left", now);
+                replaceContentInContainer("right", clock);
+
             }
 
-            entry.appendChild(row);
-
-
+            _CurrentMsg = msg;
 
             //taLog.value = str + taLog.value;
             // Optionally update a log database or some streaming service.
