@@ -62,9 +62,35 @@ module TSOS {
             // Build the log string.
             var str: string = "({ clock:" + clock + ", source:" + source + ", msg:" + msg + ", now:" + now  + " })"  + "\n";
 
+            var taLog = document.getElementById("taHostLog");
             // Update the log console.
-            var taLog = <HTMLInputElement> document.getElementById("taHostLog");
-            taLog.value = str + taLog.value;
+            if(msg != "Idle") {
+                var entry = document.createElement("div");
+                entry.className = "entry";
+                var row = document.createElement("div");
+                row.className = "row";
+                var row2 = document.createElement("div");
+                row2.className = "row";
+
+                var small = document.createElement("small");
+                small.className = "left";
+
+                taLog.appendChild(entry);
+
+                small.appendChild(document.createTextNode(now));
+                row.appendChild(small);
+
+                var small2 = document.createElement("small");
+                small2.className = "right";
+                small2.appendChild(document.createTextNode(clock.toString()));
+                row.appendChild(small2);
+            }
+
+            entry.appendChild(row);
+
+
+
+            //taLog.value = str + taLog.value;
             // Optionally update a log database or some streaming service.
         }
 
