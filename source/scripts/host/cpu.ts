@@ -59,6 +59,14 @@ module TSOS {
                 Pcb.ACC = parseInt(value);
                 this.Acc = parseInt(value);
             }
+            else if(opCode == "AD"){
+                loc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var loc2 = (Pcb.PC + Pcb.start).toString(16);
+                var value = _MemoryManager.getMemLoc(loc) + _MemoryManager.getMemLoc(loc2);
+                Pcb.ACC = parseInt(value, 16);
+            }
+            
             else if(opCode == "00"){
                 this.isExecuting = false;
                 this.init();
