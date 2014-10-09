@@ -74,10 +74,62 @@ module TSOS {
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
-                console.log(value);
-                console.log(parseInt(value, 16));
                 _MemoryManager.setMemLoc(parseInt(value, 16), Pcb.ACC.toString());
                 _MemoryManager.updateMem();
+            }
+            else if(opCode == "6D"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                Pcb.ACC = Pcb.ACC + parseInt(value, 16);
+                this.Acc = this.Acc + parseInt(value, 16);
+            }
+            else if(opCode == "A2"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                var value = _MemoryManager.getMemLoc(hexLoc);
+                Pcb.X = parseInt(value);
+                this.Xreg = parseInt(value);
+            }
+            else if(opCode == "AE"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                Pcb.X = parseInt(value, 16);
+                this.Xreg = parseInt(value, 16);
+            }
+            else if(opCode == "A0"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                var value = _MemoryManager.getMemLoc(hexLoc);
+                Pcb.Y = parseInt(value);
+                this.Yreg = parseInt(value);
+            }
+            else if(opCode == "AC"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                Pcb.Y = parseInt(value, 16);
+                this.Yreg = parseInt(value, 16);
+            }
+            else if(opCode == "EA"){
+                
+            }
+            else if(opCode == "EC"){
+
+            }
+            else if(opCode == "D0"){
+
+            }
+            else if(opCode == "EE"){
+
+            }
+            else if(opCode == "FF"){
+
             }
             else if(opCode == "00"){
                 this.isExecuting = false;
