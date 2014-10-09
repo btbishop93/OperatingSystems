@@ -38,14 +38,48 @@ var TSOS;
 
         Cpu.prototype.cycle = function () {
             _Kernel.krnTrace('CPU cycle');
+
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
             // lookup pcb
+            var Pcb = _ResList[_CurrentPid];
+
             // get the pc
+            var loc = (Pcb.PC + Pcb.start).toString(16);
+
             // look at that current location in mem
-            // pc++
-            // get the command
-            // execute that command
+            var opCode = _MemoryManager.getMemLoc(loc);
+
+            Pcb.PC++;
+            Pcb.IR = opCode;
+
+            if (opCode == "A9") {
+                loc = (Pcb.PC + Pcb.start).toString(16);
+                var value = _MemoryManager.getMemLoc(loc);
+                Pcb.ACC = parseInt(value);
+                this.Acc = parseInt(value);
+            } else if (opCode == "00") {
+                this.isExecuting = false;
+                this.init();
+            }
+
+            this.PC = Pcb.PC;
+            this.updateCPU();
+        };
+
+        Cpu.prototype.updateCPU = function () {
+            function replaceContentInContainer(matchID, content) {
+                var els = document.getElementById(matchID);
+                els.innerHTML = content;
+            }
+            var Pcb = _ResList[_CurrentPid];
+
+            replaceContentInContainer("pc-value", Pcb.PC);
+            replaceContentInContainer("ir-value", Pcb.IR);
+            replaceContentInContainer("acc-value", Pcb.ACC);
+            replaceContentInContainer("x-value", Pcb.X);
+            replaceContentInContainer("y-value", Pcb.Y);
+            replaceContentInContainer("z-value", Pcb.Z);
         };
         return Cpu;
     })();

@@ -384,6 +384,7 @@ module TSOS {
 
             var memLoad = textContent.length / 2;
 
+
             if(hexChars.test(textContent)){
                 var first = 0;
                 var second = 1;
@@ -395,10 +396,9 @@ module TSOS {
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                var pid = 0;
-                _ResList[pid] = _PCB;
-                _StdOut.putText("Process ID: " + pid);
-                pid++;
+                _ResList[_PidAssign] = new Pcb(0, 255);
+                _StdOut.putText("Process ID: " + _PidAssign);
+                _PidAssign++;
             }
             else _StdOut.putText("The user program input is invalid.");
 
@@ -406,6 +406,7 @@ module TSOS {
 
         public shellRun(args){
             if(_ResList[args] != null){
+                _CurrentPid = args;
                 _CPU.isExecuting = true;
             }
             else _StdOut.putText("The program you are trying to run is invalid.")

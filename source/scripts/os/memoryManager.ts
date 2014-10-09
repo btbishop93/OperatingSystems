@@ -14,7 +14,7 @@ module TSOS {
         }
 
         public getMemLoc(loc){
-            _Memory.getMemLoc(loc);
+            return _Memory.getMemLoc(loc);
         }
 
         public setMemLoc(loc, str){

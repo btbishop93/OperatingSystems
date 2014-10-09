@@ -76,7 +76,6 @@ module TSOS {
 
         public setMemLoc(loc, str){
             this.Memory[loc] = str;
-            console.log(this.Memory[loc]);
         }
 
         public resetMem(){

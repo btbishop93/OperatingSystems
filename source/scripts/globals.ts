@@ -52,15 +52,16 @@ var _CommandToggle: number = 0;
 var _CurrentMsg: string = "";
 
 var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod"];
+
 //
 // Global Variables
 //
 
-var _PCB: TSOS.Pcb;
+var _PidAssign: number = 0;
 
 var _ResList: { [pid: number]: TSOS.Pcb; } = {};
 
-//var _PID: number = 0;
+var _CurrentPid: number = 0;
 
 var _CPU: TSOS.Cpu;  // Utilize TypeScript's type annotation system to ensure that _CPU is an instance of the Cpu class.
 

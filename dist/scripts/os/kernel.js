@@ -25,10 +25,6 @@ var TSOS;
             // Initialize the console.
             _Console.init();
 
-            // Initialize the pcb.
-            _PCB = new TSOS.Pcb();
-            _PCB.init();
-
             setInterval(function () {
                 var status = "Date: " + new Date().toLocaleDateString() + "&emsp;" + "Time: " + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
                 var statusBar = document.getElementById("statusBar");

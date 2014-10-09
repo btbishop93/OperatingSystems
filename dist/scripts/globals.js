@@ -47,11 +47,12 @@ var commandList = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man
 //
 // Global Variables
 //
-var _PCB;
+var _PidAssign = 0;
 
 var _ResList = {};
 
-//var _PID: number = 0;
+var _CurrentPid = 0;
+
 var _CPU;
 
 var _OSclock = 0;
