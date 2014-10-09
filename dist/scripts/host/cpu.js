@@ -55,6 +55,7 @@ var TSOS;
 
             if (opCode == "A9") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(hexLoc);
                 Pcb.ACC = parseInt(value);
                 this.Acc = parseInt(value);
@@ -84,6 +85,7 @@ var TSOS;
                 this.Acc = this.Acc + parseInt(value, 16);
             } else if (opCode == "A2") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(hexLoc);
                 Pcb.X = parseInt(value);
                 this.Xreg = parseInt(value);
@@ -97,6 +99,7 @@ var TSOS;
                 this.Xreg = parseInt(value, 16);
             } else if (opCode == "A0") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(hexLoc);
                 Pcb.Y = parseInt(value);
                 this.Yreg = parseInt(value);
@@ -124,6 +127,15 @@ var TSOS;
                     this.Zflag = 1;
                 }
             } else if (opCode == "D0") {
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc);
+                var branch = parseInt(value, 16) % 256;
+                if (Pcb.Z == 1) {
+                    Pcb.PC++;
+                } else if (Pcb.Z == 0) {
+                    Pcb.PC = branch;
+                }
             } else if (opCode == "EE") {
             } else if (opCode == "FF") {
             } else if (opCode == "00") {
