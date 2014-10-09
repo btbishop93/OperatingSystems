@@ -67,7 +67,7 @@ module TSOS {
             // Update the log console.
 
             function replaceContentInContainer(matchClass, content) {
-                var els = document.getElementsByClassName(matchClass);
+                var els = <HTMLScriptElement[]><any>document.getElementsByClassName(matchClass);
                 els[0].innerHTML = content;
             }
 
