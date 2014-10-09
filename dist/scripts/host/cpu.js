@@ -111,6 +111,18 @@ var TSOS;
             } else if (opCode == "EA") {
                 Pcb.PC++;
             } else if (opCode == "EC") {
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                if (parseInt(value, 16) == Pcb.X) {
+                    Pcb.Z = 0;
+                    this.Zflag = 0;
+                } else {
+                    Pcb.Z = 1;
+                    this.Zflag = 1;
+                }
             } else if (opCode == "D0") {
             } else if (opCode == "EE") {
             } else if (opCode == "FF") {
