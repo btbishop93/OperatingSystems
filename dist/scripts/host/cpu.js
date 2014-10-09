@@ -142,8 +142,9 @@ var TSOS;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
-                var currByte = _MemoryManager.getMemLoc(parseInt(value, 16));
-                _MemoryManager.setMemLoc(parseInt(value, 16), (currByte + 1).toString());
+                var currByte = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
+                currByte += 1;
+                _MemoryManager.setMemLoc(parseInt(value, 16), (currByte).toString());
                 _MemoryManager.updateMem();
             } else if (opCode == "FF") {
             } else if (opCode == "00") {

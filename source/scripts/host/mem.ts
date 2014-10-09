@@ -75,10 +75,10 @@ module TSOS {
         }
 
         public setMemLoc(loc, str){
-            if(str.length == 1){
-                str = "0" + str;
+            if(str.length > 1){
+                this.Memory[loc] = str;
             }
-            this.Memory[loc] = str;
+            else this.Memory[loc] = "0" + str;
         }
 
         public resetMem(){

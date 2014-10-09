@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca5ec57f-9499-4bc2-be9d-dd302208eba8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/scripts/host/cpu.js" afterPath="$PROJECT_DIR$/dist/scripts/host/cpu.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/scripts/host/cpu.ts" afterPath="$PROJECT_DIR$/source/scripts/host/cpu.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/scripts/host/mem.ts" afterPath="$PROJECT_DIR$/source/scripts/host/mem.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BOSS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,21 +85,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cpu.ts" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="cpu.ts" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/scripts/host/cpu.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5588235" vertical-offset="2088" max-vertical-offset="2940">
-              <caret line="162" column="16" selection-start-line="162" selection-start-column="16" selection-end-line="162" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2013" max-vertical-offset="2955">
+              <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mem.ts" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="mem.ts" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/scripts/host/mem.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="813" max-vertical-offset="1425">
-              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.73039216" vertical-offset="753" max-vertical-offset="1425">
+              <caret line="80" column="46" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -805,6 +808,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.875" vertical-offset="1230" max-vertical-offset="2310">
+          <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#label#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/scripts/host/pcb.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/scripts/os/shell.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5658" max-vertical-offset="6300">
@@ -821,18 +847,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/source/scripts/os/memoryManager.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.875" vertical-offset="1230" max-vertical-offset="2310">
-          <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#1;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#label#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -844,34 +863,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/scripts/host/pcb.ts">
+    <entry file="file://$PROJECT_DIR$/source/scripts/host/cpu.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/scripts/os/memoryManager.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2013" max-vertical-offset="2955">
+          <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/scripts/host/mem.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="813" max-vertical-offset="1425">
-          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/scripts/host/cpu.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5588235" vertical-offset="2088" max-vertical-offset="2940">
-          <caret line="162" column="16" selection-start-line="162" selection-start-column="16" selection-end-line="162" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.73039216" vertical-offset="753" max-vertical-offset="1425">
+          <caret line="80" column="46" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
           <folding />
         </state>
       </provider>
