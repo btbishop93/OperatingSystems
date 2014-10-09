@@ -46,27 +46,39 @@ module TSOS {
             var Pcb = _ResList[_CurrentPid];
 
             // get the pc
-            var loc = (Pcb.PC + Pcb.start).toString(16);
+            var hexLoc = (Pcb.PC + Pcb.start).toString(16);
             // look at that current location in mem
-            var opCode = _MemoryManager.getMemLoc(loc);
+            var opCode = _MemoryManager.getMemLoc(hexLoc);
 
             Pcb.PC++;
             Pcb.IR = opCode;
 
             if(opCode == "A9"){
-                loc = (Pcb.PC + Pcb.start).toString(16);
-                var value = _MemoryManager.getMemLoc(loc);
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                var value = _MemoryManager.getMemLoc(hexLoc);
                 Pcb.ACC = parseInt(value);
                 this.Acc = parseInt(value);
             }
             else if(opCode == "AD"){
-                loc = (Pcb.PC + Pcb.start).toString(16);
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var loc2 = (Pcb.PC + Pcb.start).toString(16);
-                var value = _MemoryManager.getMemLoc(loc) + _MemoryManager.getMemLoc(loc2);
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
                 Pcb.ACC = parseInt(value, 16);
+                this.Acc = parseInt(value, 16);
             }
-            
+            else if(opCode == "8D"){
+                hexLoc = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
+                Pcb.PC++;
+                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                console.log(value);
+                console.log(parseInt(value, 16));
+                _MemoryManager.setMemLoc(parseInt(value, 16), Pcb.ACC.toString());
+                _MemoryManager.updateMem();
+            }
             else if(opCode == "00"){
                 this.isExecuting = false;
                 this.init();
