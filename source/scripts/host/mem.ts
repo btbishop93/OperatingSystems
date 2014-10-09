@@ -75,6 +75,9 @@ module TSOS {
         }
 
         public setMemLoc(loc, str){
+            if(str.length == 1){
+                str = "0" + str;
+            }
             this.Memory[loc] = str;
         }
 

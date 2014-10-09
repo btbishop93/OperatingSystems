@@ -117,7 +117,7 @@ module TSOS {
                 this.Yreg = parseInt(value, 16);
             }
             else if(opCode == "EA"){
-                
+                Pcb.PC++;
             }
             else if(opCode == "EC"){
 

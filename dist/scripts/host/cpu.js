@@ -109,6 +109,7 @@ var TSOS;
                 Pcb.Y = parseInt(value, 16);
                 this.Yreg = parseInt(value, 16);
             } else if (opCode == "EA") {
+                Pcb.PC++;
             } else if (opCode == "EC") {
             } else if (opCode == "D0") {
             } else if (opCode == "EE") {
