@@ -115,6 +115,7 @@ var TSOS;
             // .. enable the Halt and Reset buttons ...
             document.getElementById("btnHaltOS").disabled = false;
             document.getElementById("btnReset").disabled = false;
+            document.getElementById("btnOneStep").disabled = false;
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
@@ -132,8 +133,11 @@ var TSOS;
         };
 
         Control.hostBtnOneStep_click = function (btn) {
-            CPU_CLOCK_INTERVAL = 0;
-            TSOS.Devices.hostClockPulse();
+            _OneStepPressed = true;
+            if (_HasRun == true) {
+                _CPU.isExecuting = true;
+                TSOS.Devices.hostClockPulse();
+            }
         };
 
         Control.hostBtnHaltOS_click = function (btn) {

@@ -90,6 +90,10 @@ var TSOS;
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             } else if (_CPU.isExecuting) {
                 _CPU.cycle();
+                if (_OneStepPressed == true) {
+                    _CPU.isExecuting = false;
+                }
+                _OneStepPressed = false;
             } else {
                 this.krnTrace("Idle");
             }

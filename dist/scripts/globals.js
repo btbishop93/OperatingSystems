@@ -12,7 +12,7 @@ Operating System Concepts 8th edition by Silberschatz, Galvin, and Gagne.  ISBN 
 var APP_NAME = "BOSS";
 var APP_VERSION = "5.3.X";
 
-var CPU_CLOCK_INTERVAL = 1000;
+var CPU_CLOCK_INTERVAL = 100;
 
 var TIMER_IRQ = 0;
 
@@ -32,6 +32,8 @@ var BOND_JOKES = [
 
 var STATUS = "good";
 
+var _HasRun = false;
+
 var _MemoryManager;
 
 var _Memory;
@@ -48,6 +50,8 @@ var commandList = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man
 // Global Variables
 //
 var _PidAssign = 0;
+
+var _OneStepPressed = false;
 
 var _ResList = {};
 

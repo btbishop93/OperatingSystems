@@ -408,6 +408,7 @@ module TSOS {
             if(_ResList[args] != null){
                 _CurrentPid = args;
                 _CPU.isExecuting = true;
+                _HasRun = true;
             }
             else _StdOut.putText("The program you are trying to run is invalid.")
 

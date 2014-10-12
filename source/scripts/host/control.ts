@@ -125,6 +125,7 @@ module TSOS {
             // .. enable the Halt and Reset buttons ...
             document.getElementById("btnHaltOS").disabled = false;
             document.getElementById("btnReset").disabled = false;
+            document.getElementById("btnOneStep").disabled = false;
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
@@ -141,8 +142,11 @@ module TSOS {
         }
 
         public static hostBtnOneStep_click(btn): void {
-            CPU_CLOCK_INTERVAL = 0;
-            Devices.hostClockPulse();
+            _OneStepPressed = true;
+            if(_HasRun == true){
+                _CPU.isExecuting = true;
+                Devices.hostClockPulse();
+            }
         }
 
         public static hostBtnHaltOS_click(btn): void {
