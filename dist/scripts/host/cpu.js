@@ -48,23 +48,31 @@ var TSOS;
             var hexLoc = (Pcb.PC + Pcb.start).toString(16);
 
             // look at that current location in mem
-            var opCode = _MemoryManager.getMemLoc(hexLoc);
+            var opCode = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
 
             Pcb.PC++;
             Pcb.IR = opCode;
 
+            function hex2asc(hexStr) {
+                var tempstr = '';
+                for (var i = 0; i < hexStr.length; i = i + 2) {
+                    tempstr = tempstr + String.fromCharCode(parseInt(hexStr.substr(i, 2), 16));
+                }
+                return tempstr;
+            }
+
             if (opCode == "A9") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc);
-                Pcb.ACC = parseInt(value);
-                this.Acc = parseInt(value);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
+                Pcb.ACC = parseInt(value, 16);
+                this.Acc = parseInt(value, 16);
             } else if (opCode == "AD") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = parseInt(value, 16);
                 this.Acc = parseInt(value, 16);
             } else if (opCode == "8D") {
@@ -72,35 +80,35 @@ var TSOS;
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
-                _MemoryManager.setMemLoc(parseInt(value, 16), Pcb.ACC.toString());
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
+                _MemoryManager.setMemLoc(parseInt(value, 16), Pcb.ACC.toString(16));
                 _MemoryManager.updateMem();
             } else if (opCode == "6D") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = Pcb.ACC + parseInt(value, 16);
                 this.Acc = this.Acc + parseInt(value, 16);
             } else if (opCode == "A2") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc);
-                Pcb.X = parseInt(value);
-                this.Xreg = parseInt(value);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
+                Pcb.X = parseInt(value, 16);
+                this.Xreg = parseInt(value, 16);
             } else if (opCode == "AE") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.X = parseInt(value, 16);
                 this.Xreg = parseInt(value, 16);
             } else if (opCode == "A0") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.Y = parseInt(value);
                 this.Yreg = parseInt(value);
             } else if (opCode == "AC") {
@@ -108,7 +116,7 @@ var TSOS;
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.Y = parseInt(value, 16);
                 this.Yreg = parseInt(value, 16);
             } else if (opCode == "EA") {
@@ -118,7 +126,7 @@ var TSOS;
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 if (parseInt(value, 16) == Pcb.X) {
                     Pcb.Z = 0;
                     this.Zflag = 0;
@@ -129,10 +137,9 @@ var TSOS;
             } else if (opCode == "D0") {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 var branch = parseInt(value, 16) % 256;
                 if (Pcb.Z == 1) {
-                    Pcb.PC++;
                 } else if (Pcb.Z == 0) {
                     Pcb.PC = branch;
                 }
@@ -141,15 +148,23 @@ var TSOS;
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
-                var value = _MemoryManager.getMemLoc(hexLoc2) + _MemoryManager.getMemLoc(hexLoc);
+                var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 var currByte = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
                 currByte += 1;
-                _MemoryManager.setMemLoc(parseInt(value, 16), (currByte).toString());
+                _MemoryManager.setMemLoc(parseInt(value, 16), (currByte).toString(16));
                 _MemoryManager.updateMem();
             } else if (opCode == "FF") {
+                if (Pcb.X == 1) {
+                    _StdOut.putText(Pcb.Y);
+                } else if (Pcb.X == 2) {
+                    /*while(_MemoryManager.getMemLoc(Pcb.Y) != "00"){
+                    var ascText = hex2asc(_MemoryManager.getMemLoc(Pcb.Y));
+                    _StdOut.putText(ascText);
+                    }*/
+                }
             } else if (opCode == "00") {
+                //this.init();
                 this.isExecuting = false;
-                this.init();
             }
 
             this.PC = Pcb.PC;

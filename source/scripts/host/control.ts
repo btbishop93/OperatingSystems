@@ -140,6 +140,11 @@ module TSOS {
             _Kernel.krnBootstrap();
         }
 
+        public static hostBtnOneStep_click(btn): void {
+            CPU_CLOCK_INTERVAL = 0;
+            Devices.hostClockPulse();
+        }
+
         public static hostBtnHaltOS_click(btn): void {
             Control.hostLog("Emergency halt", "host");
             Control.hostLog("Attempting Kernel shutdown.", "host");

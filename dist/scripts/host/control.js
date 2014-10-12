@@ -131,6 +131,11 @@ var TSOS;
             _Kernel.krnBootstrap();
         };
 
+        Control.hostBtnOneStep_click = function (btn) {
+            CPU_CLOCK_INTERVAL = 0;
+            TSOS.Devices.hostClockPulse();
+        };
+
         Control.hostBtnHaltOS_click = function (btn) {
             Control.hostLog("Emergency halt", "host");
             Control.hostLog("Attempting Kernel shutdown.", "host");

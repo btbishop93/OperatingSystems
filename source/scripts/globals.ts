@@ -15,7 +15,7 @@
 var APP_NAME: string    = "BOSS";   // 'cause Breakfast Open Salad Semi-Conductor
 var APP_VERSION: string = "5.3.X";   //
 
-var CPU_CLOCK_INTERVAL: number = 100;   // This is in ms, or milliseconds, so 1000 = 1 second.
+var CPU_CLOCK_INTERVAL: number = 1000;   // This is in ms, or milliseconds, so 1000 = 1 second.
 
 var TIMER_IRQ: number = 0;  // Pages 23 (timer), 9 (interrupts), and 561 (interrupt priority).
                             // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
