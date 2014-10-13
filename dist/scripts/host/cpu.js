@@ -191,10 +191,9 @@ var TSOS;
             } else if (opCode == "00") {
                 this.init();
                 this.isExecuting = false;
-                Pcb.resetPcb();
+
+                //Pcb.resetPcb();
                 this.updateCPU();
-                _MemoryManager.resetMem();
-                _MemoryManager.updateMem();
             }
 
             this.PC = Pcb.PC;
