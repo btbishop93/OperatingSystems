@@ -191,14 +191,16 @@ var TSOS;
             } else if (opCode == "00") {
                 this.init();
                 this.isExecuting = false;
-
-                //Pcb.resetPcb();
+                _StdOut.advanceLine();
+                _StdOut.putText("PC: " + Pcb.PC.toString() + ", IR: " + Pcb.IR + ", ACC: " + Pcb.ACC.toString() + ", X: " + Pcb.X.toString() + ", Y: " + Pcb.Y.toString() + ", Z: " + Pcb.Z.toString());
+                _StdOut.advanceLine();
+                _StdOut.putText(">");
+                Pcb.resetPcb();
                 this.updateCPU();
             }
 
             this.PC = Pcb.PC;
             this.updateCPU();
-            _StdOut.advanceLine();
         };
         return Cpu;
     })();
