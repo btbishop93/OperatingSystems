@@ -36,6 +36,21 @@ var TSOS;
             this.isExecuting = false;
         };
 
+        Cpu.prototype.updateCPU = function () {
+            function replaceContentInContainer(matchID, content) {
+                var els = document.getElementById(matchID);
+                els.innerHTML = content;
+            }
+            var Pcb = _ResList[_CurrentPid];
+
+            replaceContentInContainer("pc-value", Pcb.PC);
+            replaceContentInContainer("ir-value", Pcb.IR);
+            replaceContentInContainer("acc-value", Pcb.ACC);
+            replaceContentInContainer("x-value", Pcb.X);
+            replaceContentInContainer("y-value", Pcb.Y);
+            replaceContentInContainer("z-value", Pcb.Z);
+        };
+
         Cpu.prototype.cycle = function () {
             _Kernel.krnTrace('CPU cycle');
 
@@ -176,26 +191,14 @@ var TSOS;
             } else if (opCode == "00") {
                 this.init();
                 this.isExecuting = false;
+                Pcb.resetPcb();
                 this.updateCPU();
+                _MemoryManager.resetMem();
+                _MemoryManager.updateMem();
             }
 
             this.PC = Pcb.PC;
             this.updateCPU();
-        };
-
-        Cpu.prototype.updateCPU = function () {
-            function replaceContentInContainer(matchID, content) {
-                var els = document.getElementById(matchID);
-                els.innerHTML = content;
-            }
-            var Pcb = _ResList[_CurrentPid];
-
-            replaceContentInContainer("pc-value", Pcb.PC);
-            replaceContentInContainer("ir-value", Pcb.IR);
-            replaceContentInContainer("acc-value", Pcb.ACC);
-            replaceContentInContainer("x-value", Pcb.X);
-            replaceContentInContainer("y-value", Pcb.Y);
-            replaceContentInContainer("z-value", Pcb.Z);
         };
         return Cpu;
     })();

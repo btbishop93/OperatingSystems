@@ -16,5 +16,14 @@ module TSOS {
 
         }
 
+        public resetPcb(): void{
+            this.PC = 0;
+            this.IR = "0";
+            this.ACC = 0;
+            this.X = 0;
+            this.Y = 0;
+            this.Z = 0;
+        }
+
     }
 }

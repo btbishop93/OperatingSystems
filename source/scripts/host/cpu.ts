@@ -37,6 +37,21 @@ module TSOS {
             this.isExecuting = false;
         }
 
+        public updateCPU(){
+            function replaceContentInContainer(matchID, content) {
+                var els = document.getElementById(matchID);
+                els.innerHTML = content;
+            }
+            var Pcb = _ResList[_CurrentPid];
+
+            replaceContentInContainer("pc-value", Pcb.PC);
+            replaceContentInContainer("ir-value", Pcb.IR);
+            replaceContentInContainer("acc-value", Pcb.ACC);
+            replaceContentInContainer("x-value", Pcb.X);
+            replaceContentInContainer("y-value", Pcb.Y);
+            replaceContentInContainer("z-value", Pcb.Z);
+        }
+
         public cycle(): void {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
@@ -191,27 +206,15 @@ module TSOS {
             else if(opCode == "00"){
                 this.init();
                 this.isExecuting = false;
+                Pcb.resetPcb();
                 this.updateCPU();
+                _MemoryManager.resetMem();
+                _MemoryManager.updateMem();
             }
 
             this.PC = Pcb.PC;
             this.updateCPU();
 
-        }
-
-        public updateCPU(){
-            function replaceContentInContainer(matchID, content) {
-                var els = document.getElementById(matchID);
-                els.innerHTML = content;
-            }
-             var Pcb = _ResList[_CurrentPid];
-
-            replaceContentInContainer("pc-value", Pcb.PC);
-            replaceContentInContainer("ir-value", Pcb.IR);
-            replaceContentInContainer("acc-value", Pcb.ACC);
-            replaceContentInContainer("x-value", Pcb.X);
-            replaceContentInContainer("y-value", Pcb.Y);
-            replaceContentInContainer("z-value", Pcb.Z);
         }
     }
 }
