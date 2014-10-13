@@ -198,6 +198,7 @@ var TSOS;
 
             this.PC = Pcb.PC;
             this.updateCPU();
+            _StdOut.advanceLine();
         };
         return Cpu;
     })();

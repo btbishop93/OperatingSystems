@@ -146,7 +146,6 @@ var TSOS;
                 _StdOut.putText(this.promptStr);
                 _StdOut.putText(comm);
                 this.buffer += comm;
-                console.log("final match: " + comm);
             }
         };
 
