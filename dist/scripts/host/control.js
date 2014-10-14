@@ -116,6 +116,7 @@ var TSOS;
             document.getElementById("btnHaltOS").disabled = false;
             document.getElementById("btnReset").disabled = false;
             document.getElementById("btnOneStep").disabled = false;
+            document.getElementById("btnStepOnOff").disabled = false;
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
@@ -133,10 +134,29 @@ var TSOS;
         };
 
         Control.hostBtnOneStep_click = function (btn) {
-            _OneStepPressed = true;
-            if (_HasRun == true) {
-                _CPU.isExecuting = true;
-                TSOS.Devices.hostClockPulse();
+            if (_StepModeOn == true) {
+                _OneStepPressed = true;
+                if (_HasRun == true) {
+                    _CPU.isExecuting = true;
+                    TSOS.Devices.hostClockPulse();
+                }
+            }
+        };
+
+        Control.hostBtnStepOn_click = function (btn) {
+            if (btn.value == "Step Mode: Off") {
+                _StepModeOn = true;
+                _OneStepPressed = true;
+                document.getElementById('btnStepOnOff').className = "stepModeOn";
+                btn.value = "Step Mode: On";
+            } else if (btn.value == "Step Mode: On") {
+                _StepModeOn == false;
+                _OneStepPressed = false;
+                if (_HasRun == true) {
+                    _CPU.isExecuting = true;
+                }
+                document.getElementById('btnStepOnOff').className = "stepModeOff";
+                btn.value = "Step Mode: Off";
             }
         };
 

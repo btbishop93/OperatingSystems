@@ -213,11 +213,15 @@ module TSOS {
                 _StdOut.putText(">");
                 Pcb.resetPcb();
                 this.updateCPU();
+                _CurrentPid = -1;
+                _HasRun = false;
+                if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
+                    _StepModeOn = false;
+                }
             }
 
             this.PC = Pcb.PC;
             this.updateCPU();
-
         }
     }
 }

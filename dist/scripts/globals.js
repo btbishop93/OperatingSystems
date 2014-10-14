@@ -34,6 +34,8 @@ var STATUS = "good";
 
 var _HasRun = false;
 
+var _StepModeOn = false;
+
 var _MemoryManager;
 
 var _Memory;

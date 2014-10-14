@@ -43,6 +43,8 @@ var STATUS: string = "good";
 
 var _HasRun: boolean = false;
 
+var _StepModeOn: boolean = false;
+
 var _MemoryManager: TSOS.memoryManager;
 
 var _Memory: TSOS.mem;

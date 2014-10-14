@@ -48,7 +48,7 @@
              value="Start"
              tabindex="0"
              onclick="TSOS.Control.hostBtnStartOS_click(this);"
-              style="margin-left: 24%">
+              style="margin-left: 12%">
 
 
       <input type="button"
@@ -69,13 +69,22 @@
              tabindex="2"
              onclick="TSOS.Control.hostBtnReset_click(this);">
 
+        <input type="button"
+               name="stepModeOnOff"
+               class="stepModeOff"
+               id="btnStepOnOff"
+               disabled="disabled"
+               tabindex="3"
+               value="Step Mode: Off"
+               onclick="TSOS.Control.hostBtnStepOn_click(this)">
+
     <input type="button"
            id = "btnOneStep"
            name="btnOne"
            class="btn"
            disabled="disabled"
-           value="One Step"
-           tabindex="2"
+           value="Step"
+           tabindex="4"
            onclick="TSOS.Control.hostBtnOneStep_click(this);">
     </div>
 
