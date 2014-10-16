@@ -89,7 +89,7 @@ var TSOS;
 
                 row.appendChild(small);
                 row.appendChild(small2);
-                entry.insertBefore(row);
+                entry.insertBefore(row, entry.firstChild);
                 row.appendChild(document.createElement("br"));
                 row2.appendChild(sourceMsg);
                 entry.appendChild(row2);
