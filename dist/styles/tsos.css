@@ -82,8 +82,7 @@ tr{
 /*Status & StatusBar CSS*/
 #status{
     padding: 10px;
-    width: 350px;
-    height: 50px;
+    width: 450px;
     overflow: hidden;
     border: 7px solid #efefef;
     border-radius: 5px;
@@ -96,8 +95,7 @@ tr{
     margin: 0 auto;
 }
 #statusBar{
-    width: 17.40em;
-    height: 50px;
+    width: 100%;
     font-size: 20px;
     overflow: hidden;
     position: relative;

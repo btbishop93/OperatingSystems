@@ -89,8 +89,8 @@ module TSOS {
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
-                Pcb.ACC = parseInt(value, 16);
-                this.Acc = parseInt(value, 16);
+                Pcb.ACC = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
+                this.Acc = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
             }
             else if(opCode == "8D"){
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
@@ -107,8 +107,9 @@ module TSOS {
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
-                Pcb.ACC = Pcb.ACC + parseInt(value, 16);
-                this.Acc = this.Acc + parseInt(value, 16);
+                console.log(value);
+                Pcb.ACC = Pcb.ACC + parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
+                this.Acc = this.Acc + parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
             }
             else if(opCode == "A2"){
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
@@ -131,16 +132,21 @@ module TSOS {
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
-                Pcb.Y = parseInt(value);
-                this.Yreg = parseInt(value);
+                console.log("yreg: " + value);
+                Pcb.Y = parseInt(value, 16);
+                this.Yreg = parseInt(value, 16);
             }
             else if(opCode == "AC"){
                 hexLoc = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
+                console.log("addr in mem: " + parseInt(hexLoc, 16));
+                console.log("2naddr in mem: " + parseInt(hexLoc2, 16));
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
+                console.log("added y values" + value);
                 var byte = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
+                console.log("ybyte: " + byte);
                 Pcb.Y = byte;
                 this.Yreg = byte;
             }
@@ -153,10 +159,7 @@ module TSOS {
                 var hexLoc2 = (Pcb.PC + Pcb.start).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
-                console.log(value);
                 var byte = parseInt(_MemoryManager.getMemLoc(parseInt(value, 16)));
-                console.log(byte);
-                console.log("X: " + Pcb.X);
                 if(byte == Pcb.X){
                     Pcb.Z = 1;
                     this.Zflag = 1;
@@ -194,12 +197,12 @@ module TSOS {
                     console.log("Y: " + Pcb.Y);
                     while((_MemoryManager.getMemLoc(Pcb.Y)) != "00"){
                         console.log("Y2: " + Pcb.Y);
-                        var y = (Pcb.Y).toString();
-                        var decValue = parseInt(y, 16);
-                        var hexStr = _MemoryManager.getMemLoc(decValue);
-                        console.log(hexStr);
+                        var y = Pcb.Y;
+                        //var decValue = parseInt(y, 16);
+                        var hexStr = _MemoryManager.getMemLoc(y);
+                        console.log("ystring: " + hexStr);
                         _StdOut.putText(String.fromCharCode(parseInt(hexStr, 16)));
-                        Pcb.Y ++;
+                        Pcb.Y++;
                     }
                 }
             }
