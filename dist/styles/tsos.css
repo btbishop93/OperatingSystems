@@ -2,7 +2,7 @@
 
 body {
   min-height: 100%;
-  background: url("../images/ZenBG-1.png");
+  background: url("../images/grey_bg.png");
   background-repeat: repeat;
   font-family: Helvetica, Verdana, Arial, sans-serif;
   font-size: 12pt;
@@ -63,7 +63,7 @@ tr{
     width: 100%;
     float: left;
     margin: 0 0 1em 0;
-    padding: 5px 0 0px 0;
+    padding: 5px 0 1px 0;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #787878), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), color-stop(1, #838383));
     background-image: -moz-linear-gradient(center bottom, #787878 0%, #5E5E5E 50%, #707070 51%, #838383 100%);
     background-color:#5f5f5f;
@@ -104,6 +104,25 @@ tr{
     text-align: center;
     color: white;
     text-shadow: 0 0 5px rgba(255, 255, 255, 1);
+}
+
+#nav li {
+    float: left;
+    padding-right: 1%;
+    display: inline;
+}
+
+#nav ul {
+    list-style-type: none;
+    margin-left: 15.6%;
+    margin-top: 0%;
+}
+
+#btn_float{
+    margin-left: 32.3%;
+}
+#btn_float li{
+    margin-top: -0.6%;
 }
 
 /*Buttons CSS*/
@@ -152,6 +171,7 @@ tr{
     width: 120px;
     padding: 7px 0px 3px 0px;
     text-decoration: none;
+    opacity: 0.7;
 }
 .stepModeOff:hover{
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3F3F3F), color-stop(0.5, #383838), color-stop(0.51, #434343), color-stop(1, #555555));
@@ -266,7 +286,7 @@ small{
 }
 #taHostLog{
     width: 61.9%;
-    height: 296px;
+    height: 300px;
     overflow: scroll;
     border: 3px solid #202020;
     border-radius:4px;

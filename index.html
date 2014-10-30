@@ -40,53 +40,56 @@
 
 <body onload="onDocumentLoad();">
 
-<div id="nav">B.O.S.S
-      <input type="button"
+<nav id="nav">
+      <ul><li>B.O.S.S</li>
+
+       <div id="btn_float">
+           <li><input type="button"
              id = "btnStartOS"
              name="brnStartOS"
              class="btn"
              value="Start"
              tabindex="0"
-             onclick="TSOS.Control.hostBtnStartOS_click(this);"
-              style="margin-left: 16%">
+             onclick="TSOS.Control.hostBtnStartOS_click(this);"></li>
 
 
-      <input type="button"
+      <li><input type="button"
              id = "btnHaltOS"
              name="brnHaltOS"
              class="btn"
              disabled="disabled"
              value="Halt"
              tabindex="1"
-             onclick="TSOS.Control.hostBtnHaltOS_click(this);">
+             onclick="TSOS.Control.hostBtnHaltOS_click(this);"></li>
 
-      <input type="button"
+      <li><input type="button"
              id = "btnReset"
              name="brnReset"
              class="btn"
              disabled="disabled"
              value="Reset"
              tabindex="2"
-             onclick="TSOS.Control.hostBtnReset_click(this);">
+             onclick="TSOS.Control.hostBtnReset_click(this);"></li>
 
-        <input type="button"
+        <li><input type="button"
                name="stepModeOnOff"
                class="stepModeOff"
                id="btnStepOnOff"
                disabled="disabled"
                tabindex="3"
                value="Step Mode: Off"
-               onclick="TSOS.Control.hostBtnStepOn_click(this)">
+               onclick="TSOS.Control.hostBtnStepOn_click(this)"></li>
 
-    <input type="button"
+    <li><input type="button"
            id = "btnOneStep"
            name="btnOne"
            class="btn"
            disabled="disabled"
            value="Step"
            tabindex="4"
-           onclick="TSOS.Control.hostBtnOneStep_click(this);">
-    </div>
+           onclick="TSOS.Control.hostBtnOneStep_click(this);"></li></div>
+      </ul>
+    </nav>
 
     <div id="status"><div id = "statusBar"></div></div>
 
