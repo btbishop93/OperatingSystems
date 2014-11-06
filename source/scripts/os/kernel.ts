@@ -68,6 +68,8 @@ module TSOS {
         public krnShutdown() {
             this.krnTrace("begin shutdown OS");
             // TODO: Check for running processes.  Alert if there are some, alert and stop.  Else...
+            _CPU.isExecuting = false;
+            _MemoryManager.resetMem();
             // ... Disable the Interrupts.
             this.krnTrace("Disabling the interrupts.");
             this.krnDisableInterrupts();
@@ -195,7 +197,6 @@ module TSOS {
             _Canvas.getContext('2d').fillStyle = "white";
             _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
             //_StdOut.putText("Blue Screen of Death!");
-
 
             this.krnShutdown();
         }

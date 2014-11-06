@@ -384,6 +384,7 @@ var TSOS;
         Shell.prototype.shellRun = function (args) {
             if (_ResList[args] != null) {
                 _CurrentPid = args;
+                _ReadyQueue[0] = _ResList[args];
                 if (_StepModeOn == false) {
                     _CPU.isExecuting = true;
                 }
