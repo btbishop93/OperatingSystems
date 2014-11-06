@@ -351,9 +351,6 @@ var TSOS;
 
             textContent = textContent.replace(/\s+/g, '');
 
-            var first = 0;
-            var second = 1;
-
             var hexChars = /^[0-9A-F]+$/;
 
             var memLoad = textContent.length / 2;
@@ -361,17 +358,18 @@ var TSOS;
             if (hexChars.test(textContent)) {
                 var first = 0;
                 var second = 1;
-                _MemoryManager.resetMem();
 
-                for (var j = 0; j < memLoad; j++) {
+                for (var j = _Base; j < (_Base + memLoad); j++) {
                     _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
                     first += 2;
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                _ResList[_PidAssign] = new TSOS.Pcb(0, 255);
+                _ResList[_PidAssign] = new TSOS.Pcb(_Base, _Limit);
                 _StdOut.putText("Process ID: " + _PidAssign);
                 _PidAssign++;
+                _Base += 256;
+                _Limit += 256;
             } else
                 _StdOut.putText("The user program input is invalid.");
         };

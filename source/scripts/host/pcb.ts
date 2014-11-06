@@ -5,8 +5,8 @@ module TSOS {
 
     export class Pcb {
 
-        constructor(public start: number,
-                    public end: number,
+        constructor(public base: number,
+                    public limit: number,
                     public PC: number = 0,
                     public IR: string = "",
                     public ACC: number = 0,
