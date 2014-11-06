@@ -82,9 +82,9 @@ module TSOS {
         }
 
         public resetMem(){
-            for(var i = 0; i < 768; i++) {
-                this.Memory[i] = "00";
-            }
+                for(var i = 0; i < 767; i++) {
+                    this.Memory[i] = "00";
+                }
         }
     }
 }

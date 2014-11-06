@@ -78,7 +78,7 @@ var TSOS;
         };
 
         mem.prototype.resetMem = function () {
-            for (var i = 0; i < 768; i++) {
+            for (var i = 0; i < 767; i++) {
                 this.Memory[i] = "00";
             }
         };

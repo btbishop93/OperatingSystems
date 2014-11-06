@@ -358,7 +358,9 @@ var TSOS;
             if (hexChars.test(textContent)) {
                 var first = 0;
                 var second = 1;
-
+                for (var i = _Base; i <= _Limit; i++) {
+                    _MemoryManager.setMemLoc(i, "00");
+                }
                 for (var j = _Base; j < (_Base + memLoad); j++) {
                     _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
                     first += 2;
@@ -368,8 +370,13 @@ var TSOS;
                 _ResList[_PidAssign] = new TSOS.Pcb(_Base, _Limit);
                 _StdOut.putText("Process ID: " + _PidAssign);
                 _PidAssign++;
-                _Base += 256;
-                _Limit += 256;
+                if (_Limit >= 767) {
+                    _Base = 0;
+                    _Limit = 255;
+                } else {
+                    _Base += 256;
+                    _Limit += 256;
+                }
             } else
                 _StdOut.putText("The user program input is invalid.");
         };
@@ -385,7 +392,7 @@ var TSOS;
                 _StdOut.putText("The program you are trying to run is invalid.");
         };
 
-        Shell.prototype.shellClearmem = function (args) {
+        Shell.prototype.shellClearmem = function () {
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
         };
