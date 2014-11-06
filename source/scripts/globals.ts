@@ -63,6 +63,8 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 
 var _PidAssign: number = 0;
 
+var _Quantum: number;
+
 var _Base: number = 0;
 
 var _Limit: number = 255;

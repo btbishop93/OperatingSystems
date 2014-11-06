@@ -393,9 +393,39 @@ var TSOS;
                 _StdOut.putText("The program you are trying to run is invalid.");
         };
 
+        Shell.prototype.shellRunAll = function () {
+            for (var i = 0; i < _ResList.length; i++) {
+                var j = 0;
+                if (_ResList[i] != null) {
+                    _CurrentPid = i;
+                    _ReadyQueue[j++] = _ResList[i];
+                    if (_StepModeOn == false) {
+                        _CPU.isExecuting = true;
+                    }
+                    _HasRun = true;
+                } else
+                    _StdOut.putText("The program you are trying to run is invalid.");
+            }
+        };
+
         Shell.prototype.shellClearmem = function () {
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
+        };
+
+        Shell.prototype.shellQuantum = function (args) {
+            _Quantum = args;
+        };
+
+        Shell.prototype.shellKill = function () {
+        };
+
+        Shell.prototype.shellPs = function () {
+            var output = "PIDs: ";
+            for (var i = 0; i < _ReadyQueue.length; i++) {
+                output + _ReadyQueue[i];
+            }
+            _StdOut.putText(output);
         };
         return Shell;
     })();
