@@ -74,11 +74,15 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
 
             // load <string>
-            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- Check user input for hex");
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- Check user input for hex.");
             this.commandList[this.commandList.length] = sc;
 
             // run <string>
             sc = new TSOS.ShellCommand(this.shellRun, "run", "- Runs the loaded program with Process ID.");
+            this.commandList[this.commandList.length] = sc;
+
+            //clearmem <string>
+            sc = new TSOS.ShellCommand(this.shellClearmem, "clearmem", "- Clears all contents of memory.");
             this.commandList[this.commandList.length] = sc;
 
             // processes - list the running processes and their IDs
@@ -381,6 +385,11 @@ var TSOS;
                 _HasRun = true;
             } else
                 _StdOut.putText("The program you are trying to run is invalid.");
+        };
+
+        Shell.prototype.shellClearmem = function (args) {
+            _MemoryManager.resetMem();
+            _MemoryManager.updateMem();
         };
         return Shell;
     })();
