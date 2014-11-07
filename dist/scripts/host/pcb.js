@@ -4,7 +4,8 @@
 var TSOS;
 (function (TSOS) {
     var Pcb = (function () {
-        function Pcb(base, limit, PC, IR, ACC, X, Y, Z) {
+        function Pcb(base, limit, PID, PC, IR, ACC, X, Y, Z) {
+            if (typeof PID === "undefined") { PID = 0; }
             if (typeof PC === "undefined") { PC = 0; }
             if (typeof IR === "undefined") { IR = ""; }
             if (typeof ACC === "undefined") { ACC = 0; }
@@ -13,6 +14,7 @@ var TSOS;
             if (typeof Z === "undefined") { Z = 0; }
             this.base = base;
             this.limit = limit;
+            this.PID = PID;
             this.PC = PC;
             this.IR = IR;
             this.ACC = ACC;

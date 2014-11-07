@@ -63,7 +63,7 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 
 var _PidAssign: number = 0;
 
-var _Quantum: number;
+var _Quantum: number = 6;
 
 var _Base: number = 0;
 
@@ -71,9 +71,9 @@ var _Limit: number = 255;
 
 var _OneStepPressed: boolean = false;
 
-var _ResList: { [pid: number]: TSOS.Pcb; } = {};
+var _ResList: TSOS.Pcb[] = [];
 
-var _ReadyQueue: { [pid: number]: TSOS.Pcb; } = {};
+var _ReadyQueue: TSOS.Queue;
 
 var _CurrentPid: number = 0;
 

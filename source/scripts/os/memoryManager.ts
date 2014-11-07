@@ -15,7 +15,7 @@ module TSOS {
 
         public getMemLoc(loc){
             if(_CPU.isExecuting) {
-                var pcb = _ReadyQueue[0];
+                var pcb = _ReadyQueue.q[0];
                 if (loc >= pcb.base && loc <= pcb.limit) {
                     return _Memory.getMemLoc(loc);
                 }
@@ -27,8 +27,8 @@ module TSOS {
         public setMemLoc(loc, str){
             str = str.toUpperCase();
             if(_CPU.isExecuting) {
-                var pcb = _ReadyQueue[0];
-                if (loc > pcb.base && loc < pcb.limit) {
+                var pcb = _ReadyQueue.q[0];
+                if (loc >= pcb.base && loc <= pcb.limit) {
                     _Memory.setMemLoc(loc, str);
                 }
                 else _Kernel.krnTrapError("Error: Out of Memory!");

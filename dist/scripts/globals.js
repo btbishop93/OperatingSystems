@@ -53,7 +53,7 @@ var commandList = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man
 //
 var _PidAssign = 0;
 
-var _Quantum;
+var _Quantum = 6;
 
 var _Base = 0;
 
@@ -61,9 +61,9 @@ var _Limit = 255;
 
 var _OneStepPressed = false;
 
-var _ResList = {};
+var _ResList = [];
 
-var _ReadyQueue = {};
+var _ReadyQueue;
 
 var _CurrentPid = 0;
 

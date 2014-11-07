@@ -35,6 +35,7 @@ module TSOS {
 
             //Initialize memory manager
             _MemoryManager = new memoryManager();
+            _ReadyQueue = new TSOS.Queue();
 
             // Initialize standard input and output to the _Console.
             _StdIn  = _Console;

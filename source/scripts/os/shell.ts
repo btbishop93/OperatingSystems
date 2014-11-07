@@ -122,6 +122,20 @@ module TSOS {
                 "- Clears all contents of memory.");
             this.commandList[this.commandList.length] = sc;
 
+            //runall <string>
+            sc = new ShellCommand(this.shellRunAll, "runall",
+                    "- Runs all the programs loaded.");
+            this.commandList[this.commandList.length] = sc;
+
+            //ps <string>
+            sc = new ShellCommand(this.shellPs, "ps",
+                    "- Displays the current PIDs.");
+            this.commandList[this.commandList.length] = sc;
+
+            //quantum <string>
+            sc = new ShellCommand(this.shellQuantum, "quantum",
+                    "- Sets the quantum, measured in clock ticks");
+            this.commandList[this.commandList.length] = sc;
             // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -398,7 +412,7 @@ module TSOS {
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                _ResList[_PidAssign] = new Pcb(_Base, _Limit);
+                _ResList.push(new Pcb(_Base, _Limit, _PidAssign));
                 _StdOut.putText("Process ID: " + _PidAssign);
                 _PidAssign++;
                 if(_Limit >= 767){
@@ -418,7 +432,11 @@ module TSOS {
         public shellRun(args){
             if(_ResList[args] != null){
                 _CurrentPid = args;
-                _ReadyQueue[0] = _ResList[args];
+                for(var i = 0; i < _ResList.length; i++) {
+                    if(_ResList[i].PID == args){
+                        _ReadyQueue.enqueue(_ResList[i]);
+                    }
+                }
                 if(_StepModeOn == false) {
                     _CPU.isExecuting = true;
                 }
@@ -428,12 +446,10 @@ module TSOS {
 
         }
 
-        public shellRunAll(){
-            for(var i = 0; i < _ResList.length; i++) {
-                var j = 0;
-                if (_ResList[i] != null) {
-                    _CurrentPid = i;
-                    _ReadyQueue[j++] = _ResList[i];
+        public shellRunAll() {
+            for (var i = 0; i < _ResList.length; i++) {
+                _ReadyQueue.enqueue(_ResList[i]);
+                if (_ReadyQueue[i] != null) {
                     if (_StepModeOn == false) {
                         _CPU.isExecuting = true;
                     }
@@ -454,12 +470,12 @@ module TSOS {
         }
 
         public shellKill(){
-            
+
         }
 
         public shellPs(){
             var output = "PIDs: ";
-            for(var i = 0; i < _ReadyQueue.length; i++) {
+            for(var i = 0; i < _ReadyQueue.getSize(); i++) {
                 output + _ReadyQueue[i];
             }
             _StdOut.putText(output);
