@@ -413,7 +413,7 @@ var TSOS;
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
             }
-            if (_ReadyQueue[0] != null) {
+            if (_ReadyQueue.q[0] != null) {
                 if (_StepModeOn == false) {
                     _CPU.isExecuting = true;
                 }
