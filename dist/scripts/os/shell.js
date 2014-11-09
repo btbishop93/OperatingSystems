@@ -412,14 +412,14 @@ var TSOS;
         Shell.prototype.shellRunAll = function () {
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
-                if (_ReadyQueue[i] != null) {
-                    if (_StepModeOn == false) {
-                        _CPU.isExecuting = true;
-                    }
-                    _HasRun = true;
-                } else
-                    _StdOut.putText("The program you are trying to run is invalid.");
             }
+            if (_ReadyQueue[i] != null) {
+                if (_StepModeOn == false) {
+                    _CPU.isExecuting = true;
+                }
+                _HasRun = true;
+            } else
+                _StdOut.putText("The program you are trying to run is invalid.");
         };
 
         Shell.prototype.shellClearmem = function () {

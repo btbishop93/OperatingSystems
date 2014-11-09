@@ -449,6 +449,7 @@ module TSOS {
         public shellRunAll() {
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
+            }
                 if (_ReadyQueue[i] != null) {
                     if (_StepModeOn == false) {
                         _CPU.isExecuting = true;
@@ -456,8 +457,6 @@ module TSOS {
                     _HasRun = true;
                 }
                 else _StdOut.putText("The program you are trying to run is invalid.")
-            }
-
         }
 
         public shellClearmem(){
