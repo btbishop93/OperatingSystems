@@ -41,6 +41,13 @@ var TSOS;
                 var els = document.getElementById(matchID);
                 els.innerHTML = content;
             }
+            if (_QuantumCount >= 0) {
+                var tempPcb = _ReadyQueue.q[0];
+                _ReadyQueue.dequeue();
+                _ReadyQueue.enqueue(tempPcb);
+                _QuantumCount = 0;
+            }
+
             var Pcb = _ReadyQueue.q[0];
 
             replaceContentInContainer("pc-value", Pcb.PC);
@@ -205,6 +212,7 @@ var TSOS;
 
             this.PC = Pcb.PC;
             this.updateCPU();
+            _QuantumCount++;
         };
         return Cpu;
     })();

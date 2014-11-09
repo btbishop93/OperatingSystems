@@ -65,6 +65,8 @@ var _PidAssign: number = 0;
 
 var _Quantum: number = 6;
 
+var _QuantumCount: number = 0;
+
 var _Base: number = 0;
 
 var _Limit: number = 255;

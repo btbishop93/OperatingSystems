@@ -55,6 +55,8 @@ var _PidAssign = 0;
 
 var _Quantum = 6;
 
+var _QuantumCount = 0;
+
 var _Base = 0;
 
 var _Limit = 255;
