@@ -136,9 +136,11 @@ module TSOS {
             sc = new ShellCommand(this.shellQuantum, "quantum",
                     "- Sets the quantum, measured in clock ticks");
             this.commandList[this.commandList.length] = sc;
-            // processes - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
+            sc = new ShellCommand(this.shellKill, "kill",
+                    "- Kills the process based the PID provided");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -468,8 +470,16 @@ module TSOS {
             _Quantum = args;
         }
 
-        public shellKill(){
-            _QuantumCount = _Quantum;
+        public shellKill(args){
+            for(var i = 0; i < _ReadyQueue.getSize(); i++){
+                if(_ReadyQueue.q[i].PID == args){
+                    var pid = true;
+                }
+            }
+            if(pid == true) {
+                _QuantumCount = _Quantum;
+            }
+            else _StdOut.putText("The program you are trying to kill does not exist.");
         }
 
         public shellPs(){
