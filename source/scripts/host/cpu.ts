@@ -58,13 +58,15 @@ module TSOS {
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
 
-            if(_QuantumCount >= _Quantum){
-                var tempPcb = _ReadyQueue.q[0];
-                _ReadyQueue.dequeue();
-                _ReadyQueue.enqueue(tempPcb);
-                _QuantumCount = 0;
-                if(_pDone != true) {
-                    Control.hostLog("Scheduling new process", "OS");
+            if(_ReadyQueue.getSize() > 1){
+                if(_QuantumCount >= _Quantum){
+                    var tempPcb = _ReadyQueue.q[0];
+                    _ReadyQueue.dequeue();
+                    _ReadyQueue.enqueue(tempPcb);
+                    _QuantumCount = 0;
+                    if(_pDone != true) {
+                        Control.hostLog("Scheduling new process", "OS");
+                    }
                 }
             }
             // lookup pcb
@@ -214,6 +216,22 @@ module TSOS {
                 if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
                     _StepModeOn = false;
                 }
+            }
+            else{
+                this.init();
+                this.isExecuting = false;
+                _StdOut.advanceLine();
+                _StdOut.putText("Invalid instruction: " + opCode);
+                _StdOut.advanceLine();
+                _StdOut.putText(">");
+                Pcb.resetPcb();
+                this.updateCPU();
+                _CurrentPid = -1;
+                _HasRun = false;
+                if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
+                    _StepModeOn = false;
+                }
+
             }
 
             this.PC = Pcb.PC;

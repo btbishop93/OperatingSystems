@@ -19,7 +19,7 @@ module TSOS {
                 if (loc >= pcb.base && loc <= pcb.limit) {
                     return _Memory.getMemLoc(loc);
                 }
-                else _Kernel.krnTrapError("Error: Out of Memory!");
+                else _Kernel.krnTrapError("Out of memory");
             }
             else return _Memory.getMemLoc(loc);
         }
@@ -31,7 +31,7 @@ module TSOS {
                 if (loc >= pcb.base && loc <= pcb.limit) {
                     _Memory.setMemLoc(loc, str);
                 }
-                else _Kernel.krnTrapError("Error: Out of Memory!");
+                else _Kernel.krnTrapError("Out of memory");
             }
             else _Memory.setMemLoc(loc, str);
         }
