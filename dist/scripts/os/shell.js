@@ -437,7 +437,11 @@ var TSOS;
         Shell.prototype.shellPs = function () {
             var output = "PIDs: ";
             for (var i = 0; i < _ReadyQueue.getSize(); i++) {
-                output + _ReadyQueue.q[i].PID;
+                var pcb = _ReadyQueue.q[i];
+                output = output + pcb.PID;
+                if (i < _ReadyQueue.getSize() - 1) {
+                    output = output + ", ";
+                }
             }
             _StdOut.putText(output);
         };
