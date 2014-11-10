@@ -15,6 +15,7 @@ module TSOS {
 
             var memDiv = document.getElementById("memDisplay");
             var table = document.createElement('TABLE');
+            table.setAttribute('id', "table");
             var tableBody = document.createElement('TBODY');
             var row = 0;
             var rowStr = "";
