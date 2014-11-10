@@ -401,6 +401,7 @@ var TSOS;
                 for (var i = 0; i < _ResList.length; i++) {
                     if (_ResList[i].PID == args) {
                         _ReadyQueue.enqueue(_ResList[i]);
+                        _ReadyQueue.q[0].STATE = "Running";
                         _CPU.initiateProcess();
                     }
                 }
@@ -416,6 +417,7 @@ var TSOS;
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
             }
+            _ReadyQueue.q[0].STATE = "Running";
             _CPU.initiateProcess();
             if (_ReadyQueue.q[0] != null) {
                 if (_StepModeOn == false) {

@@ -13,7 +13,7 @@ var TSOS;
             if (typeof Y === "undefined") { Y = 0; }
             if (typeof Z === "undefined") { Z = 0; }
             if (typeof PRIORITY === "undefined") { PRIORITY = 0; }
-            if (typeof STATE === "undefined") { STATE = ""; }
+            if (typeof STATE === "undefined") { STATE = "Waiting"; }
             if (typeof LOC === "undefined") { LOC = "Memory"; }
             this.base = base;
             this.limit = limit;

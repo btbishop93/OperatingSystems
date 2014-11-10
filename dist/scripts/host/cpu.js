@@ -50,6 +50,25 @@ var TSOS;
             replaceContentInContainer("x-value", Pcb.X);
             replaceContentInContainer("y-value", Pcb.Y);
             replaceContentInContainer("z-value", Pcb.Z);
+
+            for (var i = 0; i < _ReadyQueue.getSize(); i++) {
+                var max = _ReadyQueue.getSize();
+                for (var z = 0; z < max; z++) {
+                    if (_ReadyQueue.q[i].PID == z) {
+                        console.log("testing update process");
+                        replaceContentInContainer("pid_value" + z, _ReadyQueue.q[i].PID);
+                        replaceContentInContainer("pc" + z, _ReadyQueue.q[i].PC);
+                        replaceContentInContainer("ir" + z, _ReadyQueue.q[i].IR);
+                        replaceContentInContainer("acc" + z, _ReadyQueue.q[i].ACC);
+                        replaceContentInContainer("xflag" + z, _ReadyQueue.q[i].X);
+                        replaceContentInContainer("yflag" + z, _ReadyQueue.q[i].Y);
+                        replaceContentInContainer("zflag" + z, _ReadyQueue.q[i].Z);
+                        replaceContentInContainer("priority" + z, _ReadyQueue.q[i].PRIORITY);
+                        replaceContentInContainer("state" + z, _ReadyQueue.q[i].STATE);
+                        replaceContentInContainer("loc" + z, _ReadyQueue.q[i].LOC);
+                    }
+                }
+            }
         };
 
         Cpu.prototype.initiateProcess = function () {

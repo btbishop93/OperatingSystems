@@ -15,7 +15,7 @@ module TSOS {
                     public Y: number = 0,
                     public Z: number = 0,
                     public PRIORITY: number = 0,
-                    public STATE: string = "",
+                    public STATE: string = "Waiting",
                     public LOC: string = "Memory") {
 
         }
