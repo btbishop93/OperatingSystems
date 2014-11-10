@@ -53,6 +53,20 @@ module TSOS {
             replaceContentInContainer("z-value", Pcb.Z);
         }
 
+        public resetCPU(){
+            function replaceContentInContainer(matchID, content) {
+                var els = document.getElementById(matchID);
+                els.innerHTML = content;
+            }
+
+            replaceContentInContainer("pc-value", 0);
+            replaceContentInContainer("ir-value", "0");
+            replaceContentInContainer("acc-value", 0);
+            replaceContentInContainer("x-value", 0);
+            replaceContentInContainer("y-value", 0);
+            replaceContentInContainer("z-value", 0);
+        }
+
         public cycle(): void {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
@@ -220,13 +234,13 @@ module TSOS {
             else{
                 this.init();
                 this.isExecuting = false;
+                _ReadyQueue.dequeue();
                 _StdOut.advanceLine();
                 _StdOut.putText("Invalid instruction: " + opCode);
                 _StdOut.advanceLine();
                 _StdOut.putText(">");
                 Pcb.resetPcb();
-                this.updateCPU();
-                _CurrentPid = -1;
+                this.resetCPU();
                 _HasRun = false;
                 if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
                     _StepModeOn = false;
