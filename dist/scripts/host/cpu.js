@@ -63,7 +63,7 @@ var TSOS;
                 _ReadyQueue.enqueue(tempPcb);
                 _QuantumCount = 0;
                 if (_pDone != true) {
-                    TSOS.Control.hostLog("Scheduling a new process, PID: " + _ReadyQueue.q[0].PID, "OS");
+                    TSOS.Control.hostLog("Scheduling new process", "OS");
                 }
             }
 
@@ -200,7 +200,6 @@ var TSOS;
                 if (document.getElementById('btnStepOnOff').className == "stepModeOff") {
                     _StepModeOn = false;
                 }
-                _pDone = true;
             }
 
             this.PC = Pcb.PC;

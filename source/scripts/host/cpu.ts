@@ -64,7 +64,7 @@ module TSOS {
                 _ReadyQueue.enqueue(tempPcb);
                 _QuantumCount = 0;
                 if(_pDone != true) {
-                    Control.hostLog("Scheduling a new process, PID: " + _ReadyQueue.q[0].PID, "OS");
+                    Control.hostLog("Scheduling new process", "OS");
                 }
             }
             // lookup pcb
@@ -214,7 +214,6 @@ module TSOS {
                 if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
                     _StepModeOn = false;
                 }
-                _pDone = true;
             }
 
             this.PC = Pcb.PC;
