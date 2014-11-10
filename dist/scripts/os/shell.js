@@ -427,10 +427,12 @@ var TSOS;
         Shell.prototype.shellClearmem = function () {
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
+            _StdOut.putText("Memory has been reset.");
         };
 
         Shell.prototype.shellQuantum = function (args) {
             _Quantum = args;
+            _StdOut.putText("The quantum value has been set to " + args + ".");
         };
 
         Shell.prototype.shellKill = function (args) {
@@ -442,8 +444,9 @@ var TSOS;
             }
             if (pid == true) {
                 _QuantumCount = _Quantum;
+                _StdOut.putText("Process PID: " + args + "has been killed.");
             } else
-                _StdOut.putText("The program you are trying to kill does not exist.");
+                _StdOut.putText("The program ID does not exist.");
         };
 
         Shell.prototype.shellPs = function () {

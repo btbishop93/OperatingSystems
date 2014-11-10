@@ -464,10 +464,12 @@ module TSOS {
         public shellClearmem(){
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
+            _StdOut.putText("Memory has been reset.");
         }
 
         public shellQuantum(args){
             _Quantum = args;
+            _StdOut.putText("The quantum value has been set to " + args + ".");
         }
 
         public shellKill(args){
@@ -479,8 +481,9 @@ module TSOS {
             }
             if(pid == true) {
                 _QuantumCount = _Quantum;
+                _StdOut.putText("Process PID: " + args + "has been killed.");
             }
-            else _StdOut.putText("The program you are trying to kill does not exist.");
+            else _StdOut.putText("The program ID does not exist.");
         }
 
         public shellPs(){
