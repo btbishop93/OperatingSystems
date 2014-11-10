@@ -432,6 +432,7 @@ var TSOS;
         };
 
         Shell.prototype.shellKill = function () {
+            _QuantumCount = _Quantum;
         };
 
         Shell.prototype.shellPs = function () {

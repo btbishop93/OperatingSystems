@@ -469,7 +469,7 @@ module TSOS {
         }
 
         public shellKill(){
-
+            _QuantumCount = _Quantum;
         }
 
         public shellPs(){
