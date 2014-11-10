@@ -481,7 +481,7 @@ module TSOS {
             }
             if(pid == true) {
                 _QuantumCount = _Quantum;
-                _StdOut.putText("Process PID: " + args + "has been killed.");
+                _StdOut.putText("Process PID: " + args + " has been killed.");
             }
             else _StdOut.putText("The program ID does not exist.");
         }

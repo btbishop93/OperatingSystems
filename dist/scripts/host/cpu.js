@@ -216,6 +216,11 @@ var TSOS;
                 if (document.getElementById('btnStepOnOff').className == "stepModeOff") {
                     _StepModeOn = false;
                 }
+                _ReadyQueue.dequeue();
+                if (_ReadyQueue.getSize() > 0) {
+                    this.isExecuting = true;
+                }
+                _QuantumCount = 0;
             } else {
                 this.init();
                 this.isExecuting = false;
