@@ -19,6 +19,8 @@ var TIMER_IRQ = 0;
 // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
 var KEYBOARD_IRQ = 1;
 
+var FF_IRQ = 2;
+
 var USER_LOC = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean", "Marist College", "Russia"];
 
 var BOND_JOKES = [

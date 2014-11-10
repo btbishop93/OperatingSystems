@@ -474,6 +474,7 @@ module TSOS {
             for(var i = 0; i < _ReadyQueue.getSize(); i++){
                 if(_ReadyQueue.q[i].PID == args){
                     var pid = true;
+                    _ReadyQueue.q.splice(i, 1);
                 }
             }
             if(pid == true) {
@@ -485,7 +486,7 @@ module TSOS {
         public shellPs(){
             var output = "PIDs: ";
             for(var i = 0; i < _ReadyQueue.getSize(); i++) {
-                var pcb = _ReadyQueue.q[i]
+                var pcb = _ReadyQueue.q[i];
                 output = output + pcb.PID;
                 if(i < _ReadyQueue.getSize() - 1){
                     output = output + ", ";

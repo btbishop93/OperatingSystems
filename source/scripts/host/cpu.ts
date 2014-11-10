@@ -42,12 +42,6 @@ module TSOS {
                 var els = document.getElementById(matchID);
                 els.innerHTML = content;
             }
-            if(_QuantumCount >= 0){
-                var tempPcb = _ReadyQueue.q[0];
-                _ReadyQueue.dequeue();
-                _ReadyQueue.enqueue(tempPcb);
-                _QuantumCount = 0;
-            }
 
             var Pcb = _ReadyQueue.q[0];
 
@@ -64,6 +58,13 @@ module TSOS {
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
 
+            if(_QuantumCount >= 0){
+                var tempPcb = _ReadyQueue.q[0];
+                _ReadyQueue.dequeue();
+                _ReadyQueue.enqueue(tempPcb);
+                _QuantumCount = 0;
+                Control.hostLog("Scheduling a new process, PID: " + _ReadyQueue.q[0].PID, "OS");
+            }
             // lookup pcb
             var Pcb = _ReadyQueue.q[0];
 
@@ -194,20 +195,7 @@ module TSOS {
                 _MemoryManager.updateMem();
             }
             else if(opCode == "FF"){
-                if(Pcb.X == 1){
-                    _StdOut.putText(Pcb.Y.toString());
-                }
-                else if (Pcb.X == 2){
-                    console.log("Y: " + Pcb.Y);
-                    while((_MemoryManager.getMemLoc(Pcb.base + Pcb.Y)) != "00"){
-                        console.log("Y2: " + Pcb.Y);
-                        var y = Pcb.Y;
-                        var hexStr = _MemoryManager.getMemLoc(Pcb.base + y);
-                        console.log("ystring: " + hexStr);
-                        _StdOut.putText(String.fromCharCode(parseInt(hexStr, 16)));
-                        Pcb.Y++;
-                    }
-                }
+                _KernelInterruptQueue.enqueue(new Interrupt(FF_IRQ, ""));
             }
             else if(opCode == "00"){
                 this.init();
