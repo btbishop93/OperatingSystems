@@ -127,10 +127,10 @@ module TSOS {
             document.getElementById("btnReset").disabled = false;
             document.getElementById("btnOneStep").disabled = false;
             document.getElementById("btnStepOnOff").disabled = false;
+            document.getElementById("status").style.visibility = "visible";
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
-
             // ... Create and initialize the CPU (because it's part of the hardware)  ...
             _CPU = new Cpu();
             _CPU.init();

@@ -28,7 +28,7 @@ module TSOS {
             _Console.init();
 
             setInterval(function(){
-                var status = "Date: " + new Date().toLocaleDateString() + "&emsp;" + "Time: " + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
+                var status = new Date().toLocaleDateString() + "&emsp;" + new Date().toLocaleTimeString() + "<br> Status: " + STATUS;
                 var statusBar = document.getElementById("statusBar");
                 statusBar.innerHTML = status;
             }, 1000);
