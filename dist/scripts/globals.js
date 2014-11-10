@@ -21,6 +21,8 @@ var KEYBOARD_IRQ = 1;
 
 var FF_IRQ = 2;
 
+var _pDone = false;
+
 var USER_LOC = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean", "Marist College", "Russia"];
 
 var BOND_JOKES = [

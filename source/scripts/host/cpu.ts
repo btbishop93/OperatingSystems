@@ -58,12 +58,14 @@ module TSOS {
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
 
-            if(_QuantumCount >= 0){
+            if(_QuantumCount >= _Quantum){
                 var tempPcb = _ReadyQueue.q[0];
                 _ReadyQueue.dequeue();
                 _ReadyQueue.enqueue(tempPcb);
                 _QuantumCount = 0;
-                Control.hostLog("Scheduling a new process, PID: " + _ReadyQueue.q[0].PID, "OS");
+                if(_pDone != true) {
+                    Control.hostLog("Scheduling a new process, PID: " + _ReadyQueue.q[0].PID, "OS");
+                }
             }
             // lookup pcb
             var Pcb = _ReadyQueue.q[0];
@@ -212,6 +214,7 @@ module TSOS {
                 if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
                     _StepModeOn = false;
                 }
+                _pDone = true;
             }
 
             this.PC = Pcb.PC;

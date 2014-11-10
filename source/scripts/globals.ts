@@ -23,6 +23,8 @@ var KEYBOARD_IRQ: number = 1;
 
 var FF_IRQ: number = 2;
 
+var _pDone: boolean = false;
+
 var USER_LOC: string[] = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean" , "Marist College", "Russia"];
 
 var BOND_JOKES: string [] = [
