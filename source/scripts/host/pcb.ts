@@ -13,7 +13,10 @@ module TSOS {
                     public ACC: number = 0,
                     public X: number = 0,
                     public Y: number = 0,
-                    public Z: number = 0) {
+                    public Z: number = 0,
+                    public PRIORITY: number = 0,
+                    public STATE: string = "",
+                    public LOC: string = "Memory") {
 
         }
 

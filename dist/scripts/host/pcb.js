@@ -4,7 +4,7 @@
 var TSOS;
 (function (TSOS) {
     var Pcb = (function () {
-        function Pcb(base, limit, PID, PC, IR, ACC, X, Y, Z) {
+        function Pcb(base, limit, PID, PC, IR, ACC, X, Y, Z, PRIORITY, STATE, LOC) {
             if (typeof PID === "undefined") { PID = 0; }
             if (typeof PC === "undefined") { PC = 0; }
             if (typeof IR === "undefined") { IR = ""; }
@@ -12,6 +12,9 @@ var TSOS;
             if (typeof X === "undefined") { X = 0; }
             if (typeof Y === "undefined") { Y = 0; }
             if (typeof Z === "undefined") { Z = 0; }
+            if (typeof PRIORITY === "undefined") { PRIORITY = 0; }
+            if (typeof STATE === "undefined") { STATE = ""; }
+            if (typeof LOC === "undefined") { LOC = "Memory"; }
             this.base = base;
             this.limit = limit;
             this.PID = PID;
@@ -21,6 +24,9 @@ var TSOS;
             this.X = X;
             this.Y = Y;
             this.Z = Z;
+            this.PRIORITY = PRIORITY;
+            this.STATE = STATE;
+            this.LOC = LOC;
         }
         Pcb.prototype.resetPcb = function () {
             this.PC = 0;

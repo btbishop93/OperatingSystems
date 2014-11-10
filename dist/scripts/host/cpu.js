@@ -52,6 +52,77 @@ var TSOS;
             replaceContentInContainer("z-value", Pcb.Z);
         };
 
+        Cpu.prototype.initiateProcess = function () {
+            var table = document.getElementById('procTable');
+            var tableBody = document.createElement('TBODY');
+            for (var j = 0; j < _ReadyQueue.getSize(); j++) {
+                var tr = document.createElement('tr');
+                var pid = document.createTextNode(_ReadyQueue.q[j].PID);
+                var td1 = document.createElement('td');
+                td1.setAttribute('id', "pid_value" + j);
+
+                var pc = document.createTextNode(_ReadyQueue.q[j].PC);
+                var td2 = document.createElement('td');
+                td2.setAttribute('id', "pc" + j);
+
+                var ir = document.createTextNode(_ReadyQueue.q[j].IR);
+                var td3 = document.createElement('td');
+                td3.setAttribute('id', "ir" + j);
+                td3.style.color = "lightgreen";
+
+                var acc = document.createTextNode(_ReadyQueue.q[j].ACC);
+                var td4 = document.createElement('td');
+                td4.setAttribute('id', "acc" + j);
+
+                var xflag = document.createTextNode(_ReadyQueue.q[j].X);
+                var td5 = document.createElement('td');
+                td5.setAttribute('id', "xflag" + j);
+
+                var yflag = document.createTextNode(_ReadyQueue.q[j].Y);
+                var td6 = document.createElement('td');
+                td6.setAttribute('id', "yflag" + j);
+
+                var zflag = document.createTextNode(_ReadyQueue.q[j].Z);
+                var td7 = document.createElement('td');
+                td7.setAttribute('id', "zflag" + j);
+
+                var priority = document.createTextNode(_ReadyQueue.q[j].PRIORITY);
+                var td8 = document.createElement('td');
+                td8.setAttribute('id', "priority" + j);
+
+                var state = document.createTextNode(_ReadyQueue.q[j].STATE);
+                var td9 = document.createElement('td');
+                td9.setAttribute('id', "state" + j);
+
+                var loc = document.createTextNode(_ReadyQueue.q[j].LOC);
+                var td10 = document.createElement('td');
+                td10.setAttribute('id', "loc" + j);
+
+                td1.appendChild(pid);
+                tr.appendChild(td1);
+                td2.appendChild(pc);
+                tr.appendChild(td2);
+                td3.appendChild(ir);
+                tr.appendChild(td3);
+                td4.appendChild(acc);
+                tr.appendChild(td4);
+                td5.appendChild(xflag);
+                tr.appendChild(td5);
+                td6.appendChild(yflag);
+                tr.appendChild(td6);
+                td7.appendChild(zflag);
+                tr.appendChild(td7);
+                td8.appendChild(priority);
+                tr.appendChild(td8);
+                td9.appendChild(state);
+                tr.appendChild(td9);
+                td10.appendChild(loc);
+                tr.appendChild(td10);
+                tableBody.appendChild(tr);
+            }
+            table.appendChild(tableBody);
+        };
+
         Cpu.prototype.resetCPU = function () {
             function replaceContentInContainer(matchID, content) {
                 var els = document.getElementById(matchID);
@@ -74,7 +145,9 @@ var TSOS;
             if (_ReadyQueue.getSize() > 1) {
                 if (_QuantumCount >= _Quantum) {
                     var tempPcb = _ReadyQueue.q[0];
+                    _ReadyQueue.q[0].STATE = "Waiting";
                     _ReadyQueue.dequeue();
+                    _ReadyQueue.q[0].STATE = "Running";
                     _ReadyQueue.enqueue(tempPcb);
                     _QuantumCount = 0;
                     if (_pDone != true) {
@@ -204,13 +277,17 @@ var TSOS;
                 _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FF_IRQ, ""));
             } else if (opCode == "00") {
                 this.init();
+
+                /*_StdOut.advanceLine();
+                _StdOut.putText("PC: " + Pcb.PC.toString() + ", IR: " + Pcb.IR + ", ACC: " + Pcb.ACC.toString() + ", X: "
+                + Pcb.X.toString() + ", Y: " + Pcb.Y.toString() + ", Z: " + Pcb.Z.toString());*/
+                if (_ReadyQueue.getSize() < 2) {
+                    _StdOut.advanceLine();
+                    _StdOut.putText(">");
+                    Pcb.resetPcb();
+                    this.updateCPU();
+                }
                 this.isExecuting = false;
-                _StdOut.advanceLine();
-                _StdOut.putText("PC: " + Pcb.PC.toString() + ", IR: " + Pcb.IR + ", ACC: " + Pcb.ACC.toString() + ", X: " + Pcb.X.toString() + ", Y: " + Pcb.Y.toString() + ", Z: " + Pcb.Z.toString());
-                _StdOut.advanceLine();
-                _StdOut.putText(">");
-                Pcb.resetPcb();
-                this.updateCPU();
                 _CurrentPid = -1;
                 _HasRun = false;
                 if (document.getElementById('btnStepOnOff').className == "stepModeOff") {
