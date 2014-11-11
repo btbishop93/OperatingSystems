@@ -438,7 +438,9 @@ var TSOS;
                 }
             } else {
                 for (var i = 0; i < 3; i++) {
-                    _ReadyQueue.enqueue(_ResList[i]);
+                    if (i < _ResList.length) {
+                        _ReadyQueue.enqueue(_ResList[i]);
+                    }
                 }
             }
             _ReadyQueue.q[0].STATE = "Running";
