@@ -351,7 +351,7 @@ module TSOS {
 
         public shellDate(args) {
             var date = new Date();
-            _StdOut.putText("Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
+            _StdOut.putText(" Date: " + date.toLocaleDateString() + " " + date.toLocaleTimeString());
             _CommandArr.push("date");
         }
 
@@ -360,7 +360,7 @@ module TSOS {
             var rand = Math.floor(Math.random() * loc.length);
             var myLoc = loc[rand];
 
-            _StdOut.putText("Location: " + myLoc);
+            _StdOut.putText(" Location: " + myLoc);
             _CommandArr.push("whereami");
         }
 
@@ -369,13 +369,13 @@ module TSOS {
             var rand = Math.floor(Math.random() * loc.length);
             var joke = loc[rand];
 
-            _StdOut.putText(joke);
+            _StdOut.putText(" " + joke);
             _CommandArr.push("bondjokes");
         }
 
         public shellStatus(args) {
             STATUS = args;
-            _StdOut.putText("Status: " + args);
+            _StdOut.putText(" Status: " + args);
             _CommandArr.push("status");
         }
 
@@ -417,7 +417,8 @@ module TSOS {
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                _ResList.push(new Pcb(_Base, _Limit, _PidAssign));
+                _ResList.unshift(new Pcb(_Base, _Limit, _PidAssign));
+                _MemoryManager.updateMem();
                 _StdOut.putText("Process ID: " + _PidAssign);
                 _PidAssign++;
                 if(_Limit >= 767){
@@ -428,35 +429,40 @@ module TSOS {
                     _Base += 256;
                     _Limit += 256;
                 }
-
             }
-            else _StdOut.putText("The user program input is invalid.");
+            else _StdOut.putText(" The user program input is invalid.");
 
         }
 
         public shellRun(args){
             _CommandArr.push("run");
-            if(_ResList[args] != null){
-                _CurrentPid = args;
-                for(var i = 0; i < _ResList.length; i++) {
-                    if(_ResList[i].PID == args){
-                        _ReadyQueue.enqueue(_ResList[i]);
-                        _ReadyQueue.q[0].STATE = "Running";
-                        _CPU.initiateProcess();
+            for(var j = 0; j < _ResList.length; j++) {
+                if (_ResList[j].PID == args) {
+                    _CurrentPid = args;
+                    for (var i = 0; i < _ResList.length; i++) {
+                        if (_ResList[i].PID == args) {
+                            _ReadyQueue.enqueue(_ResList[i]);
+                            _ReadyQueue.q[0].STATE = "Running";
+                            _CPU.initiateProcess();
+                        }
                     }
+                    if (_StepModeOn == false) {
+                        _CPU.isExecuting = true;
+                    }
+                    _HasRun = true;
+                    return;
                 }
-                if(_StepModeOn == false) {
-                    _CPU.isExecuting = true;
-                }
-                _HasRun = true;
             }
-            else _StdOut.putText("The program you are trying to run is invalid.")
-
+            for(var z = 0; z < _ResList.length; z++){
+                if(_ResList[z].PID != args){
+                    _StdOut.putText(" The program you are trying to run is invalid.");
+                }
+            }
         }
 
         public shellRunAll() {
             _CommandArr.push("runall");
-            for (var i = 0; i < _ResList.length; i++) {
+            for (var i = 0; i < 3; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
             }
             _ReadyQueue.q[0].STATE = "Running";
@@ -467,20 +473,20 @@ module TSOS {
                     }
                     _HasRun = true;
                 }
-                else _StdOut.putText("The program you are trying to run is invalid.")
+                else _StdOut.putText(" The program you are trying to run is invalid.")
         }
 
         public shellClearmem(){
             _CommandArr.push("clearmem");
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
-            _StdOut.putText("Memory has been reset.");
+            _StdOut.putText(" Memory has been cleared.");
         }
 
         public shellQuantum(args){
             _CommandArr.push("quantum");
             _Quantum = args;
-            _StdOut.putText("The quantum value has been set to " + args + ".");
+            _StdOut.putText(" The quantum value has been set to " + args + ".");
         }
 
         public shellKill(args){
@@ -495,14 +501,18 @@ module TSOS {
             }
             if(pid == true) {
                 _QuantumCount = _Quantum;
-                _StdOut.putText("Process PID: " + args + " has been killed.");
+                if(_ReadyQueue.getSize() < 1){
+                    _CPU.isExecuting = false;
+                    _CPU.resetCPU();
+                }
+                _StdOut.putText(" Process PID: " + args + " has been killed.");
             }
-            else _StdOut.putText("The program ID does not exist.");
+            else _StdOut.putText(" The program ID does not exist.");
         }
 
         public shellPs(){
             _CommandArr.push("ps");
-            var output = "PIDs: ";
+            var output = " PIDs: ";
             for(var i = 0; i < _ReadyQueue.getSize(); i++) {
                 var pcb = _ReadyQueue.q[i];
                 output = output + pcb.PID;
