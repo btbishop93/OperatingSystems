@@ -9,7 +9,7 @@ module TSOS {
                     public limit: number,
                     public PID: number = 0,
                     public PC: number = 0,
-                    public IR: string = "",
+                    public IR: string = "0",
                     public ACC: number = 0,
                     public X: number = 0,
                     public Y: number = 0,
@@ -27,6 +27,9 @@ module TSOS {
             this.X = 0;
             this.Y = 0;
             this.Z = 0;
+            this.PRIORITY = 0;
+            this.STATE = "";
+            this.LOC = "";
         }
 
     }

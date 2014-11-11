@@ -59,7 +59,8 @@ var _CommandToggle: number = 0;
 
 var _CurrentMsg: string = "";
 
-var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod"];
+var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod", "kill", "ps",
+    "runall", "quantum", "clearmem", "run", "load"];
 
 //
 // Global Variables

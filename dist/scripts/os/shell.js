@@ -357,11 +357,14 @@ var TSOS;
             _Canvas.getContext('2d').fillStyle = "white";
             _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
             _Kernel.krnShutdown();
+            _CommandArr.push("bsod");
         };
 
         Shell.prototype.shellLoad = function (args) {
             var textarea = document.getElementById("taProgramInput");
             var textContent = textarea.value.toString();
+
+            _CommandArr.push("load");
 
             textContent = textContent.replace(/\s+/g, '');
 
@@ -396,6 +399,7 @@ var TSOS;
         };
 
         Shell.prototype.shellRun = function (args) {
+            _CommandArr.push("run");
             if (_ResList[args] != null) {
                 _CurrentPid = args;
                 for (var i = 0; i < _ResList.length; i++) {
@@ -414,6 +418,7 @@ var TSOS;
         };
 
         Shell.prototype.shellRunAll = function () {
+            _CommandArr.push("runall");
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
             }
@@ -429,20 +434,25 @@ var TSOS;
         };
 
         Shell.prototype.shellClearmem = function () {
+            _CommandArr.push("clearmem");
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
             _StdOut.putText("Memory has been reset.");
         };
 
         Shell.prototype.shellQuantum = function (args) {
+            _CommandArr.push("quantum");
             _Quantum = args;
             _StdOut.putText("The quantum value has been set to " + args + ".");
         };
 
         Shell.prototype.shellKill = function (args) {
+            _CommandArr.push("kill");
             for (var i = 0; i < _ReadyQueue.getSize(); i++) {
                 if (_ReadyQueue.q[i].PID == args) {
                     var pid = true;
+                    var row = document.getElementById("pid" + _ReadyQueue.q[i].PID);
+                    row.parentNode.removeChild(row);
                     _ReadyQueue.q.splice(i, 1);
                 }
             }
@@ -454,6 +464,7 @@ var TSOS;
         };
 
         Shell.prototype.shellPs = function () {
+            _CommandArr.push("ps");
             var output = "PIDs: ";
             for (var i = 0; i < _ReadyQueue.getSize(); i++) {
                 var pcb = _ReadyQueue.q[i];

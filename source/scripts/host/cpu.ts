@@ -43,30 +43,31 @@ module TSOS {
                 els.innerHTML = content;
             }
 
-            var Pcb = _ReadyQueue.q[0];
+            if(_ReadyQueue.getSize() > 0) {
+                var Pcb = _ReadyQueue.q[0];
 
-            replaceContentInContainer("pc-value", Pcb.PC);
-            replaceContentInContainer("ir-value", Pcb.IR);
-            replaceContentInContainer("acc-value", Pcb.ACC);
-            replaceContentInContainer("x-value", Pcb.X);
-            replaceContentInContainer("y-value", Pcb.Y);
-            replaceContentInContainer("z-value", Pcb.Z);
+                replaceContentInContainer("pc-value", Pcb.PC);
+                replaceContentInContainer("ir-value", Pcb.IR);
+                replaceContentInContainer("acc-value", Pcb.ACC);
+                replaceContentInContainer("x-value", Pcb.X);
+                replaceContentInContainer("y-value", Pcb.Y);
+                replaceContentInContainer("z-value", Pcb.Z);
 
-            for(var i = 0; i < _ReadyQueue.getSize(); i++){
-                var max = _ReadyQueue.getSize();
-                for(var z = 0; z < max; z++) {
-                    if (_ReadyQueue.q[i].PID == z) {
-                        console.log("testing update process");
-                        replaceContentInContainer("pid_value" + z, _ReadyQueue.q[i].PID);
-                        replaceContentInContainer("pc" + z, _ReadyQueue.q[i].PC);
-                        replaceContentInContainer("ir" + z, _ReadyQueue.q[i].IR);
-                        replaceContentInContainer("acc" + z, _ReadyQueue.q[i].ACC);
-                        replaceContentInContainer("xflag" + z, _ReadyQueue.q[i].X);
-                        replaceContentInContainer("yflag" + z, _ReadyQueue.q[i].Y);
-                        replaceContentInContainer("zflag" + z, _ReadyQueue.q[i].Z);
-                        replaceContentInContainer("priority" + z, _ReadyQueue.q[i].PRIORITY);
-                        replaceContentInContainer("state" + z, _ReadyQueue.q[i].STATE);
-                        replaceContentInContainer("loc" + z, _ReadyQueue.q[i].LOC);
+                for (var j = 0; j < _ReadyQueue.getSize(); j++) {
+                    var Pcb2 = _ReadyQueue.q[j];
+                    for (var i = 0; i < _ResList.length; i++) {
+                        if (Pcb2.PID == i) {
+                            replaceContentInContainer("pid_value" + i, Pcb2.PID);
+                            replaceContentInContainer("pc" + i, Pcb2.PC);
+                            replaceContentInContainer("ir" + i, Pcb2.IR);
+                            replaceContentInContainer("acc" + i, Pcb2.ACC);
+                            replaceContentInContainer("xflag" + i, Pcb2.X);
+                            replaceContentInContainer("yflag" + i, Pcb2.Y);
+                            replaceContentInContainer("zflag" + i, Pcb2.Z);
+                            replaceContentInContainer("priority" + i, Pcb2.PRIORITY);
+                            replaceContentInContainer("state" + i, Pcb2.STATE);
+                            replaceContentInContainer("loc" + i, Pcb2.LOC);
+                        }
                     }
                 }
             }
@@ -76,46 +77,48 @@ module TSOS {
         public initiateProcess(){
             var table = document.getElementById('procTable');
             var tableBody = document.createElement('TBODY');
-            for(var j = 0; j < _ReadyQueue.getSize(); j++) {
+            for(var i = 0; i < _ReadyQueue.getSize(); i++) {
+                var j = _ReadyQueue.q[i].PID;
                 var tr = document.createElement('tr');
-                var pid = document.createTextNode(_ReadyQueue.q[j].PID);
+                tr.setAttribute('id', "pid" + j);
+                var pid = document.createTextNode(_ReadyQueue.q[i].PID);
                 var td1 = document.createElement('td');
                 td1.setAttribute('id', "pid_value" + j);
 
-                var pc = document.createTextNode(_ReadyQueue.q[j].PC);
+                var pc = document.createTextNode(_ReadyQueue.q[i].PC);
                 var td2 = document.createElement('td');
                 td2.setAttribute('id', "pc" + j);
 
-                var ir = document.createTextNode(_ReadyQueue.q[j].IR);
+                var ir = document.createTextNode(_ReadyQueue.q[i].IR);
                 var td3 = document.createElement('td');
                 td3.setAttribute('id', "ir" + j);
                 td3.style.color = "lightgreen";
 
-                var acc = document.createTextNode(_ReadyQueue.q[j].ACC);
+                var acc = document.createTextNode(_ReadyQueue.q[i].ACC);
                 var td4 = document.createElement('td');
                 td4.setAttribute('id', "acc" + j);
 
-                var xflag = document.createTextNode(_ReadyQueue.q[j].X);
+                var xflag = document.createTextNode(_ReadyQueue.q[i].X);
                 var td5 = document.createElement('td');
                 td5.setAttribute('id', "xflag" + j);
 
-                var yflag = document.createTextNode(_ReadyQueue.q[j].Y);
+                var yflag = document.createTextNode(_ReadyQueue.q[i].Y);
                 var td6 = document.createElement('td');
                 td6.setAttribute('id', "yflag" + j);
 
-                var zflag = document.createTextNode(_ReadyQueue.q[j].Z);
+                var zflag = document.createTextNode(_ReadyQueue.q[i].Z);
                 var td7 = document.createElement('td');
                 td7.setAttribute('id', "zflag" + j);
 
-                var priority = document.createTextNode(_ReadyQueue.q[j].PRIORITY);
+                var priority = document.createTextNode(_ReadyQueue.q[i].PRIORITY);
                 var td8 = document.createElement('td');
                 td8.setAttribute('id', "priority" + j);
 
-                var state = document.createTextNode(_ReadyQueue.q[j].STATE);
+                var state = document.createTextNode(_ReadyQueue.q[i].STATE);
                 var td9 = document.createElement('td');
                 td9.setAttribute('id', "state" + j);
 
-                var loc = document.createTextNode(_ReadyQueue.q[j].LOC);
+                var loc = document.createTextNode(_ReadyQueue.q[i].LOC);
                 var td10 = document.createElement('td');
                 td10.setAttribute('id', "loc" + j);
 
@@ -201,6 +204,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = parseInt(value, 16);
                 this.Acc = parseInt(value, 16);
+                _QuantumCount++;
             }
             else if(opCode == "AD"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -210,6 +214,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 this.Acc = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
+                _QuantumCount++;
             }
             else if(opCode == "8D"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -219,6 +224,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 _MemoryManager.setMemLoc(Pcb.base + parseInt(value, 16), Pcb.ACC.toString(16));
                 _MemoryManager.updateMem();
+                _QuantumCount++;
             }
             else if(opCode == "6D"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -228,6 +234,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = Pcb.ACC + parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 this.Acc = this.Acc + parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
+                _QuantumCount++;
             }
             else if(opCode == "A2"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -235,6 +242,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.X = parseInt(value, 16);
                 this.Xreg = parseInt(value, 16);
+                _QuantumCount++;
             }
             else if(opCode == "AE"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -245,6 +253,7 @@ module TSOS {
                 var byte = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 Pcb.X = byte;
                 this.Xreg = byte;
+                _QuantumCount++;
             }
             else if(opCode == "A0"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -252,6 +261,7 @@ module TSOS {
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.Y = parseInt(value, 16);
                 this.Yreg = parseInt(value, 16);
+                _QuantumCount++;
             }
             else if(opCode == "AC"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -262,9 +272,11 @@ module TSOS {
                 var byte = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 Pcb.Y = byte;
                 this.Yreg = byte;
+                _QuantumCount++;
             }
             else if(opCode == "EA"){
                 Pcb.PC++;
+                _QuantumCount++;
             }
             else if(opCode == "EC"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -281,17 +293,17 @@ module TSOS {
                     Pcb.Z = 0;
                     this.Zflag = 0;
                 }
+                _QuantumCount++;
             }
             else if(opCode == "D0"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
-                console.log(hexLoc);
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 var branch = (Pcb.PC + parseInt(value, 16)) % 256;
-                console.log(branch);
                 if(Pcb.Z == 0){
                     Pcb.PC = branch;
                 }
+                _QuantumCount++;
             }
             else if(opCode == "EE"){
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
@@ -304,9 +316,11 @@ module TSOS {
                 byte++;
                 _MemoryManager.setMemLoc(Pcb.base + parseInt(value, 16), byte.toString(16));
                 _MemoryManager.updateMem();
+                _QuantumCount++;
             }
             else if(opCode == "FF"){
                 _KernelInterruptQueue.enqueue(new Interrupt(FF_IRQ, ""));
+                _QuantumCount++;
             }
             else if(opCode == "00"){
                 this.init();
@@ -316,8 +330,7 @@ module TSOS {
                 if(_ReadyQueue.getSize() < 2){
                     _StdOut.advanceLine();
                     _StdOut.putText(">");
-                    Pcb.resetPcb();
-                    this.updateCPU();
+                    this.resetCPU();
                 }
                 this.isExecuting = false;
                 _CurrentPid = -1;
@@ -325,9 +338,12 @@ module TSOS {
                 if(document.getElementById('btnStepOnOff').className == "stepModeOff"){
                     _StepModeOn = false;
                 }
+                var row = document.getElementById("pid" + _ReadyQueue.q[0].PID);
+                row.parentNode.removeChild(row);
                 _ReadyQueue.dequeue();
                 if(_ReadyQueue.getSize() > 0){
                     this.isExecuting = true;
+                    _HasRun = true;
                 }
                 _QuantumCount = 0;
             }
@@ -350,7 +366,6 @@ module TSOS {
 
             this.PC = Pcb.PC;
             this.updateCPU();
-            _QuantumCount++;
         }
     }
 }

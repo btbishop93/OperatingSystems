@@ -103,26 +103,28 @@ var TSOS;
 
         Console.prototype.upDownComplete = function (key) {
             if (key == 38) {
-                if (_CommandArr.length > 0) {
+                if (_CommandArr.length + _CommandToggle > 0) {
                     _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize, _Canvas.width, _Canvas.height);
                     this.currentXPosition = 0;
                     this.buffer = "";
                     _StdOut.putText(this.promptStr);
                     if ((_CommandArr.length + _CommandToggle) > 0) {
-                        _CommandToggle += -1;
+                        _CommandToggle--;
                         _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
                         this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
                     }
                 }
-            } else if (_CommandArr.length > 0) {
-                if (_CommandToggle < -1) {
-                    _CommandToggle += 1;
-                    _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize, _Canvas.width, _Canvas.height);
-                    this.currentXPosition = 0;
-                    this.buffer = "";
-                    _StdOut.putText(this.promptStr);
-                    _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
-                    this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+            } else if (key == 40) {
+                if (_CommandArr.length > 0) {
+                    if (_CommandToggle < -1) {
+                        _CommandToggle += 1;
+                        _DrawingContext.clearRect(0, this.currentYPosition - this.currentFontSize, _Canvas.width, _Canvas.height);
+                        this.currentXPosition = 0;
+                        this.buffer = "";
+                        _StdOut.putText(this.promptStr);
+                        _StdOut.putText(_CommandArr[_CommandArr.length + _CommandToggle]);
+                        this.buffer += _CommandArr[_CommandArr.length + _CommandToggle];
+                    }
                 }
             }
         };

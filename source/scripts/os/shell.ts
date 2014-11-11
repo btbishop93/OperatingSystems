@@ -390,11 +390,14 @@ module TSOS {
             _Canvas.getContext('2d').fillStyle = "white";
             _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
             _Kernel.krnShutdown();
+            _CommandArr.push("bsod");
         }
 
         public shellLoad(args) {
             var textarea = <HTMLInputElement> document.getElementById("taProgramInput");
             var textContent = textarea.value.toString();
+
+            _CommandArr.push("load");
 
             textContent = textContent.replace(/\s+/g, '');
 
@@ -432,6 +435,7 @@ module TSOS {
         }
 
         public shellRun(args){
+            _CommandArr.push("run");
             if(_ResList[args] != null){
                 _CurrentPid = args;
                 for(var i = 0; i < _ResList.length; i++) {
@@ -451,6 +455,7 @@ module TSOS {
         }
 
         public shellRunAll() {
+            _CommandArr.push("runall");
             for (var i = 0; i < _ResList.length; i++) {
                 _ReadyQueue.enqueue(_ResList[i]);
             }
@@ -466,20 +471,25 @@ module TSOS {
         }
 
         public shellClearmem(){
+            _CommandArr.push("clearmem");
             _MemoryManager.resetMem();
             _MemoryManager.updateMem();
             _StdOut.putText("Memory has been reset.");
         }
 
         public shellQuantum(args){
+            _CommandArr.push("quantum");
             _Quantum = args;
             _StdOut.putText("The quantum value has been set to " + args + ".");
         }
 
         public shellKill(args){
+            _CommandArr.push("kill");
             for(var i = 0; i < _ReadyQueue.getSize(); i++){
                 if(_ReadyQueue.q[i].PID == args){
                     var pid = true;
+                    var row = document.getElementById("pid" + _ReadyQueue.q[i].PID);
+                    row.parentNode.removeChild(row);
                     _ReadyQueue.q.splice(i, 1);
                 }
             }
@@ -491,6 +501,7 @@ module TSOS {
         }
 
         public shellPs(){
+            _CommandArr.push("ps");
             var output = "PIDs: ";
             for(var i = 0; i < _ReadyQueue.getSize(); i++) {
                 var pcb = _ReadyQueue.q[i];

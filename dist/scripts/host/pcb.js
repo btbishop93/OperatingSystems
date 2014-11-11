@@ -7,7 +7,7 @@ var TSOS;
         function Pcb(base, limit, PID, PC, IR, ACC, X, Y, Z, PRIORITY, STATE, LOC) {
             if (typeof PID === "undefined") { PID = 0; }
             if (typeof PC === "undefined") { PC = 0; }
-            if (typeof IR === "undefined") { IR = ""; }
+            if (typeof IR === "undefined") { IR = "0"; }
             if (typeof ACC === "undefined") { ACC = 0; }
             if (typeof X === "undefined") { X = 0; }
             if (typeof Y === "undefined") { Y = 0; }
@@ -35,6 +35,9 @@ var TSOS;
             this.X = 0;
             this.Y = 0;
             this.Z = 0;
+            this.PRIORITY = 0;
+            this.STATE = "";
+            this.LOC = "";
         };
         return Pcb;
     })();
