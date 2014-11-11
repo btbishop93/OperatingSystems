@@ -384,7 +384,7 @@ var TSOS;
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                if (_ResList.length > 1) {
+                if (_ResList.length > 0) {
                     _ResList.unshift(new TSOS.Pcb(_Base, _Limit, _PidAssign));
                 } else {
                     _ResList.push(new TSOS.Pcb(_Base, _Limit, _PidAssign));
@@ -393,7 +393,7 @@ var TSOS;
                 _StdOut.putText(" Process ID: " + _PidAssign);
                 _PidAssign++;
                 if (_Limit >= 767) {
-                    _StdOut.putText(" Warning: Memory is full, the three most recent programs will be loaded. Please clear memory " + "now if this is not your intention.");
+                    _StdOut.putText(" Warning: Memory is full, the next load will fill first block of memory and the 3 most recent programs will be loaded. Please clear memory " + "now if this is not your intention.");
                     _Base = 0;
                     _Limit = 255;
                 } else {
