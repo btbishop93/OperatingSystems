@@ -417,11 +417,18 @@ module TSOS {
                     second += 2;
                 }
                 _MemoryManager.updateMem();
-                _ResList.unshift(new Pcb(_Base, _Limit, _PidAssign));
+                if(_ResList.length > 1){
+                    _ResList.unshift(new Pcb(_Base, _Limit, _PidAssign));
+                }
+                else {
+                    _ResList.push(new Pcb(_Base, _Limit, _PidAssign));
+                }
                 _MemoryManager.updateMem();
-                _StdOut.putText("Process ID: " + _PidAssign);
+                _StdOut.putText(" Process ID: " + _PidAssign);
                 _PidAssign++;
                 if(_Limit >= 767){
+                    _StdOut.putText(" Warning: Memory is full, the three most recent programs will be loaded. Please clear memory " +
+                        "now if this is not your intention.");
                     _Base = 0;
                     _Limit = 255;
                 }
@@ -462,8 +469,15 @@ module TSOS {
 
         public shellRunAll() {
             _CommandArr.push("runall");
-            for (var i = 0; i < 3; i++) {
-                _ReadyQueue.enqueue(_ResList[i]);
+            if(_ResList.length > 2){
+                for (var i = 2; i > -1; i--) {
+                    _ReadyQueue.enqueue(_ResList[i]);
+                }
+            }
+            else{
+                for (var i = 0; i < 3; i++) {
+                    _ReadyQueue.enqueue(_ResList[i]);
+                }
             }
             _ReadyQueue.q[0].STATE = "Running";
             _CPU.initiateProcess();
