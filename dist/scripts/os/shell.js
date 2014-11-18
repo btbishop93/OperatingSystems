@@ -478,7 +478,7 @@ var TSOS;
                 }
             }
             if (pid == true) {
-                _QuantumCount = _Quantum;
+                //_QuantumCount = _Quantum;
                 if (_ReadyQueue.getSize() < 1) {
                     _CPU.isExecuting = false;
                     _CPU.resetCPU();
