@@ -16,8 +16,14 @@ var TSOS;
                 var pcb = _ReadyQueue.q[0];
                 if (loc >= pcb.base && loc <= pcb.limit) {
                     return _Memory.getMemLoc(loc);
-                } else
+                } else {
+                    _CPU.resetCPU();
+                    var row = document.getElementById("pid" + _ReadyQueue.q[0].PID);
+                    row.parentNode.removeChild(row);
+                    _ReadyQueue.q = [];
+                    _CPU.updateCPU();
                     _Kernel.krnTrapError("Out of memory");
+                }
             } else
                 return _Memory.getMemLoc(loc);
         };
@@ -28,8 +34,14 @@ var TSOS;
                 var pcb = _ReadyQueue.q[0];
                 if (loc >= pcb.base && loc <= pcb.limit) {
                     _Memory.setMemLoc(loc, str);
-                } else
+                } else {
+                    _CPU.resetCPU();
+                    var row = document.getElementById("pid" + _ReadyQueue.q[0].PID);
+                    row.parentNode.removeChild(row);
+                    _ReadyQueue.q = [];
+                    _CPU.updateCPU();
                     _Kernel.krnTrapError("Out of memory");
+                }
             } else
                 _Memory.setMemLoc(loc, str);
         };

@@ -212,7 +212,6 @@ module TSOS {
             _Canvas.getContext('2d').fillStyle = "white";
             _Canvas.getContext('2d').fillText('Blue Screen of Death!', 10, 40);
             //_StdOut.putText("Blue Screen of Death!");
-
             this.krnShutdown();
         }
     }
