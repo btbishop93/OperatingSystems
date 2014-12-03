@@ -10,6 +10,7 @@ module TSOS {
             }
 
             public initializeHDD() {
+                sessionStorage.clear();
                 var hddDiv = document.getElementById("hddDisplay");
                 var table = document.createElement('TABLE');
                 table.setAttribute('id', "table");
@@ -23,9 +24,9 @@ module TSOS {
 
                 for (var i = 0; i < 4; i++) {
                     rowStr = "" + i;
-                    for (var j = 0; j < 7; j++) {
+                    for (var j = 0; j < 8; j++) {
                         rowStr = i + ":" + j;
-                        for (var z = 0; z < 7; z++) {
+                        for (var z = 0; z < 8; z++) {
                             rowStr += ":" + z;
                             var tr = document.createElement('tr');
                             tr.setAttribute('id', rowStr);
