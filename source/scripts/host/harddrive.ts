@@ -16,9 +16,10 @@ module TSOS {
                 table.setAttribute('id', "table");
                 var tableBody = document.createElement('TBODY');
                 var rowStr = "";
-                var bits = "";
-                for (var n = 0; n < 64; n++) {
-                    bits += "0";
+                var bits = "0";
+                bits += "$$$";
+                for (var n = 0; n < 60; n++) {
+                    bits += "~";
                 }
                 table.appendChild(tableBody);
 
@@ -35,19 +36,23 @@ module TSOS {
                             var td = document.createElement('td');
                             td.setAttribute('id', rowStr);
                             td.appendChild(newRow);
+                            td.style.paddingLeft = "5px";
 
                             var td1 = document.createElement('td');
                             td1.setAttribute('id', "use-" + rowStr);
                             var use = document.createTextNode(bits.charAt(0));
                             td1.appendChild(use);
+                            td1.style.paddingLeft = "15px";
                             var td2 = document.createElement('td');
                             td2.setAttribute('id', "addr-" + rowStr);
-                            var addr = document.createTextNode(bits.substr(1, 4));
+                            var addr = document.createTextNode(bits.substr(1, 3));
                             td2.appendChild(addr);
+                            td2.style.paddingLeft = "15px";
                             var td3 = document.createElement('td');
                             td3.setAttribute('id', "val-" + rowStr);
                             var value = document.createTextNode(bits.substr(4));
                             td3.appendChild(value);
+                            td3.style.paddingLeft = "15px";
 
                             tr.appendChild(td);
                             tr.appendChild(td1);
@@ -60,14 +65,12 @@ module TSOS {
                     }
                 }
                 hddDiv.appendChild(table);
+                sessionStorage.setItem("0:0:0", "1" + bits.substring(1));
+                document.getElementById("use-0:0:0").innerHTML = "1";
         }
 
         public updateHDD(){
-            /*for(var i = 0; 0 < 4; i++) {
-                if(document.getElementById("mem-cell-" + i) == null) {
-                    return;
-                }
-            }*/
+
         }
 
         public getHDD(loc){
@@ -82,7 +85,7 @@ module TSOS {
 
         public resetMem(){
                 sessionStorage.clear();
-                this.initializeHDD();
+                this.updateHDD();
         }
     }
 }
