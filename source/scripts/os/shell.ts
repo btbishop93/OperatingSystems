@@ -148,10 +148,10 @@ module TSOS {
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
-            sc = new ShellCommand(this.shellGetScheduler, "getscheduler",
-                "- Gets the current scheduling algorithm");
+            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
+                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
             this.commandList[this.commandList.length] = sc;
-            
+
             // Display the initial prompt.
             this.putPrompt();
         }
