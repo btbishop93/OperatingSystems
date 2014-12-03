@@ -484,26 +484,26 @@ module TSOS {
         }
 
         public shellRunAll() {
-            if(_Scheduler = "priority"){
-            if(_ResList.length > 2){
-                for (var i = 2; i > -1; i--) {
-                    _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
-                }
-            }
-            else{
-                for (var i = 0; i < 3; i++) {
-                    if(i < _ResList.length) {
+            if(_Scheduler == "priority"){
+                if(_ResList.length > 2){
+                    for (var i = 2; i > -1; i--) {
                         _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
                     }
                 }
-            }
-                for(var i = 0; i < _PriorityQueue.getSize(); i++) {
-                    _ReadyQueue.enqueue(_PriorityQueue[i]);
+                else{
+                    for (var i = 0; i < 3; i++) {
+                        if(i < _ResList.length) {
+                            _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
+                        }
+                    }
+                }
+            while(_PriorityQueue.getSize() > 0) {
+                   _ReadyQueue.enqueue(_PriorityQueue.dequeue());
                 }
             }
             else{
-                if(_Scheduler = "fcfs"){
-                    _Quantum = -1;
+                if(_Scheduler == "fcfs"){
+                    _Quantum = 9999999999;
                 }
                 _CommandArr.push("runall");
                 if (_ResList.length > 2) {

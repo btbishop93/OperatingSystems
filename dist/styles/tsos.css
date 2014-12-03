@@ -301,7 +301,7 @@ small{
 }
 #taHostLog{
     width: 61.9%;
-    height: 122px;
+    height: 250px;
     overflow: scroll;
     border: 3px solid #202020;
     border-radius:4px;
@@ -312,15 +312,34 @@ small{
 
 /* Memory div CSS */
 #memory{
-    width: 48%;
-    margin:0 auto;
-    margin-top: 2%;
+    width: 30%;
+    margin-right: 18%;
+    margin-top: 1.5%;
+    clear: both;
     float: right;
     text-align: left;
 }
 #memDisplay{
-    width: 61.9%;
-    height: 125px;
+    width: 99%;
+    height: 146px;
+    overflow: scroll;
+    border: 3px solid #202020;
+    border-radius:4px;
+}
+
+/* HDD div CSS */
+#hdd{
+    width: 30%;
+    margin-left: 18%;
+    margin-top: 1%;
+    float: left;
+    text-align: left;
+}
+#hddDisplay{
+    width: 99%;
+    float: left;
+    text-align: left;
+    height: 90px;
     overflow: scroll;
     border: 3px solid #202020;
     border-radius:4px;
@@ -328,14 +347,14 @@ small{
 
 /* CPU/PCB CSS */
 #cpu {
-   width: 48%;
-   margin: 0 auto;
+   width: 30%;
+   margin-right: 18%;
    margin-top: 1.5%;
    float: right;
    text-align: left;
 }
 #cpuDisplay{
-    width: 61.9%;
+    width: 99%;
     min-height: 100%;
     overflow: scroll;
     border: 3px solid #202020;

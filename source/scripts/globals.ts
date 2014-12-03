@@ -53,6 +53,10 @@ var _MemoryManager: TSOS.memoryManager;
 
 var _Memory: TSOS.mem;
 
+var _HardDrive: TSOS.harddrive;
+
+var _HardDriveManager: TSOS.harddriveManager;
+
 var _CommandArr: string[] = [];
 
 var _CommandToggle: number = 0;

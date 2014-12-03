@@ -444,7 +444,7 @@ var TSOS;
         };
 
         Shell.prototype.shellRunAll = function () {
-            if (_Scheduler = "priority") {
+            if (_Scheduler == "priority") {
                 if (_ResList.length > 2) {
                     for (var i = 2; i > -1; i--) {
                         _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
@@ -456,12 +456,12 @@ var TSOS;
                         }
                     }
                 }
-                for (var i = 0; i < _PriorityQueue.getSize(); i++) {
-                    _ReadyQueue.enqueue(_PriorityQueue[i]);
+                while (_PriorityQueue.getSize() > 0) {
+                    _ReadyQueue.enqueue(_PriorityQueue.dequeue());
                 }
             } else {
-                if (_Scheduler = "fcfs") {
-                    _Quantum = -1;
+                if (_Scheduler == "fcfs") {
+                    _Quantum = 9999999999;
                 }
                 _CommandArr.push("runall");
                 if (_ResList.length > 2) {

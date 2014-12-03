@@ -44,6 +44,10 @@ var _MemoryManager;
 
 var _Memory;
 
+var _HardDrive;
+
+var _HardDriveManager;
+
 var _CommandArr = [];
 
 var _CommandToggle = 0;

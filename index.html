@@ -31,6 +31,8 @@
    <script type="text/javascript" src="dist/scripts/os/kernel.js"></script>
    <script type="text/javascript" src="dist/scripts/os/memoryManager.js"></script>
    <script type="text/javascript" src="dist/scripts/os/priorityQueue.js"></script>
+   <script type="text/javascript" src="dist/scripts/os/harddrive.js"></script>
+   <script type="text/javascript" src="dist/scripts/os/harddriveManager.js"></script>
 
    <!-- Other Routines -->
    <script type="text/javascript" src="dist/scripts/utils.js"></script>
@@ -131,7 +133,7 @@
 </div>
 
     <div id="cpu">
-        <div id="section"><a>CPU</a></div>
+        <div id="section2"><a>CPU</a></div>
         <div id="cpuDisplay"><table id="table">
             <thead>
             <tr>
@@ -157,24 +159,33 @@
     </div>
 
     <div id="memory">
-    <div id="section"><a>Memory</a></div>
+    <div id="section2"><a>Memory</a></div>
     <div id="memDisplay">
 
     </div>
         </div>
 
-<div id="divUserProgramInput" style="width: 30%; margin-left: 18%; margin-top: 1%; text-align: left; float: left; overflow: scroll;">
+<div id="divUserProgramInput" style="width: 30%; margin-left: 18%; margin-top: -2%; text-align: left; float: left; overflow: scroll;">
     <div id="section2"><a>User Program Input</a></div>
     <label>
         <br>
         <textarea name="taProgramInput"
                   id  ="taProgramInput"
-                  rows="4"
+                  rows="3"
                   cols="68"
-                  style="width:494px; font-size: 14px"
+                  style="width:98%; font-size: 14px"
                 >A9 00 8D 7B 00 A9 00 8D 7B 00 A9 00 8D 7C 00 A9 00 8D 7C 00 A9 01 8D 7A 00 A2 00 EC 7A 00 D0 39 A0 7D A2 02 FF AC 7B 00 A2 01 FF AD 7B 00 8D 7A 00 A9 01 6D 7A 00 8D 7B 00 A9 03 AE 7B 00 8D 7A 00 A9 00 EC 7A 00 D0 02 A9 01 8D 7A 00 A2 01 EC 7A 00 D0 05 A9 01 8D 7C 00 A9 00 AE 7C 00 8D 7A 00 A9 00 EC 7A 00 D0 02 A9 01 8D 7A 00 A2 00 EC 7A 00 D0 AC A0 7F A2 02 FF 00 00 00 00 61 00 61 64 6F 6E 65 00</textarea>
     </label>
 </div>
+
+<div id="hdd">
+    <div id="section2"><a>HDD</a></div>
+    <div id="hddDisplay">
+
+    </div>
+</div>
+
+
 
 <p class="footerText">
     <br>

@@ -35,6 +35,7 @@ module TSOS {
 
             //Initialize memory manager
             _MemoryManager = new memoryManager();
+            _HardDriveManager = new harddriveManager();
             _ReadyQueue = new TSOS.Queue();
             _PriorityQueue = new TSOS.priorityQueue();
 
