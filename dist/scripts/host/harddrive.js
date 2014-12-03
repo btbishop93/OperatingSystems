@@ -28,7 +28,7 @@ var TSOS;
                         rowStr += ":" + z;
                         var tr = document.createElement('tr');
                         tr.setAttribute('id', rowStr);
-                        rowStr = "" + i + ":" + "j";
+
                         var newRow = document.createTextNode(rowStr);
                         var td = document.createElement('td');
                         td.setAttribute('id', rowStr);
@@ -53,6 +53,7 @@ var TSOS;
                         tr.appendChild(td3);
                         tableBody.appendChild(tr);
                         sessionStorage.setItem(rowStr, bits);
+                        rowStr = "" + i + ":" + j;
                     }
                 }
             }
@@ -60,11 +61,11 @@ var TSOS;
         };
 
         harddrive.prototype.updateHDD = function () {
-            for (var i = 0; 0 < 4; i++) {
-                if (document.getElementById("mem-cell-" + i) == null) {
-                    return;
-                }
+            /*for(var i = 0; 0 < 4; i++) {
+            if(document.getElementById("mem-cell-" + i) == null) {
+            return;
             }
+            }*/
         };
 
         harddrive.prototype.getHDD = function (loc) {

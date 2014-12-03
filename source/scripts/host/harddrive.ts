@@ -29,7 +29,7 @@ module TSOS {
                             rowStr += ":" + z;
                             var tr = document.createElement('tr');
                             tr.setAttribute('id', rowStr);
-                            rowStr = "" + i + ":" + "j";
+
                             var newRow = document.createTextNode(rowStr);
                             var td = document.createElement('td');
                             td.setAttribute('id', rowStr);
@@ -54,6 +54,7 @@ module TSOS {
                             tr.appendChild(td3);
                             tableBody.appendChild(tr);
                             sessionStorage.setItem(rowStr, bits);
+                            rowStr = "" + i + ":" + j;
                         }
                     }
                 }
@@ -61,11 +62,11 @@ module TSOS {
         }
 
         public updateHDD(){
-            for(var i = 0; 0 < 4; i++) {
+            /*for(var i = 0; 0 < 4; i++) {
                 if(document.getElementById("mem-cell-" + i) == null) {
                     return;
                 }
-            }
+            }*/
         }
 
         public getHDD(loc){
