@@ -44,7 +44,7 @@ var _MemoryManager;
 
 var _Memory;
 
-var _HardDriveManager;
+var _HardDriveDriver;
 
 var _HardDrive;
 

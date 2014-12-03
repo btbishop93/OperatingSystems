@@ -53,7 +53,7 @@ var _MemoryManager: TSOS.memoryManager;
 
 var _Memory: TSOS.mem;
 
-var _HardDriveManager: TSOS.harddriveManager;
+var _HardDriveDriver: TSOS.hardDriveDriver;
 
 var _HardDrive: TSOS.harddrive;
 

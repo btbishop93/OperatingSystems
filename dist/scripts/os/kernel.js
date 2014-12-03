@@ -33,7 +33,7 @@ var TSOS;
 
             //Initialize memory manager
             _MemoryManager = new TSOS.memoryManager();
-            _HardDriveManager = new TSOS.harddriveManager();
+            _HardDriveDriver = new TSOS.hardDriveDriver();
             _ReadyQueue = new TSOS.Queue();
             _PriorityQueue = new TSOS.priorityQueue();
 

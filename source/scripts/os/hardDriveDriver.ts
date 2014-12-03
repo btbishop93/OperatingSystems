@@ -3,7 +3,7 @@
  */
 
 module TSOS {
-    export class harddriveManager {
+    export class hardDriveDriver {
 
         constructor()
         {
@@ -20,14 +20,14 @@ module TSOS {
             }
         }
 
-        public setMemLoc(loc, value){
+        public setHDD(loc, value){
             if(loc){
                 _HardDrive.setHDD(loc, value);
             }
         }
 
-        public resetMem(){
-            _HardDrive.initializeHDD();
+        public resetHDD(){
+            _HardDrive.resetHDD();
         }
     }
 }

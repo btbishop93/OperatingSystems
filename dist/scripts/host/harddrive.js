@@ -47,11 +47,12 @@ var TSOS;
                         var addr = document.createTextNode(bits.substr(1, 3));
                         td2.appendChild(addr);
                         td2.style.paddingLeft = "15px";
+                        td2.style.paddingRight = "15px";
                         var td3 = document.createElement('td');
                         td3.setAttribute('id', "val-" + rowStr);
                         var value = document.createTextNode(bits.substr(4));
                         td3.appendChild(value);
-                        td3.style.paddingLeft = "15px";
+                        td3.style.cssFloat = "left";
 
                         tr.appendChild(td);
                         tr.appendChild(td1);
@@ -69,6 +70,17 @@ var TSOS;
         };
 
         harddrive.prototype.updateHDD = function () {
+            for (var i = 0; i < 4; i++) {
+                for (var j = 0; j < 8; j++) {
+                    for (var k = 0; k < 8; k++) {
+                        var row = i + ":" + j + ":" + k;
+                        var data = sessionStorage.getItem(row);
+                        document.getElementById("use-" + row).innerHTML = data.charAt(0);
+                        document.getElementById("addr-" + row).innerHTML = data.substr(1, 3);
+                        document.getElementById("val-" + row).innerHTML = data.substr(4);
+                    }
+                }
+            }
         };
 
         harddrive.prototype.getHDD = function (loc) {
@@ -76,13 +88,34 @@ var TSOS;
         };
 
         harddrive.prototype.setHDD = function (loc, value) {
-            if (loc) {
-                return sessionStorage.setItem(loc, value);
+            if (loc && (value.length > 4 && value.length < 65)) {
+                var gap = 64 - value.length;
+                if (gap < 60) {
+                    for (var h = 0; h < gap; h++) {
+                        value += "~";
+                    }
+                }
+                sessionStorage.setItem(loc, value);
+                this.updateHDD();
             }
         };
 
-        harddrive.prototype.resetMem = function () {
+        harddrive.prototype.resetHDD = function () {
             sessionStorage.clear();
+            var bits = "0";
+            bits += "$$$";
+            for (var n = 0; n < 60; n++) {
+                bits += "~";
+            }
+            for (var i = 0; i < 4; i++) {
+                for (var j = 0; j < 8; j++) {
+                    for (var k = 0; k < 8; k++) {
+                        var row = i + ":" + j + ":" + k;
+                        sessionStorage.setItem(row, bits);
+                    }
+                }
+            }
+            sessionStorage.setItem("0:0:0", "1" + bits.substring(1));
             this.updateHDD();
         };
         return harddrive;
