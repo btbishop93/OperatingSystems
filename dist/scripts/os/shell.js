@@ -101,7 +101,14 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellKill, "kill", "- Kills the process based the PID provided");
             this.commandList[this.commandList.length] = sc;
 
-            //
+            //getScheduler
+            sc = new TSOS.ShellCommand(this.shellGetScheduler, "getscheduler", "- Gets the current scheduling algorithm");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new TSOS.ShellCommand(this.shellGetScheduler, "getscheduler", "- Gets the current scheduling algorithm");
+            this.commandList[this.commandList.length] = sc;
+
             // Display the initial prompt.
             this.putPrompt();
         };
@@ -385,9 +392,15 @@ var TSOS;
                 }
                 _MemoryManager.updateMem();
                 if (_ResList.length > 0) {
-                    _ResList.unshift(new TSOS.Pcb(_Base, _Limit, _PidAssign));
+                    if (args) {
+                        _ResList.unshift(new TSOS.Pcb(_Base, _Limit, args[0], _PidAssign));
+                    } else
+                        _ResList.unshift(new TSOS.Pcb(_Base, _Limit, 0, _PidAssign));
                 } else {
-                    _ResList.push(new TSOS.Pcb(_Base, _Limit, _PidAssign));
+                    if (args) {
+                        _ResList.push(new TSOS.Pcb(_Base, _Limit, args[0], _PidAssign));
+                    } else
+                        _ResList.push(new TSOS.Pcb(_Base, _Limit, _PidAssign));
                 }
                 _MemoryManager.updateMem();
                 _StdOut.putText(" Process ID: " + _PidAssign);
@@ -431,15 +444,35 @@ var TSOS;
         };
 
         Shell.prototype.shellRunAll = function () {
-            _CommandArr.push("runall");
-            if (_ResList.length > 2) {
-                for (var i = 2; i > -1; i--) {
-                    _ReadyQueue.enqueue(_ResList[i]);
+            if (_Scheduler = "priority") {
+                if (_ResList.length > 2) {
+                    for (var i = 2; i > -1; i--) {
+                        _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
+                    }
+                } else {
+                    for (var i = 0; i < 3; i++) {
+                        if (i < _ResList.length) {
+                            _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
+                        }
+                    }
+                }
+                for (var i = 0; i < _PriorityQueue.getSize(); i++) {
+                    _ReadyQueue.enqueue(_PriorityQueue[i]);
                 }
             } else {
-                for (var i = 0; i < 3; i++) {
-                    if (i < _ResList.length) {
+                if (_Scheduler = "fcfs") {
+                    _Quantum = -1;
+                }
+                _CommandArr.push("runall");
+                if (_ResList.length > 2) {
+                    for (var i = 2; i > -1; i--) {
                         _ReadyQueue.enqueue(_ResList[i]);
+                    }
+                } else {
+                    for (var i = 0; i < 3; i++) {
+                        if (i < _ResList.length) {
+                            _ReadyQueue.enqueue(_ResList[i]);
+                        }
                     }
                 }
             }
@@ -499,6 +532,17 @@ var TSOS;
                 }
             }
             _StdOut.putText(output);
+        };
+
+        Shell.prototype.shellGetScheduler = function () {
+            _CommandArr.push("getscheduler");
+            _StdOut.putText(" The scheduling algorithm is " + _Scheduler + ".");
+        };
+
+        Shell.prototype.shellSetScheduler = function (args) {
+            _CommandArr.push("setscheduler");
+            _Scheduler = args;
+            _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
         };
         return Shell;
     })();

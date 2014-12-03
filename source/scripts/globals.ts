@@ -70,6 +70,8 @@ var _PidAssign: number = 0;
 
 var _Quantum: number = 6;
 
+var _Scheduler: string = "fcfs"
+
 var _QuantumCount: number = 0;
 
 var _Base: number = 0;
@@ -81,6 +83,8 @@ var _OneStepPressed: boolean = false;
 var _ResList: TSOS.Pcb[] = [];
 
 var _ReadyQueue: TSOS.Queue;
+
+var _PriorityQueue: TSOS.priorityQueue;
 
 var _CurrentPid: number = 0;
 

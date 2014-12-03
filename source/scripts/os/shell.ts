@@ -136,12 +136,22 @@ module TSOS {
             sc = new ShellCommand(this.shellQuantum, "quantum",
                     "- Sets the quantum, measured in clock ticks");
             this.commandList[this.commandList.length] = sc;
-            // kill <id> - kills the specified process id.
 
+            // kill <id> - kills the specified process id.
             sc = new ShellCommand(this.shellKill, "kill",
                     "- Kills the process based the PID provided");
             this.commandList[this.commandList.length] = sc;
-            //
+
+            //getScheduler
+            sc = new ShellCommand(this.shellGetScheduler, "getscheduler",
+                "- Gets the current scheduling algorithm");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new ShellCommand(this.shellGetScheduler, "getscheduler",
+                "- Gets the current scheduling algorithm");
+            this.commandList[this.commandList.length] = sc;
+            
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -418,10 +428,16 @@ module TSOS {
                 }
                 _MemoryManager.updateMem();
                 if(_ResList.length > 0){
-                    _ResList.unshift(new Pcb(_Base, _Limit, _PidAssign));
+                    if(args){
+                        _ResList.unshift(new Pcb(_Base, _Limit, args[0], _PidAssign));
+                    }
+                    else _ResList.unshift(new Pcb(_Base, _Limit, 0, _PidAssign));
                 }
                 else {
-                    _ResList.push(new Pcb(_Base, _Limit, _PidAssign));
+                    if(args){
+                        _ResList.push(new Pcb(_Base, _Limit, args[0], _PidAssign));
+                    }
+                    else _ResList.push(new Pcb(_Base, _Limit, _PidAssign));
                 }
                 _MemoryManager.updateMem();
                 _StdOut.putText(" Process ID: " + _PidAssign);
@@ -468,16 +484,38 @@ module TSOS {
         }
 
         public shellRunAll() {
-            _CommandArr.push("runall");
+            if(_Scheduler = "priority"){
             if(_ResList.length > 2){
                 for (var i = 2; i > -1; i--) {
-                    _ReadyQueue.enqueue(_ResList[i]);
+                    _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
                 }
             }
             else{
                 for (var i = 0; i < 3; i++) {
                     if(i < _ResList.length) {
+                        _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
+                    }
+                }
+            }
+                for(var i = 0; i < _PriorityQueue.getSize(); i++) {
+                    _ReadyQueue.enqueue(_PriorityQueue[i]);
+                }
+            }
+            else{
+                if(_Scheduler = "fcfs"){
+                    _Quantum = -1;
+                }
+                _CommandArr.push("runall");
+                if (_ResList.length > 2) {
+                    for (var i = 2; i > -1; i--) {
                         _ReadyQueue.enqueue(_ResList[i]);
+                    }
+                }
+                else {
+                    for (var i = 0; i < 3; i++) {
+                        if (i < _ResList.length) {
+                            _ReadyQueue.enqueue(_ResList[i]);
+                        }
                     }
                 }
             }
@@ -537,6 +575,17 @@ module TSOS {
                 }
             }
             _StdOut.putText(output);
+        }
+
+        public shellGetScheduler(){
+            _CommandArr.push("getscheduler");
+            _StdOut.putText(" The scheduling algorithm is " + _Scheduler + ".");
+        }
+
+        public shellSetScheduler(args){
+            _CommandArr.push("setscheduler");
+            _Scheduler = args;
+            _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
         }
 
     }

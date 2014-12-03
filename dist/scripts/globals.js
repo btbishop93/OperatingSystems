@@ -61,6 +61,8 @@ var _PidAssign = 0;
 
 var _Quantum = 6;
 
+var _Scheduler = "fcfs";
+
 var _QuantumCount = 0;
 
 var _Base = 0;
@@ -72,6 +74,8 @@ var _OneStepPressed = false;
 var _ResList = [];
 
 var _ReadyQueue;
+
+var _PriorityQueue;
 
 var _CurrentPid = 0;
 

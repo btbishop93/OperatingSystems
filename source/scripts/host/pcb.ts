@@ -7,6 +7,7 @@ module TSOS {
 
         constructor(public base: number,
                     public limit: number,
+                    public PRIORITY: number,
                     public PID: number = 0,
                     public PC: number = 0,
                     public IR: string = "0",
@@ -14,7 +15,6 @@ module TSOS {
                     public X: number = 0,
                     public Y: number = 0,
                     public Z: number = 0,
-                    public PRIORITY: number = 0,
                     public STATE: string = "Waiting",
                     public LOC: string = "Memory") {
 
@@ -27,7 +27,7 @@ module TSOS {
             this.X = 0;
             this.Y = 0;
             this.Z = 0;
-            this.PRIORITY = 0;
+            //this.PRIORITY = 0;
             this.STATE = "";
             this.LOC = "";
         }
