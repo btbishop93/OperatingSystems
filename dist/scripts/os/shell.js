@@ -110,7 +110,7 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
 
             //read from the HDD
-            sc = new TSOS.ShellCommand(this.shellCreate, "create", "- Creates the file specified, displays success or failure.");
+            sc = new TSOS.ShellCommand(this.shellCreate, "create", "- Creates the file specified.");
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
@@ -127,6 +127,10 @@ var TSOS;
 
             //format HDD
             sc = new TSOS.ShellCommand(this.shellFormat, "format", "- Formats the HDD.");
+            this.commandList[this.commandList.length] = sc;
+
+            //lists all the files on the HDD
+            sc = new TSOS.ShellCommand(this.shellLs, "ls", "- Lists all the files currently on the HDD.");
             this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.
@@ -584,6 +588,10 @@ var TSOS;
         Shell.prototype.shellFormat = function (args) {
             _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FORMAT_IRQ, ""));
+        };
+
+        Shell.prototype.shellLs = function (args) {
+            _CommandArr.push("ls");
         };
         return Shell;
     })();

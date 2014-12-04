@@ -154,7 +154,7 @@ module TSOS {
 
             //read from the HDD
             sc = new ShellCommand(this.shellCreate, "create",
-                "- Creates the file specified, displays success or failure.");
+                "- Creates the file specified.");
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
@@ -175,6 +175,11 @@ module TSOS {
             //format HDD
             sc = new ShellCommand(this.shellFormat, "format",
                 "- Formats the HDD.");
+            this.commandList[this.commandList.length] = sc;
+
+            //lists all the files on the HDD
+            sc = new ShellCommand(this.shellLs, "ls",
+                "- Lists all the files currently on the HDD.");
             this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.
@@ -632,6 +637,10 @@ module TSOS {
         public shellFormat(args){
             _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new Interrupt(FORMAT_IRQ, ""));
+        }
+
+        public shellLs(args){
+            _CommandArr.push("ls");
         }
 
     }
