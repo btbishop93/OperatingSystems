@@ -146,6 +146,28 @@ var TSOS;
                         }
                     }
                     break;
+                case CREATE_IRQ:
+                    _HardDriveDriver.create();
+                    break;
+                case READ_IRQ:
+                    _HardDriveDriver.read();
+                    break;
+                case WRITE_IRQ_OS:
+                    _HardDriveDriver.writeOS();
+                    break;
+                case WRITE_IRQ_USER:
+                    _HardDriveDriver.writeUser();
+                    break;
+                case DELETE_IRQ:
+                    _HardDriveDriver.deleteFile();
+                    break;
+                case FORMAT_IRQ:
+                    _HardDriveDriver.format();
+                    if (sessionStorage.length > 0) {
+                        _StdOut.putText("Successfully formatted HDD.");
+                    } else
+                        _StdOut.putText("Failed attempt to format HDD.");
+                    break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
             }

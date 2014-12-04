@@ -29,5 +29,29 @@ module TSOS {
         public resetHDD(){
             _HardDrive.resetHDD();
         }
+
+        public create(){
+
+        }
+
+        public read(){
+
+        }
+
+        public writeOS(){
+
+        }
+
+        public writeUser(){
+
+        }
+
+        public deleteFile(){
+
+        }
+
+        public format(){
+            _HardDrive.resetHDD();
+        }
     }
 }

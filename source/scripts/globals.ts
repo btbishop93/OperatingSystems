@@ -23,6 +23,13 @@ var KEYBOARD_IRQ: number = 1;
 
 var FF_IRQ: number = 2;
 
+var CREATE_IRQ: number = 3;
+var READ_IRQ: number = 4;
+var WRITE_IRQ_OS: number = 5;
+var WRITE_IRQ_USER: number = 6;
+var DELETE_IRQ: number = 7;
+var FORMAT_IRQ: number = 8;
+
 var _pDone: boolean = false;
 
 var USER_LOC: string[] = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean" , "Marist College", "Russia"];

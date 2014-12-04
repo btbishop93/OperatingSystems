@@ -21,6 +21,13 @@ var KEYBOARD_IRQ = 1;
 
 var FF_IRQ = 2;
 
+var CREATE_IRQ = 3;
+var READ_IRQ = 4;
+var WRITE_IRQ_OS = 5;
+var WRITE_IRQ_USER = 6;
+var DELETE_IRQ = 7;
+var FORMAT_IRQ = 8;
+
 var _pDone = false;
 
 var USER_LOC = ["Underneath Obama's bed", "In Bjarne Stroustrup's closet", "The Indian Ocean", "Marist College", "Russia"];

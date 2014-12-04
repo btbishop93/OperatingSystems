@@ -149,6 +149,26 @@ module TSOS {
 
             //setScheduler
             sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
+                "- Sets the current scheduling algorithm to your choice - rr, fcfs, or priority");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
+                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
+                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
+                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            this.commandList[this.commandList.length] = sc;
+
+            //setScheduler
+            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
                 "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
             this.commandList[this.commandList.length] = sc;
 
