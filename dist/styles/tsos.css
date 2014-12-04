@@ -78,7 +78,7 @@ tr{
 #nav {
     width: 100%;
     float: left;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     padding: 5px 0 1px 0;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #787878), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), color-stop(1, #838383));
     background-image: -moz-linear-gradient(center bottom, #787878 0%, #5E5E5E 50%, #707070 51%, #838383 100%);

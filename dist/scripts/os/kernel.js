@@ -165,8 +165,14 @@ var TSOS;
                     _HardDriveDriver.format();
                     if (sessionStorage.length > 0) {
                         _StdOut.putText("Successfully formatted HDD.");
-                    } else
+                        _StdOut.advanceLine();
+                        _StdOut.putText(">");
+                    } else {
                         _StdOut.putText("Failed attempt to format HDD.");
+                        _StdOut.advanceLine();
+                        _StdOut.putText(">");
+                    }
+
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");

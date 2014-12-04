@@ -63,7 +63,7 @@ var _CurrentMsg = "";
 
 var commandList = [
     "ver", "date", "whereami", "bondjokes", "rot13", "help", "man", "shutdown", "cls", "trace", "prompt", "status", "bsod", "kill", "ps",
-    "runall", "quantum", "clearmem", "run", "load", "getscheduler", "setscheduler", "create", "read", "write", "delete", "format"];
+    "runall", "quantum", "clearmem", "run", "load", "getscheduler", "setscheduler", "create", "read", "write", "delete", "format", "ls"];
 
 //
 // Global Variables

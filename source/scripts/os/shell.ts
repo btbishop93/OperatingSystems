@@ -532,7 +532,7 @@ module TSOS {
                 }
             }
             else{
-                if(_Scheduler == "fcfs"){
+                if(_Scheduler == "fcfs" || _Scheduler == "priority"){
                     _Quantum = 9999999999;
                 }
                 _CommandArr.push("runall");
@@ -614,8 +614,11 @@ module TSOS {
 
         public shellSetScheduler(args){
             _CommandArr.push("setscheduler");
-            _Scheduler = args;
-            _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
+            if(args == "rr" || args == "fcfs" || args == "priority") {
+                _Scheduler = args;
+                _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
+            }
+            else _StdOut.putText(" Please enter a valid scheduling algorithm: fcfs, rr, or priority.")
         }
 
         public shellCreate(args){
