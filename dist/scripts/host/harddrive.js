@@ -109,9 +109,12 @@ var TSOS;
                             data += value[i];
                             if ((i - 3) % 60 == 0) {
                                 values.push(data);
+                                data = "";
                             }
                         }
-                        values.push(data.substr(60));
+                        if (data.length < 60) {
+                            values.push(data);
+                        }
                         for (var k = 0; k < values.length; k++) {
                             var currData = values[k];
                             free = this.nextFreeBlock();
