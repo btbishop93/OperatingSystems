@@ -149,27 +149,32 @@ module TSOS {
 
             //setScheduler
             sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
-                "- Sets the current scheduling algorithm to your choice - rr, fcfs, or priority");
+                "- Sets the current scheduling algorithm to your choice - rr, fcfs, or priority.");
+            this.commandList[this.commandList.length] = sc;
+
+            //read from the HDD
+            sc = new ShellCommand(this.shellCreate, "create",
+                "- Creates the file specified, displays success or failure.");
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
-            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
-                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            sc = new ShellCommand(this.shellRead, "read",
+                "- Reads the file specified from the HDD and displays its content.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
-                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //write new file
+            sc = new ShellCommand(this.shellWrite, "write",
+                "- Writes a file with specified name to HDD.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
-                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //delete file
+            sc = new ShellCommand(this.shellDelete, "delete",
+                "- Deletes the file specified from the HDD.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new ShellCommand(this.shellSetScheduler, "setscheduler",
-                "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //format HDD
+            sc = new ShellCommand(this.shellFormat, "format",
+                "- Formats the HDD.");
             this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.
@@ -606,6 +611,26 @@ module TSOS {
             _CommandArr.push("setscheduler");
             _Scheduler = args;
             _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
+        }
+
+        public shellCreate(args){
+
+        }
+
+        public shellRead(args){
+
+        }
+
+        public shellWrite(args){
+
+        }
+
+        public shellDelete(args){
+
+        }
+
+        public shellFormat(args){
+            _KernelInterruptQueue.enqueue(new Interrupt(FORMAT_IRQ, ""));
         }
 
     }

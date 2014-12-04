@@ -106,23 +106,27 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
-            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - rr, fcfs, or priority");
+            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - rr, fcfs, or priority.");
+            this.commandList[this.commandList.length] = sc;
+
+            //read from the HDD
+            sc = new TSOS.ShellCommand(this.shellCreate, "create", "- Creates the file specified, displays success or failure.");
             this.commandList[this.commandList.length] = sc;
 
             //setScheduler
-            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            sc = new TSOS.ShellCommand(this.shellRead, "read", "- Reads the file specified from the HDD and displays its content.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //write new file
+            sc = new TSOS.ShellCommand(this.shellWrite, "write", "- Writes a file with specified name to HDD.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //delete file
+            sc = new TSOS.ShellCommand(this.shellDelete, "delete", "- Deletes the file specified from the HDD.");
             this.commandList[this.commandList.length] = sc;
 
-            //setScheduler
-            sc = new TSOS.ShellCommand(this.shellSetScheduler, "setscheduler", "- Sets the current scheduling algorithm to your choice - round robin, fcfs, or priority");
+            //format HDD
+            sc = new TSOS.ShellCommand(this.shellFormat, "format", "- Formats the HDD.");
             this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.
@@ -559,6 +563,22 @@ var TSOS;
             _CommandArr.push("setscheduler");
             _Scheduler = args;
             _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
+        };
+
+        Shell.prototype.shellCreate = function (args) {
+        };
+
+        Shell.prototype.shellRead = function (args) {
+        };
+
+        Shell.prototype.shellWrite = function (args) {
+        };
+
+        Shell.prototype.shellDelete = function (args) {
+        };
+
+        Shell.prototype.shellFormat = function (args) {
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FORMAT_IRQ, ""));
         };
         return Shell;
     })();
