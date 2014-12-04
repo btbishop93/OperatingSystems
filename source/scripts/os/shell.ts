@@ -614,22 +614,23 @@ module TSOS {
         }
 
         public shellCreate(args){
-
+            _CommandArr.push("create");
         }
 
         public shellRead(args){
-
+            _CommandArr.push("read");
         }
 
         public shellWrite(args){
-
+            _CommandArr.push("write");
         }
 
         public shellDelete(args){
-
+            _CommandArr.push("delete");
         }
 
         public shellFormat(args){
+            _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new Interrupt(FORMAT_IRQ, ""));
         }
 

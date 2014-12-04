@@ -566,18 +566,23 @@ var TSOS;
         };
 
         Shell.prototype.shellCreate = function (args) {
+            _CommandArr.push("create");
         };
 
         Shell.prototype.shellRead = function (args) {
+            _CommandArr.push("read");
         };
 
         Shell.prototype.shellWrite = function (args) {
+            _CommandArr.push("write");
         };
 
         Shell.prototype.shellDelete = function (args) {
+            _CommandArr.push("delete");
         };
 
         Shell.prototype.shellFormat = function (args) {
+            _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FORMAT_IRQ, ""));
         };
         return Shell;
