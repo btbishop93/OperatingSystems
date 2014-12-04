@@ -40,8 +40,8 @@ module TSOS {
                 for (var j = 0; j < 8; j++) {
                     for (var k = 0; k < 8; k++) {
                         var row = i + ":" + j + ":" + k;
-                        var data = sessionStorage.getItem(row);
-                        if(data.charAt(0) == 0){
+                        var data = _HardDrive.getHDD(row);
+                        if(data[0] == "0"){
                             return row;
                         }
                     }
@@ -74,7 +74,9 @@ module TSOS {
             if(this.isInHDD(_FileList, filename)){
                 if(data.length > 0){
                     var free = this.allocate();
-                    
+                    if(_HardDrive.setHDD(free, "1" + "$$$" + data)){
+                        return true;
+                    }
                 }
             }
         }

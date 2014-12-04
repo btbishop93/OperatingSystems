@@ -584,10 +584,10 @@ var TSOS;
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(READ_IRQ, ""));
         };
 
-        Shell.prototype.shellWrite = function (args, data) {
+        Shell.prototype.shellWrite = function (args) {
             _CommandArr.push("write");
-            _FILENAME = args;
-            _DATA = data;
+            _FILENAME = args[0];
+            _DATA = args[1];
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(WRITE_IRQ_USER, ""));
         };
 

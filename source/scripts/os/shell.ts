@@ -633,10 +633,10 @@ module TSOS {
             _KernelInterruptQueue.enqueue(new Interrupt(READ_IRQ, ""));
         }
 
-        public shellWrite(args, data){
+        public shellWrite(args){
             _CommandArr.push("write");
-            _FILENAME = args;
-            _DATA = data;
+            _FILENAME = args[0];
+            _DATA = args[1];
             _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_USER, ""));
         }
 
