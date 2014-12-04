@@ -30,24 +30,59 @@ module TSOS {
             _HardDrive.resetHDD();
         }
 
-        public create(){
+        public isInHDD(array, search)
+        {
+            return array.indexOf(search) >= 0;
+        }
+
+        public allocate(){
+            for (var i = 0; i < 4; i++) {
+                for (var j = 0; j < 8; j++) {
+                    for (var k = 0; k < 8; k++) {
+                        var row = i + ":" + j + ":" + k;
+                        var data = sessionStorage.getItem(row);
+                        if(data.charAt(0) == 0){
+                            return row;
+                        }
+                    }
+                }
+            }
+        }
+
+        public create(filename){
+            if(!(this.isInHDD(_FileList, filename))) {
+                _FileList += filename;
+                return true;
+            }
+            else return false;
+        }
+
+        public read(filename){
+            if(this.isInHDD(_FileList, filename)){
+
+            }
 
         }
 
-        public read(){
+        public writeOS(filename, data){
+            if(this.isInHDD(_FileList, filename)){
 
+            }
         }
 
-        public writeOS(){
-
+        public writeUser(filename, data){
+            if(this.isInHDD(_FileList, filename)){
+                if(data.length > 0){
+                    var free = this.allocate();
+                    
+                }
+            }
         }
 
-        public writeUser(){
+        public deleteFile(filename){
+            if(this.isInHDD(_FileList, filename)){
 
-        }
-
-        public deleteFile(){
-
+            }
         }
 
         public format(){

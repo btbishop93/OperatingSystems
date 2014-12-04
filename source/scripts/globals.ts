@@ -29,6 +29,9 @@ var WRITE_IRQ_OS: number = 5;
 var WRITE_IRQ_USER: number = 6;
 var DELETE_IRQ: number = 7;
 var FORMAT_IRQ: number = 8;
+var _FILENAME: string = "";
+var _DATA: string = "";
+var _FileList: string [] = [];
 
 var _pDone: boolean = false;
 

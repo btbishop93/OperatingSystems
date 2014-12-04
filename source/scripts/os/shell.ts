@@ -623,21 +623,30 @@ module TSOS {
 
         public shellCreate(args){
             _CommandArr.push("create");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new Interrupt(CREATE_IRQ, ""));
         }
 
         public shellRead(args){
             _CommandArr.push("read");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new Interrupt(READ_IRQ, ""));
         }
 
-        public shellWrite(args){
+        public shellWrite(args, data){
             _CommandArr.push("write");
+            _FILENAME = args;
+            _DATA = data;
+            _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_USER, ""));
         }
 
         public shellDelete(args){
             _CommandArr.push("delete");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new Interrupt(DELETE_IRQ, ""));
         }
 
-        public shellFormat(args){
+        public shellFormat(){
             _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new Interrupt(FORMAT_IRQ, ""));
         }

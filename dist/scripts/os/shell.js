@@ -574,21 +574,30 @@ var TSOS;
 
         Shell.prototype.shellCreate = function (args) {
             _CommandArr.push("create");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(CREATE_IRQ, ""));
         };
 
         Shell.prototype.shellRead = function (args) {
             _CommandArr.push("read");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(READ_IRQ, ""));
         };
 
-        Shell.prototype.shellWrite = function (args) {
+        Shell.prototype.shellWrite = function (args, data) {
             _CommandArr.push("write");
+            _FILENAME = args;
+            _DATA = data;
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(WRITE_IRQ_USER, ""));
         };
 
         Shell.prototype.shellDelete = function (args) {
             _CommandArr.push("delete");
+            _FILENAME = args;
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(DELETE_IRQ, ""));
         };
 
-        Shell.prototype.shellFormat = function (args) {
+        Shell.prototype.shellFormat = function () {
             _CommandArr.push("format");
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FORMAT_IRQ, ""));
         };
