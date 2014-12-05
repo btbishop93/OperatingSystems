@@ -49,9 +49,26 @@ module TSOS {
             }
         }
 
+        public findFileLoc(filename){
+            for (var i = 0; i < 4; i++) {
+                for (var j = 0; j < 8; j++) {
+                    for (var k = 0; k < 8; k++) {
+                        var row = i + ":" + j + ":" + k;
+                        var data = _HardDrive.getHDD(row);
+                        data = _HardDrive.hex2text(data.substr(4, (filename[0].length * 2)));
+                        if(data.substr(0, filename[0].length) == filename[0]){
+                            return row;
+                        }
+                    }
+                }
+            }
+        }
+
         public create(filename){
-            if(!(this.isInHDD(_FileList, filename))) {
-                _FileList += filename;
+            if(!(this.isInHDD(_FileList, filename[0]))) {
+                _FileList += filename[0];
+                var free = this.allocate();
+                _HardDrive.setHDD(free, "1" + "$$$" + filename);
                 return true;
             }
             else return false;
@@ -73,12 +90,29 @@ module TSOS {
         public writeUser(filename, data){
             if(this.isInHDD(_FileList, filename)){
                 if(data.length > 0){
-                    var free = this.allocate();
+                    var fileLoc = this.findFileLoc(filename);
+                    var file = _HardDrive.getHDD(fileLoc);
+                    file = this.filterFile(file);
+                    file = _HardDrive.hex2text(file);
+                    var free = _HardDrive.nextFreeBlock();
+                    _HardDrive.setHDD(fileLoc, "1" + free[0] + free[2] + free[4] + file);
+                    _HardDrive.updateHDD();
                     if(_HardDrive.setHDD(free, "1" + "$$$" + data)){
                         return true;
                     }
                 }
             }
+        }
+
+        public filterFile(file){
+            var f = file;
+            var newfile = "";
+            for(var i = 4; i < f.length; i++){
+                if(!(f.charAt(i) == "~")){
+                    newfile += f.charAt(i);
+                }
+            }
+            return newfile;
         }
 
         public deleteFile(filename){

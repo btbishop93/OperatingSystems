@@ -88,8 +88,10 @@ module TSOS {
             return sessionStorage.getItem(loc);
         }
 
-        public setHDD(loc, value) {
-            if (loc && (value.length > 4)) {
+        public setHDD(loc, val) {
+            if (loc && (val.length > 4)) {
+                var hexval = this.text2hex(val.substr(4));
+                var value = val.substr(0, 4) + hexval;
                 var gap = 64 - value.length;
                 if (gap < 60) {
                     for (var h = 0; h < gap; h++) {
@@ -102,73 +104,104 @@ module TSOS {
                     this.updateHDD();
                     return true;
                 }
-
                 else {
                     if (value.length > 64) {
                         var values = [];
                         var data = "";
-                        var free = "";
                         for (var i = 4; i < value.length; i++) {
                             data += value[i];
                             if ((i - 3) % 60 == 0) {
                                 values.push(data);
-                                data = ""
+                                data = "";
                             }
                         }
                         if(data.length < 60){
                             values.push(data);
                         }
+                        var free = loc;
+                        var nextfree = "";
                         for (var k = 0; k < values.length; k++) {
                             var currData = values[k];
-                            free = this.nextFreeBlock();
                             var doneData = "";
                             if(currData.length < 60){
-                                doneData += "1$$$"
+                                doneData += "1$$$";
                             }
                             while (currData.length < 60){
                                 currData += "~";
                             }
+                            if(doneData.length > 0){
+                                 if(values.length < 3){
+                                    var nextblock = "1";
+                                    var nextblockfree = this.nextFreeBlock();
+                                    nextblock += nextblockfree.charAt(0);
+                                    nextblock += nextblockfree.charAt(2);
+                                    nextblock += nextblockfree.charAt(4);
+                                    sessionStorage.setItem(nextfree, nextblock + values[0]);
+                                }
+                                nextfree = this.nextFreeBlock();
+                                sessionStorage.setItem(nextfree, doneData + currData);
 
-                            if (k == 0) {
-                                var startData = "1";
-                                startData += free.charAt(0);
-                                startData += free.charAt(2);
-                                startData += free.charAt(4);
-                                console.log("Start Data: " + startData);
-                                currData = startData + currData;
-                                sessionStorage.setItem(loc, currData);
-                                console.log("1st block: " + currData);
                             }
                             else {
-                                if(doneData.length > 0){
-                                    sessionStorage.setItem(free, doneData + currData);
+                                var nextData = "1";
+                                nextfree = this.nextFreeBlock();
+                                if(k == 0){
+                                    nextData += nextfree.charAt(0);
+                                    nextData += nextfree.charAt(2);
+                                    nextData += nextfree.charAt(4);
+                                    sessionStorage.setItem(free, nextData + currData);
                                 }
                                 else {
-                                    var startData = "1";
-                                    startData += free.charAt(0);
-                                    startData += free.charAt(2);
-                                    startData += free.charAt(4);
-                                    sessionStorage.setItem(free, startData + currData);
+                                    nextData += nextfree.charAt(0);
+                                    nextData += nextfree.charAt(2);
+                                    nextData += nextfree.charAt(4);
+                                    sessionStorage.setItem(nextfree, nextData + currData);
+                                    var nextblock = "1";
+                                    var nextblockfree = this.nextFreeBlock();
+                                    nextblock += nextblockfree.charAt(0);
+                                    nextblock += nextblockfree.charAt(2);
+                                    nextblock += nextblockfree.charAt(4);
+                                    sessionStorage.setItem(nextfree, nextblock + currData);
                                 }
                             }
+                            this.updateHDD();
                         }
+                        this.updateHDD();
+                        return true;
                     }
                 }
             }
         }
 
         public nextFreeBlock(){
-            for (var i = 0; i < 4; i++) {
+            for (var i = 1; i < 4; i++) {
                 for (var j = 0; j < 8; j++) {
                     for (var k = 0; k < 8; k++) {
                         var row = i + ":" + j + ":" + k;
-                        var data = _HardDrive.getHDD(row);
+                        var data = this.getHDD(row);
                         if(data[0] == "0"){
                             return row;
                         }
                     }
                 }
             }
+        }
+
+        public text2hex(str){
+            var arr = [];
+            for (var i = 0, l = str.length; i < l; i ++) {
+                var hex = Number(str.charCodeAt(i)).toString(16);
+                arr.push(hex);
+            }
+            return arr.join('');
+        }
+
+        public hex2text(hexx){
+            var hex = hexx.toString();
+            var str = '';
+            for (var i = 0; i < hex.length; i += 2)
+                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+            return str;
         }
 
         public resetHDD() {

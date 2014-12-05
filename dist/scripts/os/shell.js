@@ -399,7 +399,7 @@ var TSOS;
 
             textContent = textContent.replace(/\s+/g, '');
 
-            var hexChars = /^[0-9A-F]+$/;
+            var hexChars = /^[0-9A-Z]+$/;
 
             var memLoad = textContent.length / 2;
 
