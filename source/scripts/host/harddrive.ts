@@ -89,11 +89,11 @@ module TSOS {
         }
 
         public setHDD(loc, val) {
-            if (loc && (val.length > 4)) {
+            if (loc && (val.length > 3)) {
                 var hexval = this.text2hex(val.substr(4));
                 var value = val.substr(0, 4) + hexval;
                 var gap = 64 - value.length;
-                if (gap < 60) {
+                if (gap <= 60) {
                     for (var h = 0; h < gap; h++) {
                         value += "~";
                     }

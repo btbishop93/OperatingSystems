@@ -574,13 +574,13 @@ var TSOS;
 
         Shell.prototype.shellCreate = function (args) {
             _CommandArr.push("create");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(CREATE_IRQ, ""));
         };
 
         Shell.prototype.shellRead = function (args) {
             _CommandArr.push("read");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(READ_IRQ, ""));
         };
 
@@ -593,7 +593,7 @@ var TSOS;
 
         Shell.prototype.shellDelete = function (args) {
             _CommandArr.push("delete");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new TSOS.Interrupt(DELETE_IRQ, ""));
         };
 

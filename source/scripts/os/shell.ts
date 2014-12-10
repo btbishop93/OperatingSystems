@@ -623,13 +623,13 @@ module TSOS {
 
         public shellCreate(args){
             _CommandArr.push("create");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new Interrupt(CREATE_IRQ, ""));
         }
 
         public shellRead(args){
             _CommandArr.push("read");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new Interrupt(READ_IRQ, ""));
         }
 
@@ -642,7 +642,7 @@ module TSOS {
 
         public shellDelete(args){
             _CommandArr.push("delete");
-            _FILENAME = args;
+            _FILENAME = args[0];
             _KernelInterruptQueue.enqueue(new Interrupt(DELETE_IRQ, ""));
         }
 

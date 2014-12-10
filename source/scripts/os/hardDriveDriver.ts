@@ -41,7 +41,7 @@ module TSOS {
                     for (var k = 0; k < 8; k++) {
                         var row = i + ":" + j + ":" + k;
                         var data = _HardDrive.getHDD(row);
-                        if(data[0] == "0"){
+                        if(data[0] === "0"){
                             return row;
                         }
                     }
@@ -56,7 +56,7 @@ module TSOS {
                         var row = i + ":" + j + ":" + k;
                         var data = _HardDrive.getHDD(row);
                         data = _HardDrive.hex2text(data.substr(4, (filename[0].length * 2)));
-                        if(data.substr(0, filename[0].length) == filename[0]){
+                        if(data.substr(0, filename[0].length) === filename[0]){
                             return row;
                         }
                     }
@@ -65,8 +65,8 @@ module TSOS {
         }
 
         public create(filename){
-            if(!(this.isInHDD(_FileList, filename[0]))) {
-                _FileList += filename[0];
+            if(!(this.isInHDD(_FileList, filename))) {
+                _FileList.push(filename);
                 var free = this.allocate();
                 _HardDrive.setHDD(free, "1" + "$$$" + filename);
                 return true;
@@ -107,7 +107,6 @@ module TSOS {
                     console.log(contentStr);
                     for(var j = 0; j < contentStr.length; j++) {
                         var char = contentStr.charAt(j);
-                        console.log(char);
                         _StdOut.putText(char);
                     }
                     return true;
@@ -141,6 +140,36 @@ module TSOS {
             }
         }
 
+        public deleteFile(filename) {
+            if (this.isInHDD(_FileList, filename)) {
+                var fileLoc = this.findFileLoc(filename);
+                var content = _HardDrive.getHDD(fileLoc);
+                content = content.substr(1, 3);
+                if (content == "$$$") {
+                    _HardDrive.setHDD(fileLoc, "0$$$");
+                    _HardDrive.updateHDD();
+                }
+                else {
+                    var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
+                    _HardDrive.setHDD(fileLoc, "0$$$");
+                    while (content != "$$$") {
+                        var filec = _HardDrive.getHDD(contentLoc);
+                        if (filec != null) {
+                            _HardDrive.setHDD(contentLoc, "0$$$");
+                            content = filec.substr(1, 3);
+                            contentLoc = filec.charAt(1) + ":" + filec.charAt(2) + ":" + filec.charAt(3);
+                        }
+                    }
+                    if (_HardDrive.getHDD(contentLoc) != null) {
+                        _HardDrive.setHDD(contentLoc, "0$$$");
+                    }
+                }
+                _HardDrive.updateHDD();
+                return true;
+            }
+            else false;
+        }
+
         public filterFile(file){
             var f = file;
             var newfile = "";
@@ -165,12 +194,6 @@ module TSOS {
                 }
             }
             return newfile;
-        }
-
-        public deleteFile(filename){
-            if(this.isInHDD(_FileList, filename)){
-
-            }
         }
 
         public format(){

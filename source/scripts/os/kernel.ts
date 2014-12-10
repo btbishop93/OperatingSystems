@@ -170,10 +170,11 @@ module TSOS {
                     break;
                 case READ_IRQ:
                         if(_HardDriveDriver.read(_FILENAME)){
-
+                            _StdOut.advanceLine();
+                            _StdOut.putText(">");
                         }
                         else{
-                            _StdOut.putText("File failed to be read. Check file name, it may be invalid or already exist.");
+                            _StdOut.putText("File failed to be read. Check file name, it may be invalid.");
                             _StdOut.advanceLine();
                             _StdOut.putText(">");
                         }
@@ -194,7 +195,10 @@ module TSOS {
                         }
                     break;
                 case DELETE_IRQ:
-                        _HardDriveDriver.deleteFile(_FILENAME);
+                        if(_HardDriveDriver.deleteFile(_FILENAME)){
+                            _StdOut.putText("File: " + _FILENAME + " has been deleted.")
+                        }
+                        else _StdOut.putText("File: " + _FILENAME + " could not been deleted. Please check the filename.")
                     break;
                 case FORMAT_IRQ:
                         _HardDriveDriver.format();
