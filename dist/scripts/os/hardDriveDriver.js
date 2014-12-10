@@ -99,7 +99,6 @@ var TSOS;
 
                     contentStr = this.filterContent(contentStr);
                     contentStr = _HardDrive.hex2text(contentStr);
-                    console.log(contentStr);
                     for (var j = 0; j < contentStr.length; j++) {
                         var char = contentStr.charAt(j);
                         _StdOut.putText(char);
@@ -134,6 +133,10 @@ var TSOS;
 
         hardDriveDriver.prototype.deleteFile = function (filename) {
             if (this.isInHDD(_FileList, filename)) {
+                var index = _FileList.indexOf(filename);
+                if (index > -1) {
+                    _FileList.splice(index, 1);
+                }
                 var fileLoc = this.findFileLoc(filename);
                 var content = _HardDrive.getHDD(fileLoc);
                 content = content.substr(1, 3);

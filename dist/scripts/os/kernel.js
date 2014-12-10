@@ -185,8 +185,14 @@ var TSOS;
                 case DELETE_IRQ:
                     if (_HardDriveDriver.deleteFile(_FILENAME)) {
                         _StdOut.putText("File: " + _FILENAME + " has been deleted.");
-                    } else
+                        _StdOut.advanceLine();
+                        _StdOut.putText(">");
+                    } else {
                         _StdOut.putText("File: " + _FILENAME + " could not been deleted. Please check the filename.");
+                        _StdOut.advanceLine();
+                        _StdOut.putText(">");
+                    }
+
                     break;
                 case FORMAT_IRQ:
                     _HardDriveDriver.format();

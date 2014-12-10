@@ -637,6 +637,9 @@ module TSOS {
             _CommandArr.push("write");
             _FILENAME = args[0];
             _DATA = args[1];
+            console.log(_DATA);
+            _DATA = _DATA.replace(/[""]+/g, '');
+            console.log(_DATA);
             _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_USER, ""));
         }
 
