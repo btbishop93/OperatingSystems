@@ -652,6 +652,11 @@ module TSOS {
         }
 
         public shellLs(args){
+            var files = _FileList[0];
+            for(var i = 1; i < _FileList.length; i++){
+                files += ", " + _FileList[i];
+            }
+            _StdOut.putText(files);
             _CommandArr.push("ls");
         }
 

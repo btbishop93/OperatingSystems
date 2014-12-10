@@ -603,6 +603,11 @@ var TSOS;
         };
 
         Shell.prototype.shellLs = function (args) {
+            var files = _FileList[0];
+            for (var i = 1; i < _FileList.length; i++) {
+                files += ", " + _FileList[i];
+            }
+            _StdOut.putText(files);
             _CommandArr.push("ls");
         };
         return Shell;
