@@ -76,8 +76,29 @@ module TSOS {
 
         public read(filename){
             if(this.isInHDD(_FileList, filename)){
+                var fileLoc = this.findFileLoc(filename);
+                var content = _HardDrive.getHDD(fileLoc);
+                content = content.substr(1, 3);
+                if(content == "$$$"){
+                    return false;
+                }
+                else{
+                    var fileContent = [];
+                    var contentStr = "";
+                    while(content != "$$$"){
+                        fileContent += _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(4);
+                        content = _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(0, 4);
+                    }
+                    fileContent += _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(4);
+                    for(var i = 0; i < fileContent.length; i++){
+                        contentStr += fileContent[i];
+                    }
+                    _StdOut.putText(contentStr);
+                    return true;
+                }
 
             }
+            else false;
 
         }
 

@@ -157,19 +157,26 @@ module TSOS {
                     break;
                 case CREATE_IRQ:
                         if(_HardDriveDriver.create(_FILENAME)){
-                            _StdOut.putText("File successfully created with name " + _FILENAME);
+                            _StdOut.putText("File successfully created with name: " + _FILENAME);
                             _StdOut.advanceLine();
                             _StdOut.putText(">");
                         }
                         else{
-                            _StdOut.putText("File failed to create with name " + _FILENAME + ". Check file name, it may be invalid or already exist.");
+                            _StdOut.putText("File failed to create. Check file name, it may be invalid or already exist.");
                             _StdOut.advanceLine();
                             _StdOut.putText(">");
                         }
 
                     break;
                 case READ_IRQ:
-                        _HardDriveDriver.read(_FILENAME);
+                        if(_HardDriveDriver.read(_FILENAME)){
+
+                        }
+                        else{
+                            _StdOut.putText("File failed to be read. Check file name, it may be invalid or already exist.");
+                            _StdOut.advanceLine();
+                            _StdOut.putText(">");
+                        }
                     break;
                 case WRITE_IRQ_OS:
                         _HardDriveDriver.writeOS(_FILENAME, _DATA);
