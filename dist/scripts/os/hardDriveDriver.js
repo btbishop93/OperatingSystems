@@ -80,15 +80,31 @@ var TSOS;
                 } else {
                     var fileContent = [];
                     var contentStr = "";
+                    var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
                     while (content != "$$$") {
-                        fileContent += _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(4);
-                        content = _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(0, 4);
+                        var filec = _HardDrive.getHDD(contentLoc);
+                        if (filec != null) {
+                            fileContent += filec.substr(4);
+                            content = filec.substr(1, 3);
+                            contentLoc = filec.charAt(1) + ":" + filec.charAt(2) + ":" + filec.charAt(3);
+                        }
                     }
-                    fileContent += _HardDrive.getHDD(content[0] + ":" + content[1] + ":" + content[2]).substr(4);
+                    if (_HardDrive.getHDD(contentLoc) != null) {
+                        fileContent += _HardDrive.getHDD(contentLoc);
+                    }
+
                     for (var i = 0; i < fileContent.length; i++) {
                         contentStr += fileContent[i];
                     }
-                    _StdOut.putText(contentStr);
+
+                    contentStr = this.filterContent(contentStr);
+                    contentStr = _HardDrive.hex2text(contentStr);
+                    console.log(contentStr);
+                    for (var j = 0; j < contentStr.length; j++) {
+                        var char = contentStr.charAt(j);
+                        console.log(char);
+                        _StdOut.putText(char);
+                    }
                     return true;
                 }
             } else
@@ -122,7 +138,22 @@ var TSOS;
             var newfile = "";
             for (var i = 4; i < f.length; i++) {
                 if (!(f.charAt(i) == "~")) {
-                    newfile += f.charAt(i);
+                    if (f.charAt(i) != null) {
+                        newfile += f.charAt(i);
+                    }
+                }
+            }
+            return newfile;
+        };
+
+        hardDriveDriver.prototype.filterContent = function (content) {
+            var f = content;
+            var newfile = "";
+            for (var i = 0; i < f.length; i++) {
+                if (!(f.charAt(i) == "~")) {
+                    if (f.charAt(i) != null) {
+                        newfile += f.charAt(i);
+                    }
                 }
             }
             return newfile;

@@ -146,6 +146,12 @@ var TSOS;
                                     nextData += nextfree.charAt(2);
                                     nextData += nextfree.charAt(4);
                                     sessionStorage.setItem(free, nextData + currData);
+                                    var nextblock = "1";
+                                    var nextblockfree = this.nextFreeBlock();
+                                    nextblock += nextblockfree.charAt(0);
+                                    nextblock += nextblockfree.charAt(2);
+                                    nextblock += nextblockfree.charAt(4);
+                                    sessionStorage.setItem(free, nextblock + currData);
                                 } else {
                                     nextData += nextfree.charAt(0);
                                     nextData += nextfree.charAt(2);
