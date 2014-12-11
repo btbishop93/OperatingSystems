@@ -82,6 +82,8 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 
 var _SwapPCB: TSOS.Pcb;
 
+var _SwapData: string;
+
 var _PidAssign: number = 0;
 
 var _Quantum: number = 999999999999999;

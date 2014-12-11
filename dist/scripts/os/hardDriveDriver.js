@@ -46,7 +46,6 @@ var TSOS;
         };
         hardDriveDriver.prototype.findFileLoc = function (filename) {
             var name = _HardDrive.text2hex(filename);
-            console.log(name);
             for (var i = 0; i < 4; i++) {
                 for (var j = 0; j < 8; j++) {
                     for (var k = 1; k < 8; k++) {
@@ -116,24 +115,22 @@ var TSOS;
                 false;
         };
 
-        hardDriveDriver.prototype.writeOS = function (pcb) {
+        hardDriveDriver.prototype.writeOS = function (pcb, swapdata) {
             if (pcb.SWAP == "") {
                 pcb.SWAP = ".swap" + pcb.PID;
                 var free = this.allocate();
                 _HardDrive.setHDD(free, "1" + "$$$" + pcb.SWAP);
                 var nextfree = _HardDrive.nextFreeBlock();
                 _HardDrive.setHDD(free, "1" + nextfree[0] + nextfree[2] + nextfree[4] + pcb.SWAP);
-                var data = _HardDrive.hex2text(pcb.DATA);
+                var data = _HardDrive.hex2text(swapdata);
                 _HardDrive.setHDD(nextfree, "1$$$" + data);
                 _HardDrive.updateHDD();
             } else {
-                console.log("Pcb swapname: " + pcb.SWAP);
                 var fileLoc = this.findFileLoc(pcb.SWAP);
                 var file = _HardDrive.getHDD(fileLoc);
                 file = file.substr(1, 3);
                 file = file[0] + ":" + file[1] + ":" + file[2];
-                console.log(file);
-                var data = _HardDrive.hex2text(pcb.DATA);
+                var data = _HardDrive.hex2text(swapdata);
                 this.swap(pcb.SWAP);
                 _HardDrive.setHDD(file, "1$$$" + data);
                 _HardDrive.updateHDD();
@@ -207,7 +204,6 @@ var TSOS;
         };
 
         hardDriveDriver.prototype.swap = function (filename) {
-            console.log(filename);
             var fileLoc = this.findFileLoc(filename);
             var content = _HardDrive.getHDD(fileLoc);
             content = content.substr(1, 3);
@@ -229,6 +225,36 @@ var TSOS;
                 }
             }
             _HardDrive.updateHDD();
+        };
+
+        hardDriveDriver.prototype.swapRead = function (filename) {
+            var fileLoc = this.findFileLoc(filename);
+            var content = _HardDrive.getHDD(fileLoc);
+            content = content.substr(1, 3);
+            if (content == "$$$") {
+                return "";
+            } else {
+                var fileContent = [];
+                var contentStr = "";
+                var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
+                while (content != "$$$") {
+                    var filec = _HardDrive.getHDD(contentLoc);
+                    if (filec != null) {
+                        fileContent += filec.substr(4);
+                        content = filec.substr(1, 3);
+                        contentLoc = filec.charAt(1) + ":" + filec.charAt(2) + ":" + filec.charAt(3);
+                    }
+                }
+                if (_HardDrive.getHDD(contentLoc) != null) {
+                    fileContent += _HardDrive.getHDD(contentLoc);
+                }
+
+                for (var i = 0; i < fileContent.length; i++) {
+                    contentStr += fileContent[i];
+                }
+
+                return contentStr;
+            }
         };
 
         hardDriveDriver.prototype.filterContent = function (content) {

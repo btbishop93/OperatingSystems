@@ -180,7 +180,7 @@ module TSOS {
                         }
                     break;
                 case WRITE_IRQ_OS:
-                        _HardDriveDriver.writeOS(_SwapPCB);
+                        _HardDriveDriver.writeOS(_SwapPCB, _SwapData);
                     break;
                 case WRITE_IRQ_USER:
                         if(_HardDriveDriver.writeUser(_FILENAME, _DATA)){

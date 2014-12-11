@@ -4,11 +4,10 @@
 var TSOS;
 (function (TSOS) {
     var Pcb = (function () {
-        function Pcb(base, limit, PRIORITY, PID, LOC, SWAP, DATA, PC, IR, ACC, X, Y, Z, STATE) {
+        function Pcb(base, limit, PRIORITY, PID, LOC, SWAP, PC, IR, ACC, X, Y, Z, STATE) {
             if (typeof PID === "undefined") { PID = 0; }
             if (typeof LOC === "undefined") { LOC = "Memory"; }
             if (typeof SWAP === "undefined") { SWAP = ""; }
-            if (typeof DATA === "undefined") { DATA = ""; }
             if (typeof PC === "undefined") { PC = 0; }
             if (typeof IR === "undefined") { IR = "0"; }
             if (typeof ACC === "undefined") { ACC = 0; }
@@ -22,7 +21,6 @@ var TSOS;
             this.PID = PID;
             this.LOC = LOC;
             this.SWAP = SWAP;
-            this.DATA = DATA;
             this.PC = PC;
             this.IR = IR;
             this.ACC = ACC;

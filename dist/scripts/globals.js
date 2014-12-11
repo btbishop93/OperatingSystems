@@ -73,6 +73,8 @@ var commandList = [
 //
 var _SwapPCB;
 
+var _SwapData;
+
 var _PidAssign = 0;
 
 var _Quantum = 999999999999999;

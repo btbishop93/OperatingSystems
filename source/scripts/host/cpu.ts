@@ -169,18 +169,23 @@ module TSOS {
             if(_ReadyQueue.getSize() > 1){
                 if(_QuantumCount >= _Quantum){
                     var tempPcb = _ReadyQueue.q[0];
+                    var tempData = _MemoryManager.getMemData(tempPcb, tempPcb.base);
                     _ReadyQueue.q[0].STATE = "Waiting";
                     _ReadyQueue.dequeue();
                     _ReadyQueue.q[0].STATE = "Running";
                     if(_ReadyQueue.q[0].LOC === "HDD"){
+                        _ReadyQueue.q[0].LOC = "Memory";
+                        _ReadyQueue.q[0].base = tempPcb.base;
+                        _ReadyQueue.q[0].limit = tempPcb.limit;
                         tempPcb.LOC = "HDD";
                         var first = 0;
                         var second = 1;
-                        var tempData = _MemoryManager.getMemData(tempPcb, tempPcb.base);
-                        tempPcb.DATA = tempData;
-                        _HardDriveDriver.writeOS(tempPcb);
-                        var textContent = _ReadyQueue.q[0].DATA;
-                        var memLoad = textContent/ 2;
+                        //console.log("pcb" + tempPcb.PID + ": " + tempData);
+                        _HardDriveDriver.writeOS(tempPcb, tempData);
+                        var textContent = _HardDriveDriver.swapRead(_ReadyQueue.q[0].SWAP);
+                        textContent = _HardDriveDriver.filterContent(textContent);
+                        console.log("pcb" + _ReadyQueue.q[0].PID + ": " + textContent);
+                        var memLoad = textContent.length / 2;
                         if(_Limit <= 767) {
                             for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
                                 _MemoryManager.setMemLoc(i, "00");
@@ -191,10 +196,8 @@ module TSOS {
                                 first += 2;
                                 second += 2;
                             }
+                            _MemoryManager.updateMem();
                         }
-                    _ReadyQueue.q[0].LOC = "Memory";
-                    _ReadyQueue.q[0].base = tempPcb.base;
-                    _ReadyQueue.q[0].limit = tempPcb.limit;
                     }
                     _ReadyQueue.enqueue(tempPcb);
                     _QuantumCount = 0;
@@ -364,12 +367,12 @@ module TSOS {
                 }
                 var row = document.getElementById("pid" + _ReadyQueue.q[0].PID);
                 row.parentNode.removeChild(row);
-                _ReadyQueue.dequeue();
+                _QuantumCount = _Quantum;
                 if(_ReadyQueue.getSize() > 0){
                     this.isExecuting = true;
                     _HasRun = true;
                 }
-                _QuantumCount = 0;
+                //_QuantumCount = 0;
             }
             else{
                 this.init();

@@ -190,15 +190,20 @@ var TSOS;
 
         harddrive.prototype.text2hex = function (str) {
             var arr = [];
+            var hexArr = "";
             for (var i = 0, l = str.length; i < l; i++) {
                 var hex = Number(str.charCodeAt(i)).toString(16);
-                if (hex === "0") {
-                    hex += "0";
-                }
                 hex = hex.toUpperCase();
                 arr.push(hex);
             }
-            return arr.join('');
+            for (var j = 0; j < arr.length; j++) {
+                if (arr[j].length < 2) {
+                    hexArr += "0" + arr[j];
+                } else {
+                    hexArr += arr[j];
+                }
+            }
+            return hexArr;
         };
 
         harddrive.prototype.hex2text = function (hexx) {

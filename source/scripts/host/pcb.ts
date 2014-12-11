@@ -11,7 +11,6 @@ module TSOS {
                     public PID: number = 0,
                     public LOC: string = "Memory",
                     public SWAP: string = "",
-                    public DATA: string = "",
                     public PC: number = 0,
                     public IR: string = "0",
                     public ACC: number = 0,
