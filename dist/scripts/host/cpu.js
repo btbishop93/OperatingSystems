@@ -167,36 +167,34 @@ var TSOS;
             if (_ReadyQueue.getSize() > 1) {
                 if (_QuantumCount >= _Quantum) {
                     var tempPcb = _ReadyQueue.q[0];
-                    var tempData = _MemoryManager.getMemData(tempPcb, tempPcb.base);
                     _ReadyQueue.q[0].STATE = "Waiting";
                     _ReadyQueue.dequeue();
                     _ReadyQueue.q[0].STATE = "Running";
                     if (_ReadyQueue.q[0].LOC === "HDD") {
+                        var tempData = _MemoryManager.getMemData(tempPcb, tempPcb.base);
                         _ReadyQueue.q[0].LOC = "Memory";
                         _ReadyQueue.q[0].base = tempPcb.base;
                         _ReadyQueue.q[0].limit = tempPcb.limit;
+                        this.PC = _ReadyQueue.q[0].PC;
+                        this.updateCPU();
                         tempPcb.LOC = "HDD";
                         var first = 0;
                         var second = 1;
-
-                        //console.log("pcb" + tempPcb.PID + ": " + tempData);
                         _HardDriveDriver.writeOS(tempPcb, tempData);
                         var textContent = _HardDriveDriver.swapRead(_ReadyQueue.q[0].SWAP);
                         textContent = _HardDriveDriver.filterContent(textContent);
                         console.log("pcb" + _ReadyQueue.q[0].PID + ": " + textContent);
                         var memLoad = textContent.length / 2;
-                        if (_Limit <= 767) {
-                            for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
-                                _MemoryManager.setMemLoc(i, "00");
-                            }
-                            _MemoryManager.updateMem();
-                            for (var j = tempPcb.base; j < (tempPcb.base + memLoad); j++) {
-                                _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
-                                first += 2;
-                                second += 2;
-                            }
-                            _MemoryManager.updateMem();
+                        for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
+                            _MemoryManager.setMemLoc(i, "00");
                         }
+                        _MemoryManager.updateMem();
+                        for (var j = tempPcb.base; j < (tempPcb.base + memLoad); j++) {
+                            _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
+                            first += 2;
+                            second += 2;
+                        }
+                        _MemoryManager.updateMem();
                     }
                     _ReadyQueue.enqueue(tempPcb);
                     _QuantumCount = 0;
@@ -232,7 +230,6 @@ var TSOS;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = parseInt(value, 16);
                 this.Acc = parseInt(value, 16);
-                _QuantumCount++;
             } else if (opCode == "AD") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -241,7 +238,6 @@ var TSOS;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 this.Acc = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
-                _QuantumCount++;
             } else if (opCode == "8D") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -250,7 +246,6 @@ var TSOS;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 _MemoryManager.setMemLoc(Pcb.base + parseInt(value, 16), Pcb.ACC.toString(16));
                 _MemoryManager.updateMem();
-                _QuantumCount++;
             } else if (opCode == "6D") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -259,14 +254,12 @@ var TSOS;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.ACC = Pcb.ACC + parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 this.Acc = this.Acc + parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
-                _QuantumCount++;
             } else if (opCode == "A2") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.X = parseInt(value, 16);
                 this.Xreg = parseInt(value, 16);
-                _QuantumCount++;
             } else if (opCode == "AE") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -276,14 +269,12 @@ var TSOS;
                 var byte = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
                 Pcb.X = byte;
                 this.Xreg = byte;
-                _QuantumCount++;
             } else if (opCode == "A0") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 Pcb.Y = parseInt(value, 16);
                 this.Yreg = parseInt(value, 16);
-                _QuantumCount++;
             } else if (opCode == "AC") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -293,10 +284,8 @@ var TSOS;
                 var byte = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)), 16);
                 Pcb.Y = byte;
                 this.Yreg = byte;
-                _QuantumCount++;
             } else if (opCode == "EA") {
                 Pcb.PC++;
-                _QuantumCount++;
             } else if (opCode == "EC") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -311,7 +300,6 @@ var TSOS;
                     Pcb.Z = 0;
                     this.Zflag = 0;
                 }
-                _QuantumCount++;
             } else if (opCode == "D0") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -320,7 +308,6 @@ var TSOS;
                 if (Pcb.Z == 0) {
                     Pcb.PC = branch;
                 }
-                _QuantumCount++;
             } else if (opCode == "EE") {
                 hexLoc = (Pcb.PC + Pcb.base).toString(16);
                 Pcb.PC++;
@@ -332,10 +319,8 @@ var TSOS;
                 byte++;
                 _MemoryManager.setMemLoc(Pcb.base + parseInt(value, 16), byte.toString(16));
                 _MemoryManager.updateMem();
-                _QuantumCount++;
             } else if (opCode == "FF") {
                 _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FF_IRQ, ""));
-                _QuantumCount++;
             } else if (opCode == "00") {
                 this.init();
 
@@ -376,7 +361,7 @@ var TSOS;
                     _StepModeOn = false;
                 }
             }
-
+            _QuantumCount++;
             this.PC = Pcb.PC;
             this.updateCPU();
         };
