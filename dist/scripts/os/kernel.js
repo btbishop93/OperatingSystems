@@ -169,7 +169,7 @@ var TSOS;
                     }
                     break;
                 case WRITE_IRQ_OS:
-                    _HardDriveDriver.writeOS(_SwapName, _SwapData);
+                    _HardDriveDriver.writeOS(_SwapPCB);
                     break;
                 case WRITE_IRQ_USER:
                     if (_HardDriveDriver.writeUser(_FILENAME, _DATA)) {

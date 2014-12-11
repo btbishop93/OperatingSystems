@@ -80,9 +80,7 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 // Global Variables
 //
 
-var _SwapName: string =  "";
-
-var _SwapData: string = "";
+var _SwapPCB: TSOS.Pcb;
 
 var _PidAssign: number = 0;
 

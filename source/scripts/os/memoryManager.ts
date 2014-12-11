@@ -31,6 +31,15 @@ module TSOS {
             else return _Memory.getMemLoc(loc);
         }
 
+        public getMemData(pcb, loc){
+            var data = "";
+            while(loc >= pcb.base && loc <= pcb.limit) {
+                data += _Memory.getMemLoc(loc);
+                loc++;
+            }
+            return data;
+        }
+
         public setMemLoc(loc, str){
             str = str.toUpperCase();
             if(_CPU.isExecuting) {

@@ -462,13 +462,16 @@ module TSOS {
 
                 if(_Limit > 767){
                     //call swap creation- writeOS
-                    _SwapName = ".swap" + _PidAssign;
-                    _SwapData = textContent;
-                    _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_OS, ""));
+                    var swapdata = "" + textContent;
                     if(args){
-                        _ResList.push(new Pcb(0, 0, args[0], _PidAssign, "HDD"));
+                        _SwapPCB = new Pcb(0, 0, args[0], _PidAssign, "HDD", "", swapdata);
+                        _ResList.push(_SwapPCB);
                     }
-                    else _ResList.push(new Pcb(0, 0, 0, _PidAssign, "HDD"));
+                    else {
+                        _SwapPCB = new Pcb(0, 0, 0, _PidAssign, "HDD", "", swapdata);
+                        _ResList.push(_SwapPCB);
+                    }
+                    _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_OS, ""));
                 }
 
                 if(_Limit <= 767) {

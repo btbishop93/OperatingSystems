@@ -28,6 +28,15 @@ var TSOS;
                 return _Memory.getMemLoc(loc);
         };
 
+        memoryManager.prototype.getMemData = function (pcb, loc) {
+            var data = "";
+            while (loc >= pcb.base && loc <= pcb.limit) {
+                data += _Memory.getMemLoc(loc);
+                loc++;
+            }
+            return data;
+        };
+
         memoryManager.prototype.setMemLoc = function (loc, str) {
             str = str.toUpperCase();
             if (_CPU.isExecuting) {

@@ -180,7 +180,7 @@ var TSOS;
                     for (var k = 0; k < 8; k++) {
                         var row = i + ":" + j + ":" + k;
                         var data = this.getHDD(row);
-                        if (data[0] == "0") {
+                        if (data[0] === "0") {
                             return row;
                         }
                     }
@@ -192,6 +192,10 @@ var TSOS;
             var arr = [];
             for (var i = 0, l = str.length; i < l; i++) {
                 var hex = Number(str.charCodeAt(i)).toString(16);
+                if (hex === "0") {
+                    hex += "0";
+                }
+                hex = hex.toUpperCase();
                 arr.push(hex);
             }
             return arr.join('');

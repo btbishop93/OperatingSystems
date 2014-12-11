@@ -170,6 +170,30 @@ var TSOS;
                     _ReadyQueue.q[0].STATE = "Waiting";
                     _ReadyQueue.dequeue();
                     _ReadyQueue.q[0].STATE = "Running";
+                    if (_ReadyQueue.q[0].LOC === "HDD") {
+                        tempPcb.LOC = "HDD";
+                        var first = 0;
+                        var second = 1;
+                        var tempData = _MemoryManager.getMemData(tempPcb, tempPcb.base);
+                        tempPcb.DATA = tempData;
+                        _HardDriveDriver.writeOS(tempPcb);
+                        var textContent = _ReadyQueue.q[0].DATA;
+                        var memLoad = textContent / 2;
+                        if (_Limit <= 767) {
+                            for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
+                                _MemoryManager.setMemLoc(i, "00");
+                            }
+                            _MemoryManager.updateMem();
+                            for (var j = tempPcb.base; j < (tempPcb.base + memLoad); j++) {
+                                _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
+                                first += 2;
+                                second += 2;
+                            }
+                        }
+                        _ReadyQueue.q[0].LOC = "Memory";
+                        _ReadyQueue.q[0].base = tempPcb.base;
+                        _ReadyQueue.q[0].limit = tempPcb.limit;
+                    }
                     _ReadyQueue.enqueue(tempPcb);
                     _QuantumCount = 0;
                     if (_pDone != true) {

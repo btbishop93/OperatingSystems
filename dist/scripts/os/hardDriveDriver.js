@@ -44,15 +44,16 @@ var TSOS;
                 }
             }
         };
-
         hardDriveDriver.prototype.findFileLoc = function (filename) {
+            var name = _HardDrive.text2hex(filename);
+            console.log(name);
             for (var i = 0; i < 4; i++) {
                 for (var j = 0; j < 8; j++) {
-                    for (var k = 0; k < 8; k++) {
+                    for (var k = 1; k < 8; k++) {
                         var row = i + ":" + j + ":" + k;
                         var data = _HardDrive.getHDD(row);
-                        data = _HardDrive.hex2text(data.substr(4, (filename[0].length * 2)));
-                        if (data.substr(0, filename[0].length) === filename[0]) {
+                        data = data.substr(4, name.length);
+                        if (data === name) {
                             return row;
                         }
                     }
@@ -61,6 +62,9 @@ var TSOS;
         };
 
         hardDriveDriver.prototype.create = function (filename) {
+            if (filename.indexOf('.') >= 0) {
+                return false;
+            }
             if (!(this.isInHDD(_FileList, filename))) {
                 _FileList.push(filename);
                 var free = this.allocate();
@@ -71,6 +75,9 @@ var TSOS;
         };
 
         hardDriveDriver.prototype.read = function (filename) {
+            if (filename.indexOf('.') >= 0) {
+                return false;
+            }
             if (this.isInHDD(_FileList, filename)) {
                 var fileLoc = this.findFileLoc(filename);
                 var content = _HardDrive.getHDD(fileLoc);
@@ -109,10 +116,34 @@ var TSOS;
                 false;
         };
 
-        hardDriveDriver.prototype.writeOS = function (swapname, swapdata) {
+        hardDriveDriver.prototype.writeOS = function (pcb) {
+            if (pcb.SWAP == "") {
+                pcb.SWAP = ".swap" + pcb.PID;
+                var free = this.allocate();
+                _HardDrive.setHDD(free, "1" + "$$$" + pcb.SWAP);
+                var nextfree = _HardDrive.nextFreeBlock();
+                _HardDrive.setHDD(free, "1" + nextfree[0] + nextfree[2] + nextfree[4] + pcb.SWAP);
+                var data = _HardDrive.hex2text(pcb.DATA);
+                _HardDrive.setHDD(nextfree, "1$$$" + data);
+                _HardDrive.updateHDD();
+            } else {
+                console.log("Pcb swapname: " + pcb.SWAP);
+                var fileLoc = this.findFileLoc(pcb.SWAP);
+                var file = _HardDrive.getHDD(fileLoc);
+                file = file.substr(1, 3);
+                file = file[0] + ":" + file[1] + ":" + file[2];
+                console.log(file);
+                var data = _HardDrive.hex2text(pcb.DATA);
+                this.swap(pcb.SWAP);
+                _HardDrive.setHDD(file, "1$$$" + data);
+                _HardDrive.updateHDD();
+            }
         };
 
         hardDriveDriver.prototype.writeUser = function (filename, data) {
+            if (filename.indexOf('.') >= 0) {
+                return false;
+            }
             if (this.isInHDD(_FileList, filename)) {
                 if (data.length > 0) {
                     var fileLoc = this.findFileLoc(filename);
@@ -173,6 +204,31 @@ var TSOS;
                 }
             }
             return newfile;
+        };
+
+        hardDriveDriver.prototype.swap = function (filename) {
+            console.log(filename);
+            var fileLoc = this.findFileLoc(filename);
+            var content = _HardDrive.getHDD(fileLoc);
+            content = content.substr(1, 3);
+            if (content == "$$$") {
+                _HardDrive.setHDD(fileLoc, "0$$$");
+                _HardDrive.updateHDD();
+            } else {
+                var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
+                while (content != "$$$") {
+                    var filec = _HardDrive.getHDD(contentLoc);
+                    if (filec != null) {
+                        _HardDrive.setHDD(contentLoc, "0$$$");
+                        content = filec.substr(1, 3);
+                        contentLoc = filec.charAt(1) + ":" + filec.charAt(2) + ":" + filec.charAt(3);
+                    }
+                }
+                if (_HardDrive.getHDD(contentLoc) != null) {
+                    _HardDrive.setHDD(contentLoc, "0$$$");
+                }
+            }
+            _HardDrive.updateHDD();
         };
 
         hardDriveDriver.prototype.filterContent = function (content) {

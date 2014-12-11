@@ -71,9 +71,7 @@ var commandList = [
 //
 // Global Variables
 //
-var _SwapName = "";
-
-var _SwapData = "";
+var _SwapPCB;
 
 var _PidAssign = 0;
 
