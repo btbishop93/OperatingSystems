@@ -387,9 +387,9 @@ module TSOS {
                     tempPcb.LOC = "HDD";
                     var first = 0;
                     var second = 1;
+                    console.log(_ReadyQueue.q[0].SWAP);
                     var textContent = _HardDriveDriver.swapRead(_ReadyQueue.q[0].SWAP);
                     textContent = _HardDriveDriver.filterContent(textContent);
-                    _HardDriveDriver.writeOS(tempPcb, tempData);
                     var memLoad = textContent.length / 2;
                     for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
                         _MemoryManager.setMemLoc(i, "00");
@@ -405,6 +405,8 @@ module TSOS {
                 if(_ReadyQueue.getSize() > 0){
                     this.isExecuting = true;
                     _HasRun = true;
+                }
+                else {
                     _HardDrive.resetHDD();
                 }
                 _QuantumCount = 0;
