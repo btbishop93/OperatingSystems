@@ -637,7 +637,6 @@ module TSOS {
                 data = data.replace(/\s+/g,'');
                 _DATA += data;
             }
-            console.log(_DATA);
             _KernelInterruptQueue.enqueue(new Interrupt(WRITE_IRQ_USER, ""));
         }
 

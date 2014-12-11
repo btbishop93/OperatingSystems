@@ -121,7 +121,7 @@ module TSOS {
         }
 
         public writeOS(pcb, swapdata){
-            if(pcb.SWAP == ""){
+            //if(pcb.SWAP != ""){
                 pcb.SWAP = ".swap" + pcb.PID;
                 var free = this.allocate();
                 _HardDrive.setHDD(free, "1" + "$$$" + pcb.SWAP);
@@ -130,8 +130,8 @@ module TSOS {
                 var data = _HardDrive.hex2text(swapdata);
                 _HardDrive.setHDD(nextfree, "1$$$" + data);
                 _HardDrive.updateHDD();
-            }
-            else {
+            //}
+            /*else {
                    var fileLoc = this.findFileLoc(pcb.SWAP);
                    var file = _HardDrive.getHDD(fileLoc);
                    file = file.substr(1, 3);
@@ -140,7 +140,7 @@ module TSOS {
                    this.swap(pcb.SWAP);
                    _HardDrive.setHDD(file, "1$$$" + data);
                    _HardDrive.updateHDD();
-                }
+                }*/
             }
 
         public writeUser(filename, data){
@@ -220,6 +220,7 @@ module TSOS {
             }
             else {
                 var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
+                _HardDrive.setHDD(fileLoc, "0$$$");
                 while (content != "$$$") {
                     var filec = _HardDrive.getHDD(contentLoc);
                     if (filec != null) {
@@ -261,7 +262,7 @@ module TSOS {
                 for(var i = 0; i < fileContent.length; i++){
                     contentStr += fileContent[i];
                 }
-
+                this.swap(filename);
                 return contentStr;
             }
         }

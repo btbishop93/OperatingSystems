@@ -116,25 +116,26 @@ var TSOS;
         };
 
         hardDriveDriver.prototype.writeOS = function (pcb, swapdata) {
-            if (pcb.SWAP == "") {
-                pcb.SWAP = ".swap" + pcb.PID;
-                var free = this.allocate();
-                _HardDrive.setHDD(free, "1" + "$$$" + pcb.SWAP);
-                var nextfree = _HardDrive.nextFreeBlock();
-                _HardDrive.setHDD(free, "1" + nextfree[0] + nextfree[2] + nextfree[4] + pcb.SWAP);
-                var data = _HardDrive.hex2text(swapdata);
-                _HardDrive.setHDD(nextfree, "1$$$" + data);
-                _HardDrive.updateHDD();
-            } else {
-                var fileLoc = this.findFileLoc(pcb.SWAP);
-                var file = _HardDrive.getHDD(fileLoc);
-                file = file.substr(1, 3);
-                file = file[0] + ":" + file[1] + ":" + file[2];
-                var data = _HardDrive.hex2text(swapdata);
-                this.swap(pcb.SWAP);
-                _HardDrive.setHDD(file, "1$$$" + data);
-                _HardDrive.updateHDD();
-            }
+            //if(pcb.SWAP != ""){
+            pcb.SWAP = ".swap" + pcb.PID;
+            var free = this.allocate();
+            _HardDrive.setHDD(free, "1" + "$$$" + pcb.SWAP);
+            var nextfree = _HardDrive.nextFreeBlock();
+            _HardDrive.setHDD(free, "1" + nextfree[0] + nextfree[2] + nextfree[4] + pcb.SWAP);
+            var data = _HardDrive.hex2text(swapdata);
+            _HardDrive.setHDD(nextfree, "1$$$" + data);
+            _HardDrive.updateHDD();
+            //}
+            /*else {
+            var fileLoc = this.findFileLoc(pcb.SWAP);
+            var file = _HardDrive.getHDD(fileLoc);
+            file = file.substr(1, 3);
+            file = file[0] + ":" + file[1] + ":" + file[2];
+            var data = _HardDrive.hex2text(swapdata);
+            this.swap(pcb.SWAP);
+            _HardDrive.setHDD(file, "1$$$" + data);
+            _HardDrive.updateHDD();
+            }*/
         };
 
         hardDriveDriver.prototype.writeUser = function (filename, data) {
@@ -212,6 +213,7 @@ var TSOS;
                 _HardDrive.updateHDD();
             } else {
                 var contentLoc = content.charAt(0) + ":" + content.charAt(1) + ":" + content.charAt(2);
+                _HardDrive.setHDD(fileLoc, "0$$$");
                 while (content != "$$$") {
                     var filec = _HardDrive.getHDD(contentLoc);
                     if (filec != null) {
@@ -252,7 +254,7 @@ var TSOS;
                 for (var i = 0; i < fileContent.length; i++) {
                     contentStr += fileContent[i];
                 }
-
+                this.swap(filename);
                 return contentStr;
             }
         };
