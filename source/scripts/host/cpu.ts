@@ -182,10 +182,9 @@ module TSOS {
                         tempPcb.LOC = "HDD";
                         var first = 0;
                         var second = 1;
-                        _HardDriveDriver.writeOS(tempPcb, tempData);
                         var textContent = _HardDriveDriver.swapRead(_ReadyQueue.q[0].SWAP);
                         textContent = _HardDriveDriver.filterContent(textContent);
-                        console.log("pcb" + _ReadyQueue.q[0].PID + ": " + textContent);
+                        _HardDriveDriver.writeOS(tempPcb, tempData);
                         var memLoad = textContent.length / 2;
                         for (var i = (tempPcb.base); i <= tempPcb.limit; i++) {
                                 _MemoryManager.setMemLoc(i, "00");
@@ -205,6 +204,7 @@ module TSOS {
                     }
                 }
             }
+
             // lookup pcb
             var Pcb = _ReadyQueue.q[0];
 
@@ -352,6 +352,12 @@ module TSOS {
                     _StepModeOn = false;
                 }
                 var row = document.getElementById("pid" + _ReadyQueue.q[0].PID);
+                if( row == null){
+                    _HardDriveDriver.resetHDD();
+                    _StdOut.advanceLine();
+                    _StdOut.putText(">");
+                    this.resetCPU();
+                }
                 row.parentNode.removeChild(row);
                 _QuantumCount = _Quantum;
                 if(_ReadyQueue.getSize() > 0){
