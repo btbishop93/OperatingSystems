@@ -406,37 +406,40 @@ var TSOS;
             if (hexChars.test(textContent)) {
                 var first = 0;
                 var second = 1;
-                for (var i = _Base; i <= _Limit; i++) {
-                    _MemoryManager.setMemLoc(i, "00");
-                }
-                for (var j = _Base; j < (_Base + memLoad); j++) {
-                    _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
-                    first += 2;
-                    second += 2;
+                if (_Limit <= 767) {
+                    for (var i = _Base; i <= _Limit; i++) {
+                        _MemoryManager.setMemLoc(i, "00");
+                    }
+                    for (var j = _Base; j < (_Base + memLoad); j++) {
+                        _MemoryManager.setMemLoc(j, ("" + textContent.charAt(first) + textContent.charAt(second)));
+                        first += 2;
+                        second += 2;
+                    }
                 }
                 _MemoryManager.updateMem();
-                if (_ResList.length > 0) {
+
+                if (_Limit > 767) {
+                    //call swap creation- writeOS
+                    _SwapName = ".swap" + _PidAssign;
+                    _SwapData = textContent;
+                    _KernelInterruptQueue.enqueue(new TSOS.Interrupt(WRITE_IRQ_OS, ""));
                     if (args) {
-                        _ResList.unshift(new TSOS.Pcb(_Base, _Limit, args[0], _PidAssign));
+                        _ResList.push(new TSOS.Pcb(0, 0, args[0], _PidAssign, "HDD"));
                     } else
-                        _ResList.unshift(new TSOS.Pcb(_Base, _Limit, 0, _PidAssign));
-                } else {
+                        _ResList.push(new TSOS.Pcb(0, 0, 0, _PidAssign, "HDD"));
+                }
+
+                if (_Limit <= 767) {
                     if (args) {
                         _ResList.push(new TSOS.Pcb(_Base, _Limit, args[0], _PidAssign));
                     } else
-                        _ResList.push(new TSOS.Pcb(_Base, _Limit, _PidAssign));
+                        _ResList.push(new TSOS.Pcb(_Base, _Limit, 0, _PidAssign));
+                    _Base += 256;
+                    _Limit += 256;
                 }
                 _MemoryManager.updateMem();
                 _StdOut.putText(" Process ID: " + _PidAssign);
                 _PidAssign++;
-                if (_Limit >= 767) {
-                    _StdOut.putText(" Warning: Memory is full, the next load will fill first block of memory and the 3 most recent programs will be loaded. Please clear memory " + "now if this is not your intention.");
-                    _Base = 0;
-                    _Limit = 255;
-                } else {
-                    _Base += 256;
-                    _Limit += 256;
-                }
             } else
                 _StdOut.putText(" The user program input is invalid.");
         };
@@ -468,36 +471,17 @@ var TSOS;
         };
 
         Shell.prototype.shellRunAll = function () {
+            _CommandArr.push("runall");
             if (_Scheduler == "priority") {
-                if (_ResList.length > 2) {
-                    for (var i = 2; i > -1; i--) {
-                        _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
-                    }
-                } else {
-                    for (var i = 0; i < 3; i++) {
-                        if (i < _ResList.length) {
-                            _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
-                        }
-                    }
+                for (var i = 0; i < _ResList.length; i++) {
+                    _PriorityQueue.enqueue(_ResList[i], _ResList[i].PRIORITY);
                 }
                 while (_PriorityQueue.getSize() > 0) {
                     _ReadyQueue.enqueue(_PriorityQueue.dequeue());
                 }
             } else {
-                if (_Scheduler == "fcfs" || _Scheduler == "priority") {
-                    _Quantum = 9999999999;
-                }
-                _CommandArr.push("runall");
-                if (_ResList.length > 2) {
-                    for (var i = 2; i > -1; i--) {
-                        _ReadyQueue.enqueue(_ResList[i]);
-                    }
-                } else {
-                    for (var i = 0; i < 3; i++) {
-                        if (i < _ResList.length) {
-                            _ReadyQueue.enqueue(_ResList[i]);
-                        }
-                    }
+                for (var i = 0; i < _ResList.length; i++) {
+                    _ReadyQueue.enqueue(_ResList[i]);
                 }
             }
             _ReadyQueue.q[0].STATE = "Running";
@@ -520,8 +504,13 @@ var TSOS;
 
         Shell.prototype.shellQuantum = function (args) {
             _CommandArr.push("quantum");
-            _Quantum = args;
-            _StdOut.putText(" The quantum value has been set to " + args + ".");
+
+            if (args[0] != null) {
+                _Quantum = args;
+                _StdOut.putText(" The quantum value has been set to " + args + ".");
+            } else {
+                _StdOut.putText(" The quantum value is " + _Quantum + ".");
+            }
         };
 
         Shell.prototype.shellKill = function (args) {
@@ -568,6 +557,9 @@ var TSOS;
             if (args == "rr" || args == "fcfs" || args == "priority") {
                 _Scheduler = args;
                 _StdOut.putText(" The scheduling algorithm has been set to " + args + ".");
+                if (args == "rr") {
+                    _Quantum = 6;
+                }
             } else
                 _StdOut.putText(" Please enter a valid scheduling algorithm: fcfs, rr, or priority.");
         };

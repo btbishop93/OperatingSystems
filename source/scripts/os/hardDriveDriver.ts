@@ -116,10 +116,8 @@ module TSOS {
 
         }
 
-        public writeOS(filename, data){
-            if(this.isInHDD(_FileList, filename)){
-
-            }
+        public writeOS(swapname, swapdata){
+            
         }
 
         public writeUser(filename, data){

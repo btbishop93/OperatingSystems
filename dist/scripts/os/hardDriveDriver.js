@@ -109,9 +109,7 @@ var TSOS;
                 false;
         };
 
-        hardDriveDriver.prototype.writeOS = function (filename, data) {
-            if (this.isInHDD(_FileList, filename)) {
-            }
+        hardDriveDriver.prototype.writeOS = function (swapname, swapdata) {
         };
 
         hardDriveDriver.prototype.writeUser = function (filename, data) {

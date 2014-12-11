@@ -71,9 +71,13 @@ var commandList = [
 //
 // Global Variables
 //
+var _SwapName = "";
+
+var _SwapData = "";
+
 var _PidAssign = 0;
 
-var _Quantum = 6;
+var _Quantum = 999999999999999;
 
 var _Scheduler = "fcfs";
 

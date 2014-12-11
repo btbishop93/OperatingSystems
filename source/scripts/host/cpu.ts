@@ -270,8 +270,6 @@ module TSOS {
                 Pcb.PC++;
                 var value = _MemoryManager.getMemLoc(parseInt(hexLoc2, 16)) + _MemoryManager.getMemLoc(parseInt(hexLoc, 16));
                 var byte = parseInt(_MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)), 16);
-                console.log("Hex: " + _MemoryManager.getMemLoc(Pcb.base + parseInt(value, 16)));
-                console.log("Byte: " + byte);
                 Pcb.Y = byte;
                 this.Yreg = byte;
                 _QuantumCount++;

@@ -9,14 +9,14 @@ module TSOS {
                     public limit: number,
                     public PRIORITY: number,
                     public PID: number = 0,
+                    public LOC: string = "Memory",
                     public PC: number = 0,
                     public IR: string = "0",
                     public ACC: number = 0,
                     public X: number = 0,
                     public Y: number = 0,
                     public Z: number = 0,
-                    public STATE: string = "Waiting",
-                    public LOC: string = "Memory") {
+                    public STATE: string = "Waiting") {
 
         }
 
@@ -27,7 +27,6 @@ module TSOS {
             this.X = 0;
             this.Y = 0;
             this.Z = 0;
-            //this.PRIORITY = 0;
             this.STATE = "";
             this.LOC = "";
         }

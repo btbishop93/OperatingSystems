@@ -80,9 +80,13 @@ var commandList: string [] = ["ver", "date", "whereami", "bondjokes", "rot13", "
 // Global Variables
 //
 
+var _SwapName: string =  "";
+
+var _SwapData: string = "";
+
 var _PidAssign: number = 0;
 
-var _Quantum: number = 6;
+var _Quantum: number = 999999999999999;
 
 var _Scheduler: string = "fcfs"
 
